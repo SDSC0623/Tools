@@ -1,0 +1,75 @@
+﻿<ui:FluentWindow x:Class="Tools.Views.Pages.CodeforcesInfo.ContestsLoadSettingDialog"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:extensions="clr-namespace:Tools.Extensions"
+                 xmlns:converters="clr-namespace:Tools.Converters"
+                 xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+                 xmlns:models="clr-namespace:Tools.Models"
+                 xmlns:codeforcesInfoPage="clr-namespace:Tools.ViewModel.CodeforcesInfoPage"
+                 mc:Ignorable="d"
+                 d:DataContext="{d:DesignInstance Type=codeforcesInfoPage:ContestsLoadSettingDialogViewModel}"
+                 Title="用户信息设置"
+                 MaxHeight="240"
+                 MaxWidth="330"
+                 MinHeight="240"
+                 MinWidth="330"
+                 ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
+                 ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                 WindowStartupLocation="CenterOwner"
+                 ShowInTaskbar="False">
+    <ui:FluentWindow.Resources>
+        <converters:EnumDescriptionConverter x:Key="EnumDescriptionConverter" />
+        <extensions:EnumBindingSource x:Key="EnumBindingSource" EnumType="{x:Type models:TimeUnit}" />
+    </ui:FluentWindow.Resources>
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- 最远显示比赛时间 -->
+        <ui:TextBlock Grid.Row="0" Text="最早显示比赛时间" FontTypography="BodyStrong" Margin="0,0,0,5" />
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+            <ui:TextBox Text="{Binding Value, UpdateSourceTrigger=PropertyChanged}"
+                        PlaceholderText="输入时间" Width="100" TextAlignment="Center" ClearButtonEnabled="False" />
+            <ComboBox SelectedItem="{Binding Unit}"
+                      ItemsSource="{Binding Source={StaticResource EnumBindingSource}}"
+                      Margin="10,0,0,0">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Converter={StaticResource EnumDescriptionConverter}}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </StackPanel>
+
+        <!-- 最远显示比赛时间说明 -->
+        <StackPanel Grid.Row="2">
+            <ui:TextBlock Text="此选项将设置要回溯的时间范围，系统将显示该时间段内及未来的所有比赛。" TextWrapping="Wrap"
+                          Margin="0,10,0,5" Foreground="Gray" FontTypography="Caption" FontSize="14" />
+            <ui:TextBlock Text="注意：默认为 30 天。时间过长将导致加载数据过多，导致界面卡顿。" TextWrapping="Wrap"
+                          Margin="0,0,0,5" Foreground="Gray" FontTypography="Caption" FontSize="14" />
+        </StackPanel>
+        <Grid Grid.Row="3" Margin="0,20,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <!-- 操作按钮 -->
+            <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left">
+                <ui:Button Content="恢复默认" Command="{Binding ResetCommand}" />
+            </StackPanel>
+
+            <!-- 反馈按钮 -->
+            <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                <ui:Button Content="取消" Command="{Binding CancelCommand}" Margin="0,0,10,0" />
+                <ui:Button Content="保存" Command="{Binding SaveCommand}" Appearance="Primary" />
+            </StackPanel>
+        </Grid>
+    </Grid>
+</ui:FluentWindow>

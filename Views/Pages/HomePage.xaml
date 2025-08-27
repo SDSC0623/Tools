@@ -1,0 +1,120 @@
+﻿<Page x:Class="Tools.Views.Pages.HomePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      xmlns:models="clr-namespace:Tools.Models"
+      xmlns:viewModel="clr-namespace:Tools.ViewModel.HomePage"
+      mc:Ignorable="d"
+      d:DesignHeight="550"
+      d:DesignWidth="692"
+      ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
+      ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+      d:DataContext="{d:DesignInstance Type=viewModel:HomePageViewModel}"
+      Title="HomePage">
+    <Page.Resources>
+        <!-- 段落文本样式 -->
+        <Style x:Key="ParagraphStyle" TargetType="ui:TextBlock">
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Foreground" Value="#CCCCCC" />
+            <Setter Property="TextWrapping" Value="Wrap" />
+            <Setter Property="Margin" Value="0,0,0,16" />
+        </Style>
+
+        <!-- 工具卡片样式 -->
+        <Style x:Key="ToolCardStyle" TargetType="Border">
+            <Setter Property="Background" Value="#252526" />
+            <Setter Property="BorderBrush" Value="#3E3E40" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="Padding" Value="16" />
+            <Setter Property="Margin" Value="0,0,0,16" />
+        </Style>
+    </Page.Resources>
+    <Grid Margin="42, 16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <!-- 标题及工具栏 -->
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="0,0,0,16">
+                <ui:SymbolIcon Symbol="Home24"
+                               Filled="True"
+                               FontSize="24"
+                               Margin="0,0,12,0"
+                               Foreground="#4CAF50" />
+
+                <ui:TextBlock Text="{Binding HomePageTitle}"
+                              FontTypography="Title"
+                              VerticalAlignment="Center"
+                              FontSize="24"
+                              Foreground="#FFFFFF" />
+            </StackPanel>
+        </Grid>
+
+        <StackPanel Grid.Row="1">
+            <!-- 应用程序介绍 -->
+            <ui:TextBlock Text="应用程序介绍" FontTypography="Subtitle" FontSize="20"
+                          Foreground="#4CAF50" Margin="0,12" />
+            <ui:TextBlock Text="{Binding HomePageDescription}"
+                          Style="{StaticResource ParagraphStyle}" />
+
+            <ui:TextBlock Text="当前工具" FontTypography="Subtitle" FontSize="20"
+                          Foreground="#4CAF50" Margin="0,12" />
+            <ui:DynamicScrollViewer>
+                <ItemsControl ItemsSource="{Binding Tools}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="{x:Type models:ToolItem}">
+                            <ui:Border Style="{StaticResource ToolCardStyle}">
+                                <StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
+                                        <ui:TextBlock Text="{Binding Name}"
+                                                      FontTypography="Subtitle"
+                                                      Foreground="White" />
+                                    </StackPanel>
+                                    <ui:TextBlock Text="{Binding Description}"
+                                                  FontTypography="BodyStrong" Foreground="#CCCCCC"
+                                                  TextWrapping="Wrap" Margin="0,0,0,16" />
+                                    <ui:TextBlock Text="功能特点:"
+                                                  FontSize="14"
+                                                  Foreground="#4CAF50"
+                                                  Margin="0,0,0,8" />
+                                    <ItemsControl ItemsSource="{Binding Features}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <ui:TextBlock Text="{Binding}"
+                                                              FontTypography="Body"
+                                                              Foreground="#CCCCCC"
+                                                              Margin="16,0,0,4" />
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+                            </ui:Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ui:DynamicScrollViewer>
+
+            <!-- 使用说明 -->
+            <ui:TextBlock Text="使用说明" FontTypography="Subtitle" FontSize="20"
+                          Foreground="#4CAF50" Margin="0,12" />
+            <ui:TextBlock Text="{Binding HomePageUseHelp}"
+                          Style="{StaticResource ParagraphStyle}" />
+
+            <!-- 版权信息 -->
+            <ui:TextBlock Text="各种工具 - By SDSC0623"
+                          FontSize="12"
+                          Foreground="#888888"
+                          HorizontalAlignment="Center"
+                          Margin="0,24,0,16" />
+        </StackPanel>
+    </Grid>
+</Page>

@@ -1,0 +1,11 @@
+{
+  "Username": "SDSC0623",
+  "ApiKey": "ff2ebd4cc921dc6a6b009ed2939fc38bdcfc0aac",
+  "ApiSecret": "e3172676cfcf78a40d03975827405e8aba36d345",
+  "ContestsLoadTimeRange": {
+    "Value": 30.0,
+    "Unit": 3
+  },
+  "ShowCount": 2,
+  "StartPage": "Tools.Views.Pages.CodeforcesInfo.CodeforcesInfoPage, Tools, Version=0.1.1.0, Culture=neutral, PublicKeyToken=null"
+}

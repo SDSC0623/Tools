@@ -1,0 +1,12 @@
+[20:37:02 ERR] Json 转换失败，数据类型为: "String"，目标类型为: "Type"，错误信息: "Error converting value \"Tools.Pages.HomePageCodeforcesInfoPage, Tools, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null\" to type 'System.Type'. Path '', line 1, position 102."  
+[20:37:02 ERR] Json 转换失败，数据类型为: String，目标类型为: Type，错误信息: Error converting value "Tools.Pages.HomePageCodeforcesInfoPage, Tools, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" to type 'System.Type'. Path '', line 1, position 102.  
+[20:41:49 ERR] Json 转换失败，数据类型为: String，目标类型为: Type，错误信息: Error converting value "Tools.Pages.HomePageCodeforcesInfoPage, Tools, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" to type 'System.Type'. Path '', line 1, position 102.  
+[20:41:55 ERR] 加载默认启动页面时出错，错误："Json 转换失败，数据类型为: String，目标类型为: Type，错误信息: Error converting value \"Tools.Pages.HomePageCodeforcesInfoPage, Tools, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null\" to type 'System.Type'. Path '', line 1, position 102."  
+[21:00:30 ERR] Json 转换失败，数据类型为: String，目标类型为: Type，错误信息: Error converting value "Tools.Pages.HomePage, Tools, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" to type 'System.Type'. Path '', line 1, position 84.  
+
+[21:08:44 ERR] Json 转换失败，数据类型为: String，目标类型为: Type，错误信息: Error converting value "Tools.Views.Pages.CodeforcesInfoPage, Tools, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" to type 'System.Type'. Path '', line 1, position 100.  
+
+[23:31:17 ERR] Json 转换失败，数据类型为: String，目标类型为: Type，错误信息: Error converting value "Tools.Views.Pages.CodeforcesInfo.CodeforcesInfoPage, Tools, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" to type 'System.Type'. Path '', line 1, position 115.  
+
+[23:38:28 ERR] 刷新比赛列表错误，错误: "获取比赛列表失败: API 请求超时，请检查网络连接"  
+

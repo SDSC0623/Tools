@@ -1,0 +1,78 @@
+﻿<ui:FluentWindow x:Class="Tools.Views.Pages.CodeforcesInfo.UserInfoSettingDialog"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:controls="clr-namespace:Tools.Controls"
+                 xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+                 xmlns:codeforcesInfoPage="clr-namespace:Tools.ViewModel.CodeforcesInfoPage"
+                 mc:Ignorable="d"
+                 d:DataContext="{d:DesignInstance Type=codeforcesInfoPage:UserInfoSettingDialogViewModel}"
+                 Title="用户信息设置"
+                 MinHeight="350"
+                 MinWidth="400"
+                 MaxHeight="350"
+                 MaxWidth="400"
+                 ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
+                 ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                 WindowStartupLocation="CenterOwner"
+                 ShowInTaskbar="False">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- 用户名 -->
+        <ui:TextBlock Grid.Row="0" Text="用户名" FontTypography="BodyStrong" Margin="0,0,0,5" />
+        <ui:TextBox Grid.Row="1" Text="{Binding Username}"
+                    PlaceholderText="输入Codeforces用户名"
+                    IsEnabled="{Binding IsEditing}" />
+
+        <!-- APIKey-->
+        <ui:TextBlock Grid.Row="2" Text="API Key" FontTypography="BodyStrong" Margin="0,10,0,5" />
+        <ui:TextBox Grid.Row="3" Text="{Binding ApiKey}"
+                    PlaceholderText="输入API Key"
+                    IsEnabled="{Binding IsEditing}" />
+
+        <!-- APISecret -->
+        <ui:TextBlock Grid.Row="4" Text="API Secret" FontTypography="BodyStrong" Margin="0,10,0,5" />
+        <ui:TextBox Grid.Row="5" Text="{Binding ApiSecret}"
+                    PlaceholderText="输入API Secret"
+                    IsEnabled="{Binding IsEditing}" />
+
+        <!-- API密钥说明 -->
+        <ui:TextBlock Grid.Row="6" Text="API Key可以在Codeforces账户设置中的API页面获取"
+                      Margin="0,10,0,5" Foreground="Gray" FontTypography="Caption" />
+
+        <Grid Grid.Row="7" Margin="0,20,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <!-- 操作按钮 -->
+            <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left">
+                <controls:TwoStateButton EnableIcon="{ui:SymbolIcon Edit24}"
+                                         EnableContent="开始编辑"
+                                         EnableCommand="{Binding StartEditCommand}"
+                                         DisableIcon="{ui:SymbolIcon EditOff24}"
+                                         DisableContent="锁定编辑"
+                                         DisableCommand="{Binding EndEditCommand}"
+                                         IsChecked="{Binding IsEditing}" />
+            </StackPanel>
+
+            <!-- 反馈按钮 -->
+            <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                <ui:Button Content="取消" Command="{Binding CancelCommand}" Margin="0,0,10,0" />
+                <ui:Button Content="保存" Command="{Binding SaveCommand}" Appearance="Primary" />
+            </StackPanel>
+        </Grid>
+    </Grid>
+</ui:FluentWindow>

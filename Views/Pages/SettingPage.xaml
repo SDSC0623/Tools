@@ -1,0 +1,74 @@
+﻿<Page x:Class="Tools.Views.Pages.SettingPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      xmlns:viewModel="clr-namespace:Tools.ViewModel.SettingPage"
+      mc:Ignorable="d"
+      d:DesignHeight="1550"
+      d:DesignWidth="600"
+      ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
+      ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+      d:DataContext="{d:DesignInstance Type=viewModel:SettingPageViewModel}"
+      Title="SettingPage">
+    <StackPanel Margin="42,16,42,12">
+        <!-- 启动页面选项 -->
+        <ui:CardControl Margin="0,0,0,12" Icon="{ui:SymbolIcon Window24}">
+            <ui:CardControl.Header>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <ui:TextBlock Grid.Row="0"
+                                  Grid.Column="0"
+                                  FontTypography="Body"
+                                  Text="启动默认页面"
+                                  TextWrapping="Wrap" />
+                    <ui:TextBlock Grid.Row="1"
+                                  Grid.Column="0"
+                                  Foreground="{ui:ThemeResource TextFillColorTertiaryBrush}"
+                                  Text="下次启动时自动打开的工具"
+                                  TextWrapping="Wrap" />
+                    <ComboBox Grid.Row="0"
+                              Grid.RowSpan="2" Grid.Column="1"
+                              Margin="0,0,36,0"
+                              MinWidth="120"
+                              ItemsSource="{Binding AvailblePages}"
+                              DisplayMemberPath="DisplayName"
+                              SelectedValuePath="PageType"
+                              SelectedValue="{Binding StartPageType}" />
+                </Grid>
+            </ui:CardControl.Header>
+        </ui:CardControl>
+
+        <!-- 关于选项 -->
+        <ui:CardControl Margin="0,0,0,12" Icon="{ui:SymbolIcon Info24}">
+            <ui:CardControl.Header>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <ui:TextBlock Grid.Row="0"
+                                  Grid.Column="0"
+                                  FontTypography="Body"
+                                  Text="关于「各种工具」"
+                                  TextWrapping="Wrap" />
+                    <ui:TextBlock Grid.Row="1" Grid.Column="0"
+                                  Foreground="{ui:ThemeResource TextFillColorTertiaryBrush}"
+                                  Text="查看软件信息"
+                                  TextWrapping="Wrap" />
+                </Grid>
+            </ui:CardControl.Header>
+            <ui:Button Margin="0,0,36,0"
+                       Command="{Binding OpenAboutWindowCommand}"
+                       Content="查看" />
+        </ui:CardControl>
+    </StackPanel>
+</Page>
