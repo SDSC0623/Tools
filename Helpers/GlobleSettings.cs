@@ -12,8 +12,10 @@ public static class GlobleSettings {
 #else
         false;
 #endif
-    public static string Version { get; } = Assembly.GetEntryAssembly()
+    public static string FullVersion { get; } = Assembly.GetEntryAssembly()
         ?.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion!;
+
+    public static string Version => FullVersion.Split('+').First();
 
     public static string BaseDirectory => AppContext.BaseDirectory;
 

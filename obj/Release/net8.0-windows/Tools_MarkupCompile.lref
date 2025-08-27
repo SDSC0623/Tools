@@ -2,10 +2,13 @@
 FD:\SDSC_Creation\Program\C#\Tools\App.xaml;;
 FD:\SDSC_Creation\Program\C#\Tools\Controls\ErrorBox.xaml;;
 FD:\SDSC_Creation\Program\C#\Tools\Controls\LoadingBox.xaml;;
-FD:\SDSC_Creation\Program\C#\Tools\MainWindow.xaml;;
-FD:\SDSC_Creation\Program\C#\Tools\Pages\CodeforcesInfoPage.xaml;;
-FD:\SDSC_Creation\Program\C#\Tools\Views\CodeforcesInfo\ContestListView.xaml;;
-FD:\SDSC_Creation\Program\C#\Tools\Views\CodeforcesInfo\ContestsLoadSettingDialog.xaml;;
-FD:\SDSC_Creation\Program\C#\Tools\Views\CodeforcesInfo\UserInfoSettingDialog.xaml;;
-FD:\SDSC_Creation\Program\C#\Tools\Views\CodeforcesInfo\UserInfoView.xaml;;
+FD:\SDSC_Creation\Program\C#\Tools\Views\MainWindow.xaml;;
+FD:\SDSC_Creation\Program\C#\Tools\Views\Pages\CodeforcesInfo\CodeforcesInfoPage.xaml;;
+FD:\SDSC_Creation\Program\C#\Tools\Views\Pages\CodeforcesInfo\ContestListView.xaml;;
+FD:\SDSC_Creation\Program\C#\Tools\Views\Pages\CodeforcesInfo\ContestsLoadSettingDialog.xaml;;
+FD:\SDSC_Creation\Program\C#\Tools\Views\Pages\CodeforcesInfo\UserInfoSettingDialog.xaml;;
+FD:\SDSC_Creation\Program\C#\Tools\Views\Pages\CodeforcesInfo\UserInfoView.xaml;;
+FD:\SDSC_Creation\Program\C#\Tools\Views\Pages\HomePage.xaml;;
+FD:\SDSC_Creation\Program\C#\Tools\Views\Pages\SettingPage.xaml;;
+FD:\SDSC_Creation\Program\C#\Tools\Views\Windows\AboutWindow.xaml;;
 
