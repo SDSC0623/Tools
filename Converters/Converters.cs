@@ -6,6 +6,8 @@ using Wpf.Ui.Controls;
 
 namespace Tools.Converters;
 
+public class UnexpectedCallException(string message = "这不应该被调用，请检查逻辑") : Exception(message);
+
 // 比赛类型到图标转换器
 public class ContestTypeToIconConverter : IValueConverter {
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture) {
@@ -22,7 +24,7 @@ public class ContestTypeToIconConverter : IValueConverter {
     }
 
     public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) {
-        throw new NotImplementedException();
+        throw new UnexpectedCallException();
     }
 }
 
@@ -37,7 +39,7 @@ public class DateTimeConverter : IValueConverter {
     }
 
     public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) {
-        throw new NotImplementedException();
+        throw new UnexpectedCallException();
     }
 }
 
@@ -111,7 +113,7 @@ public class TimeSpanConverter : IValueConverter {
     }
 
     public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) {
-        throw new NotImplementedException();
+        throw new UnexpectedCallException();
     }
 }
 
@@ -133,7 +135,7 @@ public class PhaseToColorConverter : IValueConverter {
     }
 
     public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) {
-        throw new NotImplementedException();
+        throw new UnexpectedCallException();
     }
 }
 
@@ -154,7 +156,7 @@ public class PhaseToIconConverter : IValueConverter {
     }
 
     public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) {
-        throw new NotImplementedException();
+        throw new UnexpectedCallException();
     }
 }
 
@@ -176,7 +178,7 @@ public class PhaseToTextConverter : IValueConverter {
     }
 
     public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) {
-        throw new NotImplementedException();
+        throw new UnexpectedCallException();
     }
 }
 
@@ -198,7 +200,7 @@ public class BooleanToVisibleConverter : IValueConverter {
     }
 
     public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) {
-        throw new NotImplementedException();
+        throw new UnexpectedCallException();
     }
 }
 
@@ -217,7 +219,7 @@ public class StartTimeToTextConverter : IMultiValueConverter {
     }
 
     public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture) {
-        throw new NotImplementedException();
+        throw new UnexpectedCallException();
     }
 }
 
@@ -232,7 +234,7 @@ public class EndTimeToVisibleConverter : IValueConverter {
     }
 
     public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) {
-        throw new NotImplementedException();
+        throw new UnexpectedCallException();
     }
 }
 
@@ -247,7 +249,7 @@ public class OnlineStatusToTextConverter : IValueConverter {
     }
 
     public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) {
-        throw new NotImplementedException();
+        throw new UnexpectedCallException();
     }
 }
 
@@ -262,6 +264,52 @@ public class OnlineStatusToColorConverter : IValueConverter {
     }
 
     public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) {
-        throw new NotImplementedException();
+        throw new UnexpectedCallException();
+    }
+}
+
+// double到百分比转换器
+public class ProgressToPercentConverter : IValueConverter {
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture) {
+        if (value is double progress) {
+            return $"{progress * 100:F2}%";
+        }
+
+        return "未知数值 %";
+    }
+
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) {
+        throw new UnexpectedCallException();
+    }
+}
+
+// long到文件大小转换器
+// ReSharper disable InconsistentNaming
+public class LongToFileSizeConverter : IValueConverter {
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture) {
+        if (value is long size) {
+            const long KB = 1024;
+            const long MB = KB * 1024;
+            const long GB = MB * 1024;
+            const long TB = GB * 1024;
+
+            if (parameter is "True") {
+                return $"具体大小: {size} B";
+            }
+
+            return size switch {
+                < KB => $"{size} B",
+                < MB => $"{size / (double)KB:F2} KB",
+                < GB => $"{size / (double)MB:F2} MB",
+                < TB => $"{size / (double)GB:F2} GB",
+                _ => $"{size / (double)TB:F2} TB"
+            };
+        }
+
+        return $"未知文件大小: {value}";
+    }
+
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) {
+        throw new UnexpectedCallException();
     }
 }

@@ -12,6 +12,8 @@
                  ExtendsContentIntoTitleBar="True"
                  mc:Ignorable="d"
                  d:DataContext="{d:DesignInstance Type=viewModel:MainWindowViewModel}"
+                 ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
+                 ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                  WindowStartupLocation="CenterScreen"
                  Title="MainWindow" Height="600" Width="900">
     <ui:FluentWindow.Resources>
@@ -53,6 +55,7 @@
                            IsPaneToggleVisible="True"
                            OpenPaneLength="200">
             <ui:NavigationView.MenuItems>
+                <!-- 主页 -->
                 <ui:NavigationViewItem Content="主页"
                                        NavigationCacheMode="Enabled"
                                        TargetPageType="{x:Type pages:HomePage}">
@@ -61,11 +64,21 @@
                     </ui:NavigationViewItem.Icon>
                 </ui:NavigationViewItem>
 
+                <!-- Codeforces信息查看 -->
                 <ui:NavigationViewItem Content="Codeforces信息查看"
                                        NavigationCacheMode="Enabled"
                                        TargetPageType="{x:Type codeforcesInfo:CodeforcesInfoPage}">
                     <ui:NavigationViewItem.Icon>
                         <ui:ImageIcon Source="/Assets/Images/CodeforcesIcon.png" Height="20" Width="20" />
+                    </ui:NavigationViewItem.Icon>
+                </ui:NavigationViewItem>
+
+                <!-- Bmp图片隐写工具 -->
+                <ui:NavigationViewItem Content="Bmp图片隐写工具"
+                                       NavigationCacheMode="Enabled"
+                                       TargetPageType="{x:Type pages:HideInBmpPage}">
+                    <ui:NavigationViewItem.Icon>
+                        <ui:SymbolIcon Symbol="ImageAltText20" Filled="True" Height="20" Width="20" />
                     </ui:NavigationViewItem.Icon>
                 </ui:NavigationViewItem>
             </ui:NavigationView.MenuItems>

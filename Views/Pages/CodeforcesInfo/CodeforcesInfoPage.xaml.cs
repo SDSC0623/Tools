@@ -5,7 +5,7 @@ using Tools.ViewModel.CodeforcesInfoPage;
 
 namespace Tools.Views.Pages.CodeforcesInfo;
 
-[Description("Codeforces信息查看页")]
+[Description("Codeforces信息查看")]
 [AvailbleStartPage(1)]
 public partial class CodeforcesInfoPage : Page {
     public CodeforcesInfoPage(CodeforcesInfoViewModel viewModel) {

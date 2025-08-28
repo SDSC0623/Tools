@@ -78,7 +78,7 @@
                              IsActive="{Binding IsContestsLoading}" />
 
         <!-- 主展示区 -->
-        <ui:DynamicScrollViewer Grid.Row="1" MaxHeight="400" Margin="0,0,10,0"
+        <ui:DynamicScrollViewer Grid.Row="1" Margin="0,0,10,0"
                                 Visibility="{Binding IsContestsLoading, Converter={StaticResource BooleanToVisibleConverter}, ConverterParameter=True}"
                                 HorizontalAlignment="Stretch" VerticalAlignment="Top">
             <Grid>

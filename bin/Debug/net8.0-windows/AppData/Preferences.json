@@ -7,5 +7,6 @@
     "Unit": 3
   },
   "ShowCount": 2,
-  "StartPage": "Tools.Views.Pages.CodeforcesInfo.CodeforcesInfoPage, Tools, Version=0.1.1.0, Culture=neutral, PublicKeyToken=null"
+  "StartPage": "Tools.Views.Pages.HideInBmpPage, Tools, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null",
+  "ShowProgressMode": 1
 }

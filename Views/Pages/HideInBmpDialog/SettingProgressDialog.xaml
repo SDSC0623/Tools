@@ -1,0 +1,69 @@
+﻿<ui:FluentWindow x:Class="Tools.Views.Pages.HideInBmpDialog.SettingProgressDialog"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:extensions="clr-namespace:Tools.Extensions"
+                 xmlns:converters="clr-namespace:Tools.Converters"
+                 xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+                 xmlns:viewModel="clr-namespace:Tools.ViewModel.HideInBmpPage"
+                 mc:Ignorable="d"
+                 xmlns:models="clr-namespace:Tools.Models"
+                 d:DataContext="{d:DesignInstance Type=viewModel:SettingProgressDialogViewModel}"
+                 Title="用户信息设置"
+                 MaxHeight="260"
+                 MaxWidth="330"
+                 MinHeight="260"
+                 MinWidth="330"
+                 ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
+                 ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                 WindowStartupLocation="CenterOwner"
+                 ShowInTaskbar="False">
+    <ui:FluentWindow.Resources>
+        <converters:EnumDescriptionConverter x:Key="EnumDescriptionConverter" />
+        <extensions:EnumBindingSource x:Key="EnumBindingSource" EnumType="{x:Type models:ShowProgressMode}" />
+    </ui:FluentWindow.Resources>
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- 最远显示比赛时间 -->
+        <ui:TextBlock Grid.Row="0" Text="隐写/校验/提取进度显示方式" FontTypography="BodyStrong" Margin="0,0,0,5" />
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+            <ComboBox SelectedItem="{Binding Mode}"
+                      ItemsSource="{Binding Source={StaticResource EnumBindingSource}}"
+                      Margin="10,0,0,0" Width="150">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <ui:TextBlock Text="{Binding Converter={StaticResource EnumDescriptionConverter}}"
+                                      TextAlignment="Center" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </StackPanel>
+
+        <!-- 最远显示比赛时间说明 -->
+        <StackPanel Grid.Row="2">
+            <ui:TextBlock Text="此选项将设置隐写、校验、提取进度显示方式。" TextWrapping="Wrap"
+                          Margin="0,10,0,5" Foreground="Gray" FontTypography="Caption" FontSize="14" />
+            <ui:TextBlock Text="注意：默认为 百分比+进度条 模式。由于此模式刷新UI频率过高，可能会操作效率较低，若感觉慢，请选择 文字 模式。" TextWrapping="Wrap"
+                          Margin="0,0,0,5" Foreground="Gray" FontTypography="Caption" FontSize="14" />
+        </StackPanel>
+        <Grid Grid.Row="3" Margin="0,20,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <!-- 反馈按钮 -->
+            <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                <ui:Button Content="取消" Command="{Binding CancelCommand}" Margin="0,0,10,0" />
+                <ui:Button Content="保存" Command="{Binding SaveCommand}" Appearance="Primary" />
+            </StackPanel>
+        </Grid>
+    </Grid>
+</ui:FluentWindow>

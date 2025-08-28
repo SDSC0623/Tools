@@ -15,6 +15,8 @@ using Tools.ViewModel;
 using Tools.ViewModel.HomePage;
 using Tools.ViewModel.SettingPage;
 using Tools.ViewModel.CodeforcesInfoPage;
+using Tools.ViewModel.HideInBmpPage;
+using Tools.Views.Pages.HideInBmpDialog;
 using Tools.Views.Windows;
 using Wpf.Ui;
 using Wpf.Ui.DependencyInjection;
@@ -54,6 +56,7 @@ public partial class App : Application {
             services.AddSingleton<INavigationService, NavigationService>();
             services.AddSingleton<ICodeforcesApiService, CodeforcesApiService>();
             services.AddSingleton<IPreferencesService, JsonPreferencesService>();
+            services.AddSingleton<IBmpSteganographyService, BmpSteganographyService>();
 
             // 特殊服务
             services.AddSingleton<SnackbarServiceHelper>(); // 弹窗服务
@@ -65,17 +68,25 @@ public partial class App : Application {
             services.AddTransient<AboutWindow>();
 
             // 页面
+            // Codeforces信息查看
             services.AddSingleton<CodeforcesInfoViewModel>();
             services.AddSingleton<CodeforcesInfoPage>();
+            // 主页
             services.AddSingleton<HomePageViewModel>();
             services.AddSingleton<HomePage>();
+            // 设置页面
             services.AddSingleton<SettingPageViewModel>();
             services.AddSingleton<SettingPage>();
+            // Bmp隐写
+            services.AddSingleton<HideInBmpViewModel>();
+            services.AddSingleton<HideInBmpPage>();
             // 问询对话框
             services.AddTransient<UserInfoSettingDialogViewModel>();
             services.AddTransient<UserInfoSettingDialog>();
             services.AddTransient<ContestsLoadSettingDialogViewModel>();
             services.AddTransient<ContestsLoadSettingDialog>();
+            services.AddTransient<SettingProgressDialogViewModel>();
+            services.AddTransient<SettingProgressDialog>();
         })
         .Build();
 

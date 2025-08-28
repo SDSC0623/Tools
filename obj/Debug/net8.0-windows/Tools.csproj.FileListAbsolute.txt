@@ -102,3 +102,7 @@ D:\SDSC_Creation\Program\C#\Tools\obj\Debug\net8.0-windows\Views\Pages\Codeforce
 D:\SDSC_Creation\Program\C#\Tools\obj\Debug\net8.0-windows\Views\Windows\AboutWindow.g.cs
 D:\SDSC_Creation\Program\C#\Tools\obj\Debug\net8.0-windows\Views\Windows\AboutWindow.baml
 D:\SDSC_Creation\Program\C#\Tools\obj\Debug\net8.0-windows\Tools.sourcelink.json
+D:\SDSC_Creation\Program\C#\Tools\obj\Debug\net8.0-windows\Views\Pages\HideInBmpPage.g.cs
+D:\SDSC_Creation\Program\C#\Tools\obj\Debug\net8.0-windows\Views\Pages\HideInBmpPage.baml
+D:\SDSC_Creation\Program\C#\Tools\obj\Debug\net8.0-windows\Views\Pages\HideInBmpDialog\SettingProgressDialog.g.cs
+D:\SDSC_Creation\Program\C#\Tools\obj\Debug\net8.0-windows\Views\Pages\HideInBmpDialog\SettingProgressDialog.baml

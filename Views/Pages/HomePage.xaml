@@ -13,25 +13,6 @@
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       d:DataContext="{d:DesignInstance Type=viewModel:HomePageViewModel}"
       Title="HomePage">
-    <Page.Resources>
-        <!-- 段落文本样式 -->
-        <Style x:Key="ParagraphStyle" TargetType="ui:TextBlock">
-            <Setter Property="FontSize" Value="14" />
-            <Setter Property="Foreground" Value="#CCCCCC" />
-            <Setter Property="TextWrapping" Value="Wrap" />
-            <Setter Property="Margin" Value="0,0,0,16" />
-        </Style>
-
-        <!-- 工具卡片样式 -->
-        <Style x:Key="ToolCardStyle" TargetType="Border">
-            <Setter Property="Background" Value="#252526" />
-            <Setter Property="BorderBrush" Value="#3E3E40" />
-            <Setter Property="BorderThickness" Value="1" />
-            <Setter Property="CornerRadius" Value="8" />
-            <Setter Property="Padding" Value="16" />
-            <Setter Property="Margin" Value="0,0,0,16" />
-        </Style>
-    </Page.Resources>
     <Grid Margin="42, 16">
         <Grid.RowDefinitions>
             <RowDefinition Height="60" />
@@ -64,7 +45,8 @@
             <ui:TextBlock Text="应用程序介绍" FontTypography="Subtitle" FontSize="20"
                           Foreground="#4CAF50" Margin="0,12" />
             <ui:TextBlock Text="{Binding HomePageDescription}"
-                          Style="{StaticResource ParagraphStyle}" />
+                          FontTypography="Body" Foreground="#CCCCCC"
+                          TextWrapping="Wrap" Margin="0,0,0,16" />
 
             <ui:TextBlock Text="当前工具" FontTypography="Subtitle" FontSize="20"
                           Foreground="#4CAF50" Margin="0,12" />
@@ -72,7 +54,8 @@
                 <ItemsControl ItemsSource="{Binding Tools}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate DataType="{x:Type models:ToolItem}">
-                            <ui:Border Style="{StaticResource ToolCardStyle}">
+                            <ui:Border Background="#252526" BorderBrush="#3E3E40" BorderThickness="1"
+                                       CornerRadius="8" Padding="16" Margin="0,0,0,16">
                                 <StackPanel>
                                     <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
                                         <ui:TextBlock Text="{Binding Name}"
@@ -107,7 +90,8 @@
             <ui:TextBlock Text="使用说明" FontTypography="Subtitle" FontSize="20"
                           Foreground="#4CAF50" Margin="0,12" />
             <ui:TextBlock Text="{Binding HomePageUseHelp}"
-                          Style="{StaticResource ParagraphStyle}" />
+                          FontTypography="Body" Foreground="#CCCCCC"
+                          TextWrapping="Wrap" Margin="0,0,0,16" />
 
             <!-- 版权信息 -->
             <ui:TextBlock Text="各种工具 - By SDSC0623"
