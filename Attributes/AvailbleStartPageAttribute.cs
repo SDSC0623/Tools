@@ -4,7 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Tools.Attributes;
 
-[AttributeUsage(AttributeTargets.All)]
+[AttributeUsage(AttributeTargets.Class)]
 public class AvailbleStartPageAttribute : Attribute {
     public int SortWeight => SortWeightValue;
 
