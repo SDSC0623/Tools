@@ -201,9 +201,9 @@
 
         <!-- 操作按钮 -->
         <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5">
-            <ui:Button Content="隐写" Command="{Binding StartHideCommand}" Margin="5" Width="80" />
-            <ui:Button Content="校验" Command="{Binding VerifyCommand}" Margin="5" Width="80" />
-            <ui:Button Content="提取" Command="{Binding StartExtractCommand}" Margin="5" Width="80" />
+            <ui:Button Content="隐写" Command="{Binding StartHideCommand}" IsEnabled="{Binding NotExecuting}" Margin="5" Width="80" />
+            <ui:Button Content="校验" Command="{Binding VerifyCommand}" IsEnabled="{Binding NotExecuting}" Margin="5" Width="80" />
+            <ui:Button Content="提取" Command="{Binding StartExtractCommand}" IsEnabled="{Binding NotExecuting}" Margin="5" Width="80" />
         </StackPanel>
     </Grid>
 </Page>

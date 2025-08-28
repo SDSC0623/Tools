@@ -8,5 +8,5 @@
   },
   "ShowCount": 2,
   "StartPage": "Tools.Views.Pages.HomePage, Tools, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null",
-  "ShowProgressMode": 1
+  "ShowProgressMode": 0
 }

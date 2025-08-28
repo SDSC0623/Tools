@@ -249,7 +249,7 @@ public class CodeforcesApiService : ICodeforcesApiService {
         }
     }
 
-    // 新增：生成API签名（类似ArkTS中的CFAPIDataHelper）
+    // 生成API签名
     private string GenerateApiSig(string methodName, Dictionary<string, string> parameters, string apiSecret) {
         // 1. 生成随机数
         var random = new Random();

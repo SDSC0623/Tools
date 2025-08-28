@@ -46,6 +46,9 @@ public partial class HideInBmpViewModel : ObservableObject {
     // 文字模式隐写进度
     [ObservableProperty] private string _hideOrVerifyOrExtractText = "尚未进行操作";
 
+    // 正在执行操作
+    [ObservableProperty] private bool _notExecuting = true;
+
     [ObservableProperty] private bool _isPercentMode = true;
     [ObservableProperty] private bool _isTextMode;
 
@@ -193,13 +196,17 @@ public partial class HideInBmpViewModel : ObservableObject {
             return;
         }
 
+        NotExecuting = false;
+
         try {
             await _bmpSteganographyService.Hide(BmpPath, FileToHidePath, OutputFolderPath,
-                progressPercent => { HideOrVerifyOrExtractProgress = progressPercent; },
-                progressText => { HideOrVerifyOrExtractText = progressText; },
+                IsPercentMode ? progressPercent => { HideOrVerifyOrExtractProgress = progressPercent; } : null,
+                IsTextMode ? progressText => { HideOrVerifyOrExtractText = progressText; } : null,
                 outputBmpPath => { OutputBmpPath = outputBmpPath; });
         } catch (Exception e) {
             _snackbarService.ShowError("隐写时发生错误", e.Message);
+        } finally {
+            NotExecuting = true;
         }
     }
 
@@ -209,11 +216,12 @@ public partial class HideInBmpViewModel : ObservableObject {
 
     [RelayCommand(CanExecute = nameof(CanVerify))]
     private async Task Verify() {
+        NotExecuting = false;
         try {
             var result =
                 await _bmpSteganographyService.Verify(BmpPath,
-                    progressPercent => { HideOrVerifyOrExtractProgress = progressPercent; },
-                    progressText => { HideOrVerifyOrExtractText = progressText; });
+                    IsPercentMode ? progressPercent => { HideOrVerifyOrExtractProgress = progressPercent; } : null,
+                    IsTextMode ? progressText => { HideOrVerifyOrExtractText = progressText; } : null);
             if (result) {
                 _snackbarService.ShowSuccess("校验成功", "此文件是符合本软件规则的隐藏文件");
             } else {
@@ -221,6 +229,8 @@ public partial class HideInBmpViewModel : ObservableObject {
             }
         } catch (Exception e) {
             _snackbarService.ShowError("校验时发生错误", e.Message);
+        } finally {
+            NotExecuting = true;
         }
     }
 
@@ -230,12 +240,15 @@ public partial class HideInBmpViewModel : ObservableObject {
 
     [RelayCommand(CanExecute = nameof(CanStartExtract))]
     private async Task StartExtract() {
+        NotExecuting = false;
         try {
             await _bmpSteganographyService.Extract(BmpPath, OutputFolderPath,
-                progressPercent => { HideOrVerifyOrExtractProgress = progressPercent; },
-                progressText => { HideOrVerifyOrExtractText = progressText; });
+                IsPercentMode ? progressPercent => { HideOrVerifyOrExtractProgress = progressPercent; } : null,
+                IsTextMode ? progressText => { HideOrVerifyOrExtractText = progressText; } : null);
         } catch (Exception e) {
             _snackbarService.ShowError("提取隐藏文件时发生错误", e.Message);
+        } finally {
+            NotExecuting = true;
         }
     }
 

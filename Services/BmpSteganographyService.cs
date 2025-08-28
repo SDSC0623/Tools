@@ -162,7 +162,6 @@ public class BmpSteganographyService : IBmpSteganographyService {
         }
     }
 
-    #region 内部数据结构和辅助方法
 
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     private struct BmpFileHeader {
@@ -259,12 +258,8 @@ public class BmpSteganographyService : IBmpSteganographyService {
             bytesRead += read;
 
             // 更新进度
-            if (bytesRead % (bufferSize * 1000) == 0) {
-                progress?.Invoke(startProgress + progressRange * (0.4 + 0.6 * bytesRead / dataSize));
-            }
+            progress?.Invoke(startProgress + progressRange * (0.4 + 0.6 * bytesRead / dataSize));
         }
-
-        // progress?.Invoke(startProgress + progressRange * 0.6);
 
         return bmp;
     }
@@ -299,12 +294,8 @@ public class BmpSteganographyService : IBmpSteganographyService {
             bytesWritten += bytesToWrite;
 
             // 更新进度
-            if (bytesWritten % (bufferSize * 2000) == 0) {
-                progress?.Invoke(startProgress + progressRange * (0.4 + 0.6 * bytesWritten / totalBytes));
-            }
+            progress?.Invoke(startProgress + progressRange * (0.4 + 0.6 * bytesWritten / totalBytes));
         }
-
-        // progress?.Invoke(startProgress + progressRange * 0.6);
     }
 
     // 异步读取要隐藏的文件
@@ -331,12 +322,9 @@ public class BmpSteganographyService : IBmpSteganographyService {
             bytesRead += read;
 
             // 更新进度
-            if (bytesRead % (bufferSize * 1000) == 0) {
-                progress?.Invoke(startProgress + progressRange * bytesRead / file.Length);
-            }
+            progress?.Invoke(startProgress + progressRange * bytesRead / file.Length);
         }
 
-        // progress?.Invoke(startProgress + progressRange * 0.6);
 
         return result;
     }
@@ -390,6 +378,9 @@ public class BmpSteganographyService : IBmpSteganographyService {
         var totalBits = headerBits.Count + fileBits.Count;
         var bitIndex = 0;
 
+        const double targetTimeSeconds = 8; // 目标耗时取中间值 8 秒
+        var dynamicMod = (int)Math.Max(100, totalBits / (80 * targetTimeSeconds));
+
         // 嵌入头部数据
         for (; bitIndex < headerBits.Count; bitIndex++) {
             var byteIndex = bitIndex / 8;
@@ -398,10 +389,10 @@ public class BmpSteganographyService : IBmpSteganographyService {
             var modifiedByte = EmbedBit(originalByte, bitPos, headerBits[bitIndex]);
             imageData[byteIndex] = modifiedByte;
 
-            // 每处理1000位更新一次进度
-            if (bitIndex % 1000 == 0) {
-                progress?.Invoke(startProgress + progressRange * bitIndex / totalBits);
-                await Task.Yield(); // 让出控制权，避免阻塞UI线程
+            // 每处理100位更新一次进度
+            if (bitIndex % dynamicMod == 0 && progress != null) {
+                progress.Invoke(startProgress + progressRange * bitIndex / totalBits);
+                await Task.Delay(1); // 让出控制权，避免阻塞UI线程
             }
         }
 
@@ -413,10 +404,10 @@ public class BmpSteganographyService : IBmpSteganographyService {
             var modifiedByte = EmbedBit(originalByte, bitPos, fileBits[i]);
             imageData[byteIndex] = modifiedByte;
 
-            // 每处理1000位更新一次进度
-            if (bitIndex % 1000 == 0) {
-                progress?.Invoke(startProgress + progressRange * bitIndex / totalBits);
-                await Task.Yield(); // 让出控制权，避免阻塞UI线程
+            // 每处理100位更新一次进度
+            if (bitIndex % dynamicMod == 0 && progress != null) {
+                progress.Invoke(startProgress + progressRange * bitIndex / totalBits);
+                await Task.Delay(1); // 让出控制权，避免阻塞UI线程
             }
         }
 
@@ -454,13 +445,16 @@ public class BmpSteganographyService : IBmpSteganographyService {
         var bits = new List<bool>((int)fileSize * 8);
         var totalBits = fileSize * 8;
 
+        const double targetTimeSeconds = 8; // 目标耗时取中间值 8 秒
+        var dynamicMod = (int)Math.Max(100, totalBits / (80 * targetTimeSeconds));
+
         for (var i = startBit; i < startBit + totalBits; i++) {
             bits.Add(((imageData[i / 8] >> (i % 8)) & 1) == 1);
 
-            // 每处理1000位更新一次进度
-            if ((i - startBit) % 1000 == 0) {
-                progress?.Invoke(startProgress + progressRange * (i - startBit) / totalBits);
-                await Task.Yield(); // 让出控制权，避免阻塞UI线程
+            // 每处理一定位更新一次进度
+            if ((i - startBit) % dynamicMod == 0 && progress != null) {
+                progress.Invoke(startProgress + progressRange * (i - startBit) / totalBits);
+                await Task.Delay(1); // 让出控制权，避免阻塞UI线程
             }
         }
 
@@ -583,6 +577,4 @@ public class BmpSteganographyService : IBmpSteganographyService {
             Marshal.FreeHGlobal(ptr);
         }
     }
-
-    #endregion
 }
