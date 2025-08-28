@@ -5,7 +5,6 @@ using Tools.Services;
 using Tools.Services.IServices;
 using Wpf.Ui;
 
-
 namespace Tools.Helpers;
 
 public class AppRunningHelper {

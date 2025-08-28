@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Serilog;
+using Tools.Attributes;
 using Tools.Models;
 using Tools.Services;
 using Tools.Services.IServices;
@@ -54,8 +55,9 @@ public partial class SettingPageViewModel : ObservableObject {
         var assembly = Assembly.GetExecutingAssembly();
 
         var pageTypes = assembly.GetTypes()
-            .Where(t => t.IsSubclassOf(typeof(Page)) && t != typeof(Views.Pages.SettingPage))
-            .OrderBy(t => t == typeof(Views.Pages.HomePage) ? 0 : 1)
+            .Where(t => t.IsSubclassOf(typeof(Page)))
+            .Where(t => t.GetCustomAttribute<AvailbleStartPageAttribute>() != null)
+            .OrderBy(t => t.GetCustomAttribute<AvailbleStartPageAttribute>()!.SortWeight)
             .ThenBy(t => t.Name);
 
         foreach (var pageType in pageTypes) {

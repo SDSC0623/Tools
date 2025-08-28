@@ -1,10 +1,12 @@
 ﻿using System.ComponentModel;
 using System.Windows.Controls;
+using Tools.Attributes;
 using Tools.ViewModel.HomePage;
 
 namespace Tools.Views.Pages;
 
 [Description("主页")]
+[AvailbleStartPage(0)]
 public partial class HomePage : Page {
     public HomePage(HomePageViewModel viewModel) {
         InitializeComponent();
