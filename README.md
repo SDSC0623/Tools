@@ -58,6 +58,10 @@ git clone https://github.com/SDSC0623/Tools.git
 
 - **SDSC0623**
 
+### 许可证
+
+- 本项目采用 [MIT许可证](https://github.com/SDSC0623/Tools/blob/master/LICENSE)
+
 ---
 
 **Copyright © 2025**
