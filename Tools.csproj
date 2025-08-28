@@ -6,68 +6,68 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <UseWPF>true</UseWPF>
-	<Version>0.2.0-beta1</Version>
+        <Version>0.2.0-beta1</Version>
         <AssemblyName>Tools</AssemblyName>
         <RootNamespace>Tools</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
-      <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.8" />
-      <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.8" />
-      <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-      <PackageReference Include="Serilog" Version="4.3.0" />
-      <PackageReference Include="Serilog.Extensions.Logging" Version="9.0.2" />
-      <PackageReference Include="Serilog.Sinks.Console" Version="6.0.0" />
-      <PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
-      <PackageReference Include="WPF-UI" Version="4.0.2" />
-      <PackageReference Include="WPF-UI.DependencyInjection" Version="4.0.2" />
-      <PackageReference Include="WPF-UI.Tray" Version="4.0.2" />
-      <PackageReference Include="WPF-UI.Violeta" Version="4.0.2" />
+        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0"/>
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.8"/>
+        <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.8"/>
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.3"/>
+        <PackageReference Include="Serilog" Version="4.3.0"/>
+        <PackageReference Include="Serilog.Extensions.Logging" Version="9.0.2"/>
+        <PackageReference Include="Serilog.Sinks.Console" Version="6.0.0"/>
+        <PackageReference Include="Serilog.Sinks.File" Version="7.0.0"/>
+        <PackageReference Include="WPF-UI" Version="4.0.2"/>
+        <PackageReference Include="WPF-UI.DependencyInjection" Version="4.0.2"/>
+        <PackageReference Include="WPF-UI.Tray" Version="4.0.2"/>
+        <PackageReference Include="WPF-UI.Violeta" Version="4.0.2"/>
     </ItemGroup>
 
     <ItemGroup>
-      <None Remove="Assets\Images\CodeforcesIcon.png" />
-      <Resource Include="Assets\Images\CodeforcesIcon.png" />
-      <None Remove="Assets\Icons\sd_icon.png" />
-      <Resource Include="Assets\Icons\sd_icon.png" />
-      <None Remove="Assets\Icons\sd_icon.ico" />
-      <Resource Include="Assets\Icons\sd_icon.ico" />
+        <None Remove="Assets\Images\CodeforcesIcon.png"/>
+        <Resource Include="Assets\Images\CodeforcesIcon.png"/>
+        <None Remove="Assets\Icons\sd_icon.png"/>
+        <Resource Include="Assets\Icons\sd_icon.png"/>
+        <None Remove="Assets\Icons\sd_icon.ico"/>
+        <Resource Include="Assets\Icons\sd_icon.ico"/>
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Assets\Icons\" />
+        <Folder Include="Assets\Icons\"/>
     </ItemGroup>
 
     <ItemGroup>
-      <Page Update="Views\MainWindow.xaml">
-        <Generator>MSBuild:Compile</Generator>
-        <XamlRuntime>Wpf</XamlRuntime>
-        <SubType>Designer</SubType>
-      </Page>
-      <Page Update="Views\Pages\HomePage.xaml">
-        <Generator>MSBuild:Compile</Generator>
-      </Page>
-      <Page Update="Views\Pages\SettingPage.xaml">
-        <Generator>MSBuild:Compile</Generator>
-      </Page>
-      <Page Update="Views\Pages\CodeforcesInfo\UserInfoSettingDialog.xaml">
-        <Generator>MSBuild:Compile</Generator>
-      </Page>
-      <Page Update="Views\Pages\CodeforcesInfo\ContestsLoadSettingDialog.xaml">
-        <Generator>MSBuild:Compile</Generator>
-      </Page>
-      <Page Update="Views\Pages\CodeforcesInfo\ContestListView.xaml">
-        <Generator>MSBuild:Compile</Generator>
-      </Page>
-      <Page Update="Views\Pages\CodeforcesInfo\UserInfoView.xaml">
-        <Generator>MSBuild:Compile</Generator>
-      </Page>
-      <Page Update="Views\Pages\CodeforcesInfo\CodeforcesInfoPage.xaml">
-        <Generator>MSBuild:Compile</Generator>
-        <XamlRuntime>Wpf</XamlRuntime>
-        <SubType>Designer</SubType>
-      </Page>
+        <Page Update="Views\MainWindow.xaml">
+            <Generator>MSBuild:Compile</Generator>
+            <XamlRuntime>Wpf</XamlRuntime>
+            <SubType>Designer</SubType>
+        </Page>
+        <Page Update="Views\Pages\HomePage.xaml">
+            <Generator>MSBuild:Compile</Generator>
+        </Page>
+        <Page Update="Views\Pages\SettingPage.xaml">
+            <Generator>MSBuild:Compile</Generator>
+        </Page>
+        <Page Update="Views\Pages\CodeforcesInfo\UserInfoSettingDialog.xaml">
+            <Generator>MSBuild:Compile</Generator>
+        </Page>
+        <Page Update="Views\Pages\CodeforcesInfo\ContestsLoadSettingDialog.xaml">
+            <Generator>MSBuild:Compile</Generator>
+        </Page>
+        <Page Update="Views\Pages\CodeforcesInfo\ContestListView.xaml">
+            <Generator>MSBuild:Compile</Generator>
+        </Page>
+        <Page Update="Views\Pages\CodeforcesInfo\UserInfoView.xaml">
+            <Generator>MSBuild:Compile</Generator>
+        </Page>
+        <Page Update="Views\Pages\CodeforcesInfo\CodeforcesInfoPage.xaml">
+            <Generator>MSBuild:Compile</Generator>
+            <XamlRuntime>Wpf</XamlRuntime>
+            <SubType>Designer</SubType>
+        </Page>
     </ItemGroup>
 
 </Project>

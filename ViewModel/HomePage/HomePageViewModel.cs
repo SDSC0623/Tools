@@ -1,4 +1,8 @@
-﻿using System.Collections.ObjectModel;
+﻿// Copyright (c) 2025 SDSC0623. All rights reserved.
+// Licensed under the MIT license.
+// See LICENSE file in the project root for full license information.
+
+using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Tools.Helpers;
 using Tools.Models;

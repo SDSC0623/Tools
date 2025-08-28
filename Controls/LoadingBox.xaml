@@ -21,7 +21,8 @@
                          IsIndeterminate="{Binding IsActive, RelativeSource={RelativeSource AncestorType=UserControl}}"
                          Margin="0,100,0,0" />
 
-        <ui:TextBlock Grid.Row="1" Text="{Binding LoadingMessage, RelativeSource={RelativeSource AncestorType=UserControl}}"
+        <ui:TextBlock Grid.Row="1"
+                      Text="{Binding LoadingMessage, RelativeSource={RelativeSource AncestorType=UserControl}}"
                       Margin="0,20,0,60"
                       FontSize="20"
                       FontWeight="Bold"
