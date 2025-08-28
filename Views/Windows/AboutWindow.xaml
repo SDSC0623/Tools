@@ -12,6 +12,7 @@
                  MaxWidth="500"
                  MinHeight="400"
                  MinWidth="500"
+                 d:DesignHeight="2000"
                  ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
                  ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                  WindowStartupLocation="CenterOwner"
@@ -43,16 +44,17 @@
         <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" Margin="0,0,0,20">
             <StackPanel>
                 <ui:TextBlock Text="应用描述" FontTypography="Subtitle" Margin="0,0,0,5" />
-                <ui:TextBlock Text="这是一个多功能工具集，提供各种实用功能，包括Codeforces信息查看、BMP图片隐写等功能。"
+                <ui:TextBlock Text="这是一个多功能工具集，提供各种实用（可能也不是很实用）功能，包括Codeforces信息查看、BMP图片隐写等功能。"
                               TextWrapping="Wrap" Margin="0,0,0,15" />
 
                 <ui:TextBlock Text="技术栈" FontTypography="Subtitle" Margin="0,0,0,5" />
-                <ui:TextBlock Text="• WPF UI - 现代化UI框架" Margin="10,0,0,0" />
-                <ui:TextBlock Text="• .NET 8.0 - 跨平台开发框架" Margin="10,0,0,0" />
-                <ui:TextBlock Text="• MVVM模式 - 应用程序架构" Margin="10,0,0,5" />
+                <ui:TextBlock Text="• WPF UI - FluentUI框架" Margin="10,0,0,0" />
+                <ui:TextBlock Text="• .NET 8.0 - 不用多说" Margin="10,0,0,0" />
+                <ui:TextBlock Text="• MVVM模式 - 然而我写的并不是很标准" Margin="10,0,0,5" />
 
                 <ui:TextBlock Text="开发者" FontTypography="Subtitle" Margin="0,10,0,5" />
-                <ui:TextBlock Text="SDSC0623" FontTypography="BodyStrong" Foreground="Aqua" Margin="0,0,0,5" />
+                <ui:HyperlinkButton NavigateUri="https://space.bilibili.com/432923413" Content="SDSC0623"
+                                    Foreground="Aqua" Margin="0,0,0,5" FontWeight="SemiBold" />
 
                 <ui:TextBlock Text="反馈与支持" FontTypography="Subtitle" Margin="0,10,0,5" />
                 <ui:HyperlinkButton NavigateUri="https://github.com/SDSC0623/Tools" Content="GitHub仓库" />

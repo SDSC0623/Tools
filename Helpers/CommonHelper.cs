@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿// ReSharper disable ClassNeverInstantiated.Global
+
+using System.ComponentModel;
 using System.Reflection;
 
 namespace Tools.Helpers;
