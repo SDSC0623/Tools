@@ -382,12 +382,8 @@ public class BmpSteganographyService : IBmpSteganographyService {
         var dynamicMod = (int)Math.Max(100, totalBits / (80 * targetTimeSeconds));
 
         // 嵌入头部数据
-        for (; bitIndex < headerBits.Count; bitIndex++) {
-            var byteIndex = bitIndex / 8;
-            var bitPos = bitIndex % 8;
-            var originalByte = imageData[byteIndex];
-            var modifiedByte = EmbedBit(originalByte, bitPos, headerBits[bitIndex]);
-            imageData[byteIndex] = modifiedByte;
+        for (int i = 0; i < headerBits.Count; i++, bitIndex++) {
+            imageData[bitIndex] = EmbedBit(imageData[bitIndex], headerBits[i]);
 
             // 每处理100位更新一次进度
             if (bitIndex % dynamicMod == 0 && progress != null) {
@@ -398,11 +394,7 @@ public class BmpSteganographyService : IBmpSteganographyService {
 
         // 嵌入文件数据
         for (var i = 0; i < fileBits.Count; i++, bitIndex++) {
-            var byteIndex = bitIndex / 8;
-            var bitPos = bitIndex % 8;
-            var originalByte = imageData[byteIndex];
-            var modifiedByte = EmbedBit(originalByte, bitPos, fileBits[i]);
-            imageData[byteIndex] = modifiedByte;
+            imageData[bitIndex] = EmbedBit(imageData[bitIndex], fileBits[i]);
 
             // 每处理100位更新一次进度
             if (bitIndex % dynamicMod == 0 && progress != null) {
@@ -415,8 +407,9 @@ public class BmpSteganographyService : IBmpSteganographyService {
     }
 
     // 嵌入单个位到字节
-    private byte EmbedBit(byte byteValue, int pos, bool bit) {
-        return (byte)((byteValue & ~(1 << pos)) | ((bit ? 1 : 0) << pos));
+    private byte EmbedBit(byte byteValue, bool bit) {
+        // 0xFE = 11111110，清除最低位后，或上隐藏bit（0/1）
+        return (byte)((byteValue & 0xFE) | (bit ? 1 : 0));
     }
 
     // 提取数据头
@@ -424,7 +417,7 @@ public class BmpSteganographyService : IBmpSteganographyService {
         var headerBits = new List<bool>(160);
 
         for (var i = 0; i < 160; i++) {
-            headerBits.Add(((imageData[i / 8] >> (i % 8)) & 1) == 1);
+            headerBits.Add((imageData[i] & 0x01) == 1);
         }
 
         var headerBytes = BitsToBytes(headerBits);
@@ -449,7 +442,7 @@ public class BmpSteganographyService : IBmpSteganographyService {
         var dynamicMod = (int)Math.Max(100, totalBits / (80 * targetTimeSeconds));
 
         for (var i = startBit; i < startBit + totalBits; i++) {
-            bits.Add(((imageData[i / 8] >> (i % 8)) & 1) == 1);
+            bits.Add((imageData[i] & 0x01) == 1);
 
             // 每处理一定位更新一次进度
             if ((i - startBit) % dynamicMod == 0 && progress != null) {
