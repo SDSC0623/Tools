@@ -37,7 +37,7 @@
         <!-- 版本信息 -->
         <StackPanel Grid.Row="1" HorizontalAlignment="Center" Margin="0,0,0,20">
             <ui:TextBlock Text="{Binding Version}" FontSize="14" HorizontalAlignment="Center" />
-            <ui:TextBlock Text="Copyright © 2025" Foreground="Gray" HorizontalAlignment="Center" Margin="0,5,0,0" />
+            <ui:TextBlock Text="Copyright © 2025" Foreground="{DynamicResource TextFillColorSecondaryBrush}" HorizontalAlignment="Center" Margin="0,5,0,0" />
         </StackPanel>
 
         <!-- 描述信息 -->
@@ -63,7 +63,7 @@
 
         <!-- 按钮区域 -->
         <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right">
-            <ui:Button Content="关闭" Appearance="Primary" Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+            <ui:Button Content="关闭" Appearance="Primary" Foreground="White"
                        Click="CloseButton_Click" />
         </StackPanel>
     </Grid>

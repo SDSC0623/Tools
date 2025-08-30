@@ -26,6 +26,7 @@ using Tools.ViewModel.HideInBmpPage;
 using Tools.Views.Pages.Base64Tool;
 using Tools.Views.Windows;
 using Wpf.Ui;
+using Wpf.Ui.Appearance;
 using Wpf.Ui.DependencyInjection;
 
 // ReSharper disable UnusedMember.Global
@@ -124,6 +125,7 @@ public partial class App : Application {
             GetService<INavigationService>()!.Navigate(typeof(SettingPage));
 
             GetService<AppRunningHelper>()!.StartApp();
+            ApplicationThemeManager.Apply(ApplicationTheme.Dark);
         } catch (Exception ex) {
             _logger.Error("启动时发生错误: {ExMessage}", ex.Message);
         }

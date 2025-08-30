@@ -37,7 +37,7 @@ public class TwoStateButton : Button {
 
     private static readonly DependencyProperty EnableContentProperty =
         DependencyProperty.Register(nameof(EnableContent), typeof(object), typeof(TwoStateButton),
-            new PropertyMetadata("启动"));
+            new PropertyMetadata(string.Empty));
 
     public object EnableContent {
         get => (string)GetValue(EnableContentProperty);
@@ -63,7 +63,7 @@ public class TwoStateButton : Button {
 
     private static readonly DependencyProperty DisableContentProperty =
         DependencyProperty.Register(nameof(DisableContent), typeof(object), typeof(TwoStateButton),
-            new PropertyMetadata("停止"));
+            new PropertyMetadata(string.Empty));
 
     public object DisableContent {
         get => (string)GetValue(DisableContentProperty);

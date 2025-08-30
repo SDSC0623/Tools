@@ -6,6 +6,7 @@
                  xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
                  xmlns:tray="http://schemas.lepo.co/wpfui/2022/xaml/tray"
                  xmlns:viewModel="clr-namespace:Tools.ViewModel"
+                 xmlns:controls="clr-namespace:Tools.Controls"
                  xmlns:extensions="clr-namespace:Tools.Extensions"
                  xmlns:pages="clr-namespace:Tools.Views.Pages"
                  xmlns:codeforcesInfo="clr-namespace:Tools.Views.Pages.CodeforcesInfo"
@@ -31,18 +32,25 @@
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
 
-        <ui:TitleBar Title="{Binding Title}" Grid.Row="0" Grid.Column="0">
+        <ui:TitleBar Title="{Binding Title}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
             <ui:TitleBar.Icon>
                 <ui:SymbolIcon Symbol="Toolbox28" />
             </ui:TitleBar.Icon>
             <ui:TitleBar.TrailingContent>
-                <StackPanel>
-                    <ui:Button Width="46"
-                               Height="32"
+                <StackPanel VerticalAlignment="Top" Orientation="Horizontal">
+                    <controls:TwoStateButton Width="46" Height="32"
+                                             Background="Transparent"
+                                             BorderBrush="Transparent"
+                                             ToolTip="切换主题颜色"
+                                             EnableIcon="{ui:SymbolIcon WeatherSunny24}"
+                                             EnableCommand="{Binding ChangeToDarkCommand}"
+                                             DisableIcon="{ui:SymbolIcon WeatherMoon24}"
+                                             DisableCommand="{Binding ChangeToLightCommand}"
+                                             IsChecked="{Binding IsDark}" />
+                    <ui:Button Width="46" Height="32"
                                Background="Transparent"
                                BorderBrush="Transparent"
                                Command="{Binding HideCommand}"
-                               CornerRadius="0"
                                Icon="{ui:SymbolIcon CaretDown24}"
                                ToolTip="最小化到托盘" />
                 </StackPanel>
@@ -51,8 +59,7 @@
 
         <ui:NavigationView x:Name="RootNavigation"
                            PaneTitle="工具菜单"
-                           Grid.Column="0"
-                           Grid.Row="1"
+                           Grid.Column="0" Grid.Row="1"
                            IsBackButtonVisible="Collapsed"
                            IsPaneToggleVisible="True"
                            OpenPaneLength="200">
@@ -89,7 +96,7 @@
                                        NavigationCacheMode="Enabled"
                                        TargetPageType="{x:Type base64Tool:Base64ToolPage}">
                     <ui:NavigationViewItem.Icon>
-                        <ui:ImageIcon Source="/Assets/Images/Base64Icon.png" Height="20" Width="20" />
+                        <ui:SymbolIcon Symbol="ClipboardCode24" Filled="False" Height="20" Width="20" />
                     </ui:NavigationViewItem.Icon>
                 </ui:NavigationViewItem>
             </ui:NavigationView.MenuItems>

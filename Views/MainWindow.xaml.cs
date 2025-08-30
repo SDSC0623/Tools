@@ -8,6 +8,7 @@ using Tools.Helpers;
 using Tools.ViewModel;
 using Wpf.Ui;
 using Wpf.Ui.Abstractions;
+using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
 using Wpf.Ui.Tray.Controls;
 

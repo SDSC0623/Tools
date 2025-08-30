@@ -10,7 +10,7 @@
              xmlns:codeforcesInfoPage="clr-namespace:Tools.ViewModel.CodeforcesInfoPage"
              d:DataContext="{d:DesignInstance Type=codeforcesInfoPage:CodeforcesInfoViewModel}"
              mc:Ignorable="d"
-             d:DesignHeight="550"
+             d:DesignHeight="2550"
              d:DesignWidth="692"
              ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
              ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}">
@@ -43,7 +43,7 @@
                               FontTypography="Title"
                               VerticalAlignment="Center"
                               FontSize="24"
-                              Foreground="#FFFFFF" />
+                              Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
             </StackPanel>
             <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="0,0,0,16">
                 <ui:Button Icon="{ui:SymbolIcon Settings16, FontSize=22, Filled=True}"
@@ -80,7 +80,8 @@
                     </Grid.RowDefinitions>
 
                     <!-- 用户信息卡片 -->
-                    <ui:Border Grid.Row="0" Background="#1E1E1E" CornerRadius="12" Padding="16">
+                    <ui:Border Grid.Row="0" Background="{DynamicResource SolidBackgroundFillColorSecondaryBrush}"
+                               CornerRadius="12" Padding="16">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
@@ -92,7 +93,7 @@
                             <Border Grid.Column="0"
                                     Width="96" Height="96"
                                     CornerRadius="48"
-                                    Background="#333333"
+                                    Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
                                     Margin="0,0,16,0"
                                     BorderBrush="{Binding UserInfo.CurColor}"
                                     BorderThickness="2">
@@ -114,7 +115,7 @@
                                 <ui:TextBlock Text="{Binding UserInfo.Handle}"
                                               FontSize="24"
                                               FontWeight="Bold"
-                                              Foreground="White"
+                                              Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                                               Margin="0,0,0,4" />
 
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
@@ -123,7 +124,8 @@
                                         CornerRadius="6"
                                         Padding="6,4">
                                         <ui:TextBlock Text="{Binding UserInfo.Rank}"
-                                                      FontWeight="Bold" Foreground="White" />
+                                                      FontWeight="Bold"
+                                                      Foreground="White" />
                                     </ui:Border>
                                 </StackPanel>
 
@@ -136,7 +138,7 @@
                                     <!--最后在线时间-->
                                     <ui:TextBlock Grid.Column="0"
                                                   Text="{Binding UserInfo.LastOnlineTime, StringFormat=最后在线: yyyy-MM-dd HH:mm}"
-                                                  Foreground="#AAAAAA"
+                                                  Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                                   FontSize="14" />
 
                                     <!-- 分割线 -->
@@ -144,13 +146,12 @@
                                                VerticalAlignment="Center"
                                                HorizontalAlignment="Center"
                                                Margin="8,0"
-                                               Height="20"
-                                               Background="White" />
+                                               Height="20" />
 
                                     <!-- 注册时间 -->
                                     <ui:TextBlock Grid.Column="2"
                                                   Text="{Binding UserInfo.RegistrationTime, StringFormat=注册时间: yyyy-MM-dd HH:mm}"
-                                                  Foreground="#AAAAAA"
+                                                  Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                                   FontSize="14"
                                                   HorizontalAlignment="Right" />
                                 </Grid>
@@ -159,7 +160,8 @@
                     </ui:Border>
 
                     <!-- 评级信息卡片 -->
-                    <ui:Border Grid.Row="1" Background="#1E1E1E" CornerRadius="12"
+                    <ui:Border Grid.Row="1" Background="{DynamicResource SolidBackgroundFillColorSecondaryBrush}"
+                               CornerRadius="12"
                                Padding="16" Margin="0,16,0,0">
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -170,7 +172,7 @@
 
                             <!-- 当前评级 -->
                             <StackPanel Grid.Column="0" Margin="0,0,8,0">
-                                <ui:TextBlock Text="当前评级" Foreground="#AAAAAA"
+                                <ui:TextBlock Text="当前评级" Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                               HorizontalAlignment="Center"
                                               FontSize="14" Margin="0,0,0,8" />
 
@@ -191,12 +193,11 @@
                                        VerticalAlignment="Center"
                                        HorizontalAlignment="Center"
                                        Margin="8,0"
-                                       Height="60"
-                                       Background="White" />
+                                       Height="60" />
 
                             <!-- 最高评级 -->
                             <StackPanel Grid.Column="2" Margin="8,0,0,0">
-                                <ui:TextBlock Text="最高评级" Foreground="#AAAAAA"
+                                <ui:TextBlock Text="最高评级" Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                               HorizontalAlignment="Center"
                                               FontSize="14" Margin="0,0,0,8" />
 
@@ -215,7 +216,8 @@
                     </ui:Border>
 
                     <!-- Rating变化卡片 -->
-                    <ui:Border Grid.Row="3" Background="#1E1E1E" CornerRadius="12"
+                    <ui:Border Grid.Row="3" Background="{DynamicResource SolidBackgroundFillColorSecondaryBrush}"
+                               CornerRadius="12"
                                Padding="16" Margin="0,16,0,0">
                         <Grid>
                             <Grid.RowDefinitions>
@@ -231,13 +233,15 @@
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
                                 <!-- 标题 -->
-                                <ui:TextBlock Grid.Column="0" Text="Rating变化" Foreground="#AAAAAA"
+                                <ui:TextBlock Grid.Column="0" Text="Rating变化"
+                                              Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                               HorizontalAlignment="Center"
                                               FontSize="14" Margin="0,0,0,8" />
                                 <!-- 显示数量选择框 -->
                                 <StackPanel Grid.Column="2" Orientation="Horizontal"
                                             VerticalAlignment="Center">
-                                    <ui:TextBlock Text="展示数据数量" Foreground="#AAAAAA"
+                                    <ui:TextBlock Text="展示数据数量"
+                                                  Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                                   HorizontalAlignment="Center"
                                                   FontSize="14" Margin="0,0,8,8" />
                                     <ui:NumberBox Width="100" TextAlignment="Center" FontSize="14"
@@ -260,7 +264,8 @@
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate DataType="{x:Type models:RatingChangeModel}">
                                                 <ui:Border Padding="16" Margin="5"
-                                                           CornerRadius="12" Background="#1E1E1E"
+                                                           CornerRadius="12"
+                                                           Background="{DynamicResource SolidBackgroundFillColorSecondaryBrush}"
                                                            BorderBrush="#333333" BorderThickness="1">
                                                     <Grid>
                                                         <Grid.ColumnDefinitions>
@@ -274,7 +279,8 @@
                                                                    VerticalAlignment="Center"
                                                                    HorizontalAlignment="Center"
                                                                    Padding="5, 8" Margin="5"
-                                                                   CornerRadius="12" Background="#222222"
+                                                                   CornerRadius="12"
+                                                                   Background="{DynamicResource SolidBackgroundFillColorSecondaryBrush}"
                                                                    BorderBrush="#555555"
                                                                    BorderThickness="1">
                                                             <ui:TextBlock
@@ -288,7 +294,7 @@
                                                             <ui:TextBlock Text="{Binding ContestName}"
                                                                           FontSize="16"
                                                                           FontWeight="SemiBold"
-                                                                          Foreground="White"
+                                                                          Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                                                                           TextWrapping="Wrap"
                                                                           Margin="0,0,0,8" />
                                                             <Grid>
@@ -307,39 +313,39 @@
                                                                 <ui:TextBlock Grid.Row="0" Grid.Column="0"
                                                                               Text="更新时间: "
                                                                               FontSize="14"
-                                                                              Foreground="#AAAAAA"
+                                                                              Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                                                               Margin="0,0,0,4" />
 
                                                                 <ui:TextBlock Grid.Row="0" Grid.Column="1"
                                                                               Text="{Binding RatingUpdateTime, StringFormat='yyyy-MM-dd HH:mm'}"
                                                                               FontSize="14"
-                                                                              Foreground="White"
+                                                                              Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                                                                               Margin="0,0,0,4" />
 
                                                                 <!-- 排名 -->
                                                                 <ui:TextBlock Grid.Row="1" Grid.Column="0"
                                                                               Text="排名: "
                                                                               FontSize="14"
-                                                                              Foreground="#AAAAAA"
+                                                                              Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                                                               Margin="0,0,0,4" />
 
                                                                 <ui:TextBlock Grid.Row="1" Grid.Column="1"
                                                                               Text="{Binding Rank}"
                                                                               FontSize="14"
-                                                                              Foreground="White"
+                                                                              Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                                                                               Margin="0,0,0,4" />
 
                                                                 <!-- 比赛ID -->
                                                                 <ui:TextBlock Grid.Row="2" Grid.Column="0"
                                                                               Text="比赛ID: "
                                                                               FontSize="14"
-                                                                              Foreground="#AAAAAA"
+                                                                              Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                                                               Margin="0,0,0,4" />
 
                                                                 <ui:TextBlock Grid.Row="2" Grid.Column="1"
                                                                               Text="{Binding ContestId}"
                                                                               FontSize="14"
-                                                                              Foreground="White"
+                                                                              Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                                                                               Margin="0,0,0,4" />
                                                             </Grid>
                                                         </StackPanel>
@@ -357,10 +363,12 @@
 
                                                                 <ui:SymbolIcon Symbol="ArrowSortUp24"
                                                                                Margin="0,20"
-                                                                               FontSize="24" Foreground="#AAAAAA" />
+                                                                               FontSize="24"
+                                                                               Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
 
                                                                 <ui:TextBlock Text="{Binding OldRating}"
-                                                                              FontSize="16" Foreground="#BBBBBB"
+                                                                              FontSize="16"
+                                                                              Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                                                               TextDecorations="Strikethrough" />
                                                             </StackPanel>
 
@@ -370,12 +378,14 @@
                                                                         HorizontalAlignment="Right"
                                                                         Visibility="{Binding GainScore, Converter={StaticResource BooleanToVisibleConverter}, ConverterParameter=True}">
                                                                 <ui:TextBlock Text="{Binding OldRating}"
-                                                                              FontSize="16" Foreground="#BBBBBB"
+                                                                              FontSize="16"
+                                                                              Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                                                               TextDecorations="Strikethrough" />
 
                                                                 <ui:SymbolIcon Symbol="ArrowSortDown24"
                                                                                Margin="0,20"
-                                                                               FontSize="24" Foreground="#AAAAAA" />
+                                                                               FontSize="24"
+                                                                               Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
 
                                                                 <ui:TextBlock Text="{Binding NewRating}"
                                                                               FontSize="16" FontWeight="Bold"
@@ -407,7 +417,8 @@
                     </ui:Border>
 
                     <!-- 好友列表卡片 -->
-                    <ui:Border Grid.Row="4" Background="#1E1E1E" CornerRadius="12"
+                    <ui:Border Grid.Row="4" Background="{DynamicResource SolidBackgroundFillColorSecondaryBrush}"
+                               CornerRadius="12"
                                Padding="16" Margin="0,16,0,0">
                         <Grid>
                             <Grid.RowDefinitions>
@@ -425,7 +436,7 @@
 
                                 <!-- 标题 -->
                                 <ui:TextBlock Grid.Column="0" Text="{Binding FriendsListTitle}"
-                                              Foreground="#AAAAAA"
+                                              Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                               HorizontalAlignment="Center" VerticalAlignment="Center"
                                               FontSize="14" Margin="0,0,0,8" />
 
@@ -459,12 +470,13 @@
                                                       VirtualizingPanel.CacheLength="5,5">
                                             <ItemsControl.ItemTemplate>
                                                 <DataTemplate DataType="{x:Type models:FriendModel}">
-                                                    <ui:Border Background="#1E1E1E"
-                                                               CornerRadius="12"
-                                                               BorderThickness="1"
-                                                               BorderBrush="#333333"
-                                                               Margin="0,0,0,16"
-                                                               Padding="16">
+                                                    <ui:Border
+                                                        Background="{DynamicResource SolidBackgroundFillColorSecondaryBrush}"
+                                                        CornerRadius="12"
+                                                        BorderThickness="1"
+                                                        BorderBrush="#333333"
+                                                        Margin="0,0,0,16"
+                                                        Padding="16">
                                                         <Grid>
                                                             <Grid.ColumnDefinitions>
                                                                 <ColumnDefinition Width="Auto" />
@@ -477,7 +489,7 @@
                                                             <Border Grid.Column="0"
                                                                     Width="72" Height="72"
                                                                     CornerRadius="36"
-                                                                    Background="#333333"
+                                                                    Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
                                                                     Margin="0,0,16,0"
                                                                     BorderBrush="{Binding CurColor}"
                                                                     BorderThickness="2">
@@ -495,7 +507,7 @@
                                                                     <!-- 在线状态指示器 -->
                                                                     <Ellipse Width="16" Height="16"
                                                                              Fill="{Binding IsOnline, Converter={StaticResource OnlineStatusToColorConverter}}"
-                                                                             Stroke="#1E1E1E"
+                                                                             Stroke="{Binding IsOnline, Converter={StaticResource OnlineStatusToColorConverter}}"
                                                                              StrokeThickness="2"
                                                                              HorizontalAlignment="Right"
                                                                              VerticalAlignment="Bottom"
@@ -509,7 +521,7 @@
                                                                 <ui:TextBlock Text="{Binding Handle}"
                                                                               FontSize="18"
                                                                               FontWeight="SemiBold"
-                                                                              Foreground="White"
+                                                                              Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                                                                               Margin="0,0,0,8" />
 
                                                                 <StackPanel Orientation="Horizontal"
@@ -529,7 +541,8 @@
                                                                 <ui:TextBlock
                                                                     Visibility="{Binding IsOnline, Converter={StaticResource BooleanToVisibleConverter}, ConverterParameter=True}"
                                                                     Text="{Binding LastOnlineTime, StringFormat=最后在线: yyyy-MM-dd HH:mm}"
-                                                                    FontSize="14" Foreground="#AAAAAA" />
+                                                                    FontSize="14"
+                                                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
                                                             </StackPanel>
 
                                                             <!-- Rating展示 -->
@@ -540,10 +553,11 @@
                                                                 <ui:TextBlock VerticalAlignment="Center"
                                                                               TextAlignment="Right"
                                                                               Text="当前Rating: " FontSize="17"
-                                                                              Foreground="#AAAAAA"
+                                                                              Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                                                               Margin="0,0,8,0" />
 
-                                                                <ui:Border Background="White" Width="80"
+                                                                <ui:Border Background="White"
+                                                                           Width="80"
                                                                            CornerRadius="6" Padding="6,4">
                                                                     <ui:TextBlock TextAlignment="Center"
                                                                         Text="{Binding Rating}"
@@ -579,14 +593,14 @@
                                                                Width="48"
                                                                Height="48"
                                                                FontSize="48"
-                                                               Foreground="#AAAAAA"
+                                                               Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                                                Margin="0,0,0,16"
                                                                HorizontalAlignment="Center" />
 
                                                 <ui:TextBlock Text="您还没有任何好友"
                                                               FontSize="20"
                                                               FontWeight="Bold"
-                                                              Foreground="White"
+                                                              Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                                                               HorizontalAlignment="Center"
                                                               TextWrapping="Wrap"
                                                               TextAlignment="Center" />

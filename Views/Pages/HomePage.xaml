@@ -7,7 +7,7 @@
       xmlns:models="clr-namespace:Tools.Models"
       xmlns:viewModel="clr-namespace:Tools.ViewModel.HomePage"
       mc:Ignorable="d"
-      d:DesignHeight="550"
+      d:DesignHeight="2550"
       d:DesignWidth="692"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
@@ -36,7 +36,7 @@
                               FontTypography="Title"
                               VerticalAlignment="Center"
                               FontSize="24"
-                              Foreground="#FFFFFF" />
+                              Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
             </StackPanel>
         </Grid>
 
@@ -54,16 +54,16 @@
                 <ItemsControl ItemsSource="{Binding Tools}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate DataType="{x:Type models:ToolItem}">
-                            <ui:Border Background="#252526" BorderBrush="#3E3E40" BorderThickness="1"
+                            <ui:Border Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}" BorderBrush="#3E3E40" BorderThickness="1"
                                        CornerRadius="8" Padding="16" Margin="0,0,0,16">
                                 <StackPanel>
                                     <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
                                         <ui:TextBlock Text="{Binding Name}"
                                                       FontTypography="Subtitle"
-                                                      Foreground="White" />
+                                                      Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
                                     </StackPanel>
                                     <ui:TextBlock Text="{Binding Description}"
-                                                  FontTypography="BodyStrong" Foreground="#CCCCCC"
+                                                  FontTypography="BodyStrong" Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                                   TextWrapping="Wrap" Margin="0,0,0,16" />
                                     <ui:TextBlock Text="功能特点:"
                                                   FontSize="14"
@@ -74,7 +74,7 @@
                                             <DataTemplate>
                                                 <ui:TextBlock Text="{Binding}"
                                                               FontTypography="Body"
-                                                              Foreground="#CCCCCC"
+                                                              Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                                               Margin="16,0,0,4" />
                                             </DataTemplate>
                                         </ItemsControl.ItemTemplate>
@@ -90,13 +90,13 @@
             <ui:TextBlock Text="使用说明" FontTypography="Subtitle" FontSize="20"
                           Foreground="#4CAF50" Margin="0,12" />
             <ui:TextBlock Text="{Binding HomePageUseHelp}"
-                          FontTypography="Body" Foreground="#CCCCCC"
+                          FontTypography="Body" Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                           TextWrapping="Wrap" Margin="0,0,0,16" />
 
             <!-- 版权信息 -->
             <ui:TextBlock Text="各种工具 - By SDSC0623"
                           FontSize="12"
-                          Foreground="#888888"
+                          Foreground="{DynamicResource TextFillColorTertiaryBrush}"
                           HorizontalAlignment="Center"
                           Margin="0,24,0,16" />
         </StackPanel>

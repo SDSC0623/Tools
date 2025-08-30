@@ -50,7 +50,7 @@
                               FontTypography="Title"
                               VerticalAlignment="Center"
                               FontSize="24"
-                              Foreground="#FFFFFF" />
+                              Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
             </StackPanel>
             <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="0,0,0,16">
                 <ui:Button Icon="{ui:SymbolIcon Settings16, FontSize=22, Filled=True}"
@@ -88,7 +88,7 @@
                     <ItemsControl ItemsSource="{Binding Contests}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate DataType="{x:Type models:ContestModel}">
-                                <ui:Border Background="#1E1E1E"
+                                <ui:Border Background="{DynamicResource SolidBackgroundFillColorSecondaryBrush}"
                                            CornerRadius="12"
                                            BorderThickness="1"
                                            BorderBrush="#333333"
@@ -106,13 +106,13 @@
                                             <ui:TextBlock Text="{Binding Name}"
                                                           FontSize="16"
                                                           FontWeight="SemiBold"
-                                                          Foreground="White"
+                                                          Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                                                           TextWrapping="Wrap"
                                                           Margin="0,0,0,8" />
 
                                             <!-- 比赛类型和状态标签 -->
                                             <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
-                                                <ui:Border Background="#333333"
+                                                <ui:Border Background="{DynamicResource SolidBackgroundFillColorQuarternaryBrush}"
                                                            CornerRadius="6"
                                                            Padding="6,4"
                                                            Margin="0,0,8,0">
@@ -122,10 +122,10 @@
                                                             Width="16"
                                                             Height="16"
                                                             Margin="0,0,4,0"
-                                                            Foreground="#FFFFFF" />
+                                                            Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
                                                         <ui:TextBlock Text="{Binding Type}"
                                                                       FontWeight="Bold"
-                                                                      Foreground="#FFFFFF" />
+                                                                      Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
                                                     </StackPanel>
                                                 </ui:Border>
 
@@ -140,11 +140,11 @@
                                                             Width="16"
                                                             Height="16"
                                                             Margin="0,0,4,0"
-                                                            Foreground="#FFFFFF" />
+                                                            Foreground="White" />
                                                         <ui:TextBlock
                                                             Text="{Binding Phase, Converter={StaticResource PhaseToTextConverter}}"
                                                             FontWeight="Bold"
-                                                            Foreground="#FFFFFF" />
+                                                            Foreground="White" />
                                                     </StackPanel>
                                                 </ui:Border>
 
@@ -159,10 +159,10 @@
                                                             Width="16"
                                                             Height="16"
                                                             Margin="0,0,4,0"
-                                                            Foreground="#FFFFFF" />
+                                                            Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
                                                         <ui:TextBlock Text="赛后冻结中"
                                                                       FontWeight="Bold"
-                                                                      Foreground="#FFFFFF" />
+                                                                      Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
                                                     </StackPanel>
                                                 </ui:Border>
                                             </StackPanel>
@@ -184,39 +184,39 @@
                                                 <ui:TextBlock Grid.Row="0" Grid.Column="0"
                                                               Text="开始时间: "
                                                               FontSize="14"
-                                                              Foreground="#AAAAAA"
+                                                              Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                                               Margin="0,0,0,4" />
 
                                                 <ui:TextBlock Grid.Row="0" Grid.Column="1"
                                                               Text="{Binding StartTime, Converter={StaticResource DateTimeConverter}}"
                                                               FontSize="14"
-                                                              Foreground="White"
+                                                              Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                                                               Margin="0,0,0,4" />
 
                                                 <!-- 持续时间 -->
                                                 <ui:TextBlock Grid.Row="1" Grid.Column="0"
                                                               Text="持续时间: "
                                                               FontSize="14"
-                                                              Foreground="#AAAAAA"
+                                                              Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                                               Margin="0,0,0,4" />
 
                                                 <ui:TextBlock Grid.Row="1" Grid.Column="1"
                                                               Text="{Binding Duration, Converter={StaticResource TimeSpanConverter}, ConverterParameter=True}"
                                                               FontSize="14"
-                                                              Foreground="White"
+                                                              Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                                                               Margin="0,0,0,4" />
 
                                                 <!-- 比赛ID -->
                                                 <ui:TextBlock Grid.Row="2" Grid.Column="0"
                                                               Text="比赛ID: "
                                                               FontSize="14"
-                                                              Foreground="#AAAAAA"
+                                                              Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                                               Margin="0,0,0,4" />
 
                                                 <ui:TextBlock Grid.Row="2" Grid.Column="1"
                                                               Text="{Binding Id}"
                                                               FontSize="14"
-                                                              Foreground="White"
+                                                              Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                                                               Margin="0,0,0,4" />
                                             </Grid>
 
@@ -225,7 +225,7 @@
                                                         Visibility="{Binding EndTime, Converter={StaticResource EndTimeToVisibleConverter}}">
                                                 <ui:TextBlock
                                                     FontSize="14"
-                                                    Foreground="#AAAAAA"
+                                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                                     Margin="0,0,0,4">
                                                     <ui:TextBlock.Text>
                                                         <MultiBinding

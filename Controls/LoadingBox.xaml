@@ -6,7 +6,10 @@
              xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
              xmlns:converters="clr-namespace:Tools.Converters"
              mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300"
+             d:DesignWidth="300"
+             ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
+             ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}">
     <UserControl.Resources>
         <!-- 转换器 -->
         <converters:BooleanToVisibleConverter x:Key="BooleanToVisibleConverter" />
@@ -26,7 +29,7 @@
                       Margin="0,20,0,60"
                       FontSize="20"
                       FontWeight="Bold"
-                      Foreground="White"
+                      Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                       TextWrapping="Wrap"
                       TextAlignment="Center" />
     </Grid>

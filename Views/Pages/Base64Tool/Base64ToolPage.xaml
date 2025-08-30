@@ -39,7 +39,7 @@
                               FontTypography="Title"
                               VerticalAlignment="Center"
                               FontSize="24"
-                              Foreground="#FFFFFF" />
+                              Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
             </StackPanel>
         </Grid>
 
@@ -88,14 +88,15 @@
                 <ui:Button Content="编码 →"
                            Command="{Binding EncodeCommand}"
                            Appearance="Primary"
-                           Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                           Foreground="White"
                            Margin="0,0,0,10"
                            Width="120" />
 
                 <ui:Button Content="解码 →"
                            Command="{Binding DecodeCommand}"
                            Appearance="Primary"
-                           Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                           Foreground="White"
+                           Margin="0,10,0,00"
                            Width="120" />
             </StackPanel>
 

@@ -49,7 +49,8 @@
 
         <!-- API密钥说明 -->
         <ui:TextBlock Grid.Row="6" Text="API Key可以在Codeforces账户设置中的API页面获取"
-                      Margin="0,10,0,5" Foreground="Gray" FontTypography="Caption" />
+                      Margin="0,10,0,5" Foreground="{DynamicResource TextFillColorDisabledBrush}"
+                      FontTypography="Caption" />
 
         <Grid Grid.Row="7" Margin="0,20,0,0">
             <Grid.ColumnDefinitions>
@@ -72,7 +73,7 @@
             <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
                 <ui:Button Content="取消" Command="{Binding CancelCommand}" Margin="0,0,10,0" />
                 <ui:Button Content="保存" Command="{Binding SaveCommand}" Appearance="Primary"
-                           Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
+                           Foreground="White" />
             </StackPanel>
         </Grid>
     </Grid>
