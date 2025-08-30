@@ -10,7 +10,6 @@ using System.Windows.Controls;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Serilog;
-using Serilog.Sinks.RichTextBox.Abstraction;
 using Tools.Attributes;
 using Tools.Helpers;
 using Tools.Models;
