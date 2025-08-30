@@ -5,7 +5,7 @@
   },
   "projects": {
     "D:\\SDSC_Creation\\Program\\C#\\Tools\\Tools.csproj": {
-      "version": "0.3.0-beta1",
+      "version": "0.3.1-beta1",
       "restore": {
         "projectUniqueName": "D:\\SDSC_Creation\\Program\\C#\\Tools\\Tools.csproj",
         "projectName": "Tools",
