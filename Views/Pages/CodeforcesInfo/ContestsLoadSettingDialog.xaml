@@ -21,7 +21,7 @@
                  ShowInTaskbar="False">
     <ui:FluentWindow.Resources>
         <converters:EnumDescriptionConverter x:Key="EnumDescriptionConverter" />
-        <extensions:EnumBindingSource x:Key="EnumBindingSource" EnumType="{x:Type models:TimeUnit}" />
+        <extensions:EnumBindingSource x:Key="TimeUnitEnumSource" EnumType="{x:Type models:TimeUnit}" />
     </ui:FluentWindow.Resources>
     <Grid Margin="20">
         <Grid.RowDefinitions>
@@ -37,7 +37,7 @@
             <ui:TextBox Text="{Binding Value, UpdateSourceTrigger=PropertyChanged}"
                         PlaceholderText="输入时间" Width="100" TextAlignment="Center" ClearButtonEnabled="False" />
             <ComboBox SelectedItem="{Binding Unit}"
-                      ItemsSource="{Binding Source={StaticResource EnumBindingSource}}"
+                      ItemsSource="{Binding Source={StaticResource TimeUnitEnumSource}}"
                       Margin="10,0,0,0">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
@@ -68,7 +68,8 @@
             <!-- 反馈按钮 -->
             <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
                 <ui:Button Content="取消" Command="{Binding CancelCommand}" Margin="0,0,10,0" />
-                <ui:Button Content="保存" Command="{Binding SaveCommand}" Appearance="Primary" />
+                <ui:Button Content="保存" Command="{Binding SaveCommand}" Appearance="Primary"
+                           Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
             </StackPanel>
         </Grid>
     </Grid>

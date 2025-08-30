@@ -378,7 +378,7 @@ public class BmpSteganographyService : IBmpSteganographyService {
         var totalBits = headerBits.Count + fileBits.Count;
         var bitIndex = 0;
 
-        const double targetTimeSeconds = 8; // 目标耗时取中间值 8 秒
+        const double targetTimeSeconds = 8;
         var dynamicMod = (int)Math.Max(100, totalBits / (80 * targetTimeSeconds));
 
         // 嵌入头部数据
@@ -438,7 +438,7 @@ public class BmpSteganographyService : IBmpSteganographyService {
         var bits = new List<bool>((int)fileSize * 8);
         var totalBits = fileSize * 8;
 
-        const double targetTimeSeconds = 8; // 目标耗时取中间值 8 秒
+        const double targetTimeSeconds = 8;
         var dynamicMod = (int)Math.Max(100, totalBits / (80 * targetTimeSeconds));
 
         for (var i = startBit; i < startBit + totalBits; i++) {
@@ -524,12 +524,12 @@ public class BmpSteganographyService : IBmpSteganographyService {
         var extension = Path.GetExtension(filePath);
 
         var counter = 1;
-        string newFilePath;
+        var newFilePath = Path.Combine(directory, $"{fileName}_{counter}{extension}");
 
-        do {
-            newFilePath = Path.Combine(directory, $"{fileName}_{counter}{extension}");
+        while (File.Exists(newFilePath)) {
             counter++;
-        } while (File.Exists(newFilePath));
+            newFilePath = Path.Combine(directory, $"{fileName}_{counter}{extension}");
+        }
 
         return newFilePath;
     }

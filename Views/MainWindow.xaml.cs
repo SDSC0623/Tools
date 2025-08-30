@@ -3,6 +3,7 @@
 // See LICENSE file in the project root for full license information.
 
 using System.Windows;
+using Tools.Converters;
 using Tools.Helpers;
 using Tools.ViewModel;
 using Wpf.Ui;
@@ -17,7 +18,7 @@ public partial class MainWindow : INavigationWindow {
     private readonly AppRunningHelper _appRunningHelper;
 
     public MainWindow(MainWindowViewModel viewModel, INavigationService navigationService,
-        ISnackbarService snackbarService, AppRunningHelper appRunningHelper) {
+        ISnackbarService snackbarService, AppRunningHelper appRunningHelper, IContentDialogService contentDialogService) {
         InitializeComponent();
         DataContext = viewModel;
 
@@ -27,6 +28,7 @@ public partial class MainWindow : INavigationWindow {
         Application.Current.MainWindow = this;
 
         _appRunningHelper = appRunningHelper;
+        contentDialogService.SetDialogHost(RootContentDialog);
     }
 
     private void OnNotifyIconLeftDoubleClick(NotifyIcon sender, RoutedEventArgs e) {
@@ -38,7 +40,7 @@ public partial class MainWindow : INavigationWindow {
     public bool Navigate(Type pageType) => RootNavigation.Navigate(pageType);
 
     public void SetServiceProvider(IServiceProvider serviceProvider) {
-        throw new NotImplementedException();
+        throw new UnexpectedCallException();
     }
 
     public void SetPageService(INavigationViewPageProvider navigationViewPageProvider) =>

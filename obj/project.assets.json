@@ -18,6 +18,19 @@
           "buildTransitive/CommunityToolkit.Mvvm.targets": {}
         }
       },
+      "JetBrains.Annotations/2025.2.1": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/JetBrains.Annotations.dll": {
+            "related": ".deps.json;.xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/JetBrains.Annotations.dll": {
+            "related": ".deps.json;.xml"
+          }
+        }
+      },
       "Microsoft.Extensions.Configuration/9.0.8": {
         "type": "package",
         "dependencies": {
@@ -824,6 +837,15 @@
           "buildTransitive/net8.0/System.Text.Json.targets": {}
         }
       },
+      "Ude.NetStandard/1.2.0": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Ude.NetStandard.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Ude.NetStandard.dll": {}
+        }
+      },
       "WPF-UI/4.0.2": {
         "type": "package",
         "dependencies": {
@@ -980,6 +1002,29 @@
         "lib/netstandard2.1/CommunityToolkit.Mvvm.dll",
         "lib/netstandard2.1/CommunityToolkit.Mvvm.pdb",
         "lib/netstandard2.1/CommunityToolkit.Mvvm.xml"
+      ]
+    },
+    "JetBrains.Annotations/2025.2.1": {
+      "sha512": "63fHdqhM9JuFSithjKbbcEPf1BA76JyXgRqYO6paN9xcKeL6XvttjUUjrfiZ94v8aXn9+6U4pYSHIYAY+5qgFQ==",
+      "type": "package",
+      "path": "jetbrains.annotations/2025.2.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "icon.png",
+        "jetbrains.annotations.2025.2.1.nupkg.sha512",
+        "jetbrains.annotations.nuspec",
+        "lib/net20/JetBrains.Annotations.dll",
+        "lib/net20/JetBrains.Annotations.xml",
+        "lib/netstandard1.0/JetBrains.Annotations.deps.json",
+        "lib/netstandard1.0/JetBrains.Annotations.dll",
+        "lib/netstandard1.0/JetBrains.Annotations.xml",
+        "lib/netstandard2.0/JetBrains.Annotations.deps.json",
+        "lib/netstandard2.0/JetBrains.Annotations.dll",
+        "lib/netstandard2.0/JetBrains.Annotations.xml",
+        "lib/portable40-net40+sl5+win8+wp8+wpa81/JetBrains.Annotations.dll",
+        "lib/portable40-net40+sl5+win8+wp8+wpa81/JetBrains.Annotations.xml",
+        "readme.md"
       ]
     },
     "Microsoft.Extensions.Configuration/9.0.8": {
@@ -2213,6 +2258,23 @@
         "useSharedDesignerContext.txt"
       ]
     },
+    "Ude.NetStandard/1.2.0": {
+      "sha512": "zRWpPAxBg3lNdm4UiKixTe+DFPoNid9CILggTCy/0WR2WKETe17kTWhiiIpLB2k5IEgnvA0QLfKlvd6Tvu0pzA==",
+      "type": "package",
+      "path": "ude.netstandard/1.2.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "COPYING",
+        "lib/net35/Ude.NetStandard.dll",
+        "lib/net45/Ude.NetStandard.dll",
+        "lib/netstandard1.0/Ude.NetStandard.dll",
+        "lib/netstandard1.6/Ude.NetStandard.dll",
+        "lib/netstandard2.0/Ude.NetStandard.dll",
+        "ude.netstandard.1.2.0.nupkg.sha512",
+        "ude.netstandard.nuspec"
+      ]
+    },
     "WPF-UI/4.0.2": {
       "sha512": "BWyHaAhj2CtbhLEUMI16x3ZHWYyLhMfoq5r7+z5UfHl8hoyNJubrHrIY53n8qDML/DpTTbI8NTBrFw3NDKtglA==",
       "type": "package",
@@ -2472,6 +2534,7 @@
   "projectFileDependencyGroups": {
     "net8.0-windows7.0": [
       "CommunityToolkit.Mvvm >= 8.4.0",
+      "JetBrains.Annotations >= 2025.2.1",
       "Microsoft.Extensions.DependencyInjection >= 9.0.8",
       "Microsoft.Extensions.Hosting >= 9.0.8",
       "Newtonsoft.Json >= 13.0.3",
@@ -2479,6 +2542,7 @@
       "Serilog.Extensions.Logging >= 9.0.2",
       "Serilog.Sinks.Console >= 6.0.0",
       "Serilog.Sinks.File >= 7.0.0",
+      "Ude.NetStandard >= 1.2.0",
       "WPF-UI >= 4.0.2",
       "WPF-UI.DependencyInjection >= 4.0.2",
       "WPF-UI.Tray >= 4.0.2",
@@ -2490,7 +2554,7 @@
     "D:\\Microsoft Visual Studio 2022\\Shared\\NuGetPackages": {}
   },
   "project": {
-    "version": "0.2.0-beta1",
+    "version": "0.3.0-beta1",
     "restore": {
       "projectUniqueName": "D:\\SDSC_Creation\\Program\\C#\\Tools\\Tools.csproj",
       "projectName": "Tools",
@@ -2538,6 +2602,10 @@
             "target": "Package",
             "version": "[8.4.0, )"
           },
+          "JetBrains.Annotations": {
+            "target": "Package",
+            "version": "[2025.2.1, )"
+          },
           "Microsoft.Extensions.DependencyInjection": {
             "target": "Package",
             "version": "[9.0.8, )"
@@ -2565,6 +2633,10 @@
           "Serilog.Sinks.File": {
             "target": "Package",
             "version": "[7.0.0, )"
+          },
+          "Ude.NetStandard": {
+            "target": "Package",
+            "version": "[1.2.0, )"
           },
           "WPF-UI": {
             "target": "Package",

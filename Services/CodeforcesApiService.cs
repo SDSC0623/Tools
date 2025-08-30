@@ -173,6 +173,10 @@ public class CodeforcesApiService : ICodeforcesApiService {
             var onlineSet = new HashSet<string>(friendsResult[1]);
             var friends = new ObservableCollection<FriendModel>();
 
+            const double targetLoadMillSecond = 4000;
+            var needRemainSecond = Math.Min(200, (int)(targetLoadMillSecond / friendNames.Count));
+
+            await Task.Delay(200);
             for (var i = 0; i < friendNames.Count; i++) {
                 var friendName = friendNames[i];
 
@@ -183,8 +187,8 @@ public class CodeforcesApiService : ICodeforcesApiService {
                 friends.Add(new FriendModel().FromUser(friendsInfo[i]).SetOnlineStatus(onlineSet.Contains(friendName)));
 
                 var remainTime = (int)(DateTime.Now - startTime).TotalSeconds;
-                if (remainTime < 200) {
-                    await Task.Delay(200 - remainTime);
+                if (remainTime < needRemainSecond) {
+                    await Task.Delay(needRemainSecond - remainTime);
                 }
             }
 

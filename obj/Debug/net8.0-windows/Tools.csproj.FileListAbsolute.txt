@@ -102,7 +102,11 @@ D:\SDSC_Creation\Program\C#\Tools\obj\Debug\net8.0-windows\Views\Pages\Codeforce
 D:\SDSC_Creation\Program\C#\Tools\obj\Debug\net8.0-windows\Views\Windows\AboutWindow.g.cs
 D:\SDSC_Creation\Program\C#\Tools\obj\Debug\net8.0-windows\Views\Windows\AboutWindow.baml
 D:\SDSC_Creation\Program\C#\Tools\obj\Debug\net8.0-windows\Tools.sourcelink.json
-D:\SDSC_Creation\Program\C#\Tools\obj\Debug\net8.0-windows\Views\Pages\HideInBmpPage.g.cs
-D:\SDSC_Creation\Program\C#\Tools\obj\Debug\net8.0-windows\Views\Pages\HideInBmpPage.baml
-D:\SDSC_Creation\Program\C#\Tools\obj\Debug\net8.0-windows\Views\Pages\HideInBmpDialog\SettingProgressDialog.g.cs
-D:\SDSC_Creation\Program\C#\Tools\obj\Debug\net8.0-windows\Views\Pages\HideInBmpDialog\SettingProgressDialog.baml
+D:\SDSC_Creation\Program\C#\Tools\obj\Debug\net8.0-windows\Views\Pages\HideInBmp\HideInBmpPage.g.cs
+D:\SDSC_Creation\Program\C#\Tools\obj\Debug\net8.0-windows\Views\Pages\HideInBmp\SettingProgressDialog.g.cs
+D:\SDSC_Creation\Program\C#\Tools\obj\Debug\net8.0-windows\Views\Pages\HideInBmp\HideInBmpPage.baml
+D:\SDSC_Creation\Program\C#\Tools\obj\Debug\net8.0-windows\Views\Pages\HideInBmp\SettingProgressDialog.baml
+D:\SDSC_Creation\Program\C#\Tools\obj\Debug\net8.0-windows\Views\Pages\Base64Tool\Base64ToolPage.g.cs
+D:\SDSC_Creation\Program\C#\Tools\obj\Debug\net8.0-windows\Views\Pages\Base64Tool\Base64ToolPage.baml
+D:\SDSC_Creation\Program\C#\Tools\bin\Debug\net8.0-windows\Ude.NetStandard.dll
+D:\SDSC_Creation\Program\C#\Tools\bin\Debug\net8.0-windows\JetBrains.Annotations.dll

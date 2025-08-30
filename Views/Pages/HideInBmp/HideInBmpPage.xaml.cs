@@ -7,7 +7,7 @@ using System.Windows.Controls;
 using Tools.Attributes;
 using Tools.ViewModel.HideInBmpPage;
 
-namespace Tools.Views.Pages;
+namespace Tools.Views.Pages.HideInBmp;
 
 [Description("Bmp图片隐写")]
 [AvailbleStartPage(2)]

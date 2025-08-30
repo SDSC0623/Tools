@@ -15,12 +15,14 @@ using Tools.Services.IServices;
 using Tools.Views;
 using Tools.Views.Pages;
 using Tools.Views.Pages.CodeforcesInfo;
+using Tools.Views.Pages.HideInBmp;
 using Tools.ViewModel;
+using Tools.ViewModel.Base64ToolPage;
 using Tools.ViewModel.HomePage;
 using Tools.ViewModel.SettingPage;
 using Tools.ViewModel.CodeforcesInfoPage;
 using Tools.ViewModel.HideInBmpPage;
-using Tools.Views.Pages.HideInBmpDialog;
+using Tools.Views.Pages.Base64Tool;
 using Tools.Views.Windows;
 using Wpf.Ui;
 using Wpf.Ui.DependencyInjection;
@@ -61,6 +63,7 @@ public partial class App : Application {
             services.AddSingleton<ICodeforcesApiService, CodeforcesApiService>();
             services.AddSingleton<IPreferencesService, JsonPreferencesService>();
             services.AddSingleton<IBmpSteganographyService, BmpSteganographyService>();
+            services.AddSingleton<IContentDialogService, ContentDialogService>();
 
             // 特殊服务
             services.AddSingleton<SnackbarServiceHelper>(); // 弹窗服务
@@ -84,6 +87,9 @@ public partial class App : Application {
             // Bmp隐写
             services.AddSingleton<HideInBmpViewModel>();
             services.AddSingleton<HideInBmpPage>();
+            // Base64编解码工具
+            services.AddSingleton<Base64ToolViewModel>();
+            services.AddSingleton<Base64ToolPage>();
             // 问询对话框
             services.AddTransient<UserInfoSettingDialogViewModel>();
             services.AddTransient<UserInfoSettingDialog>();
@@ -104,11 +110,11 @@ public partial class App : Application {
         try {
             base.OnStartup(e);
             await Host.StartAsync();
+            _logger = GetService<Serilog.ILogger>()!;
 
             var mainWindow = GetService<MainWindow>()!;
             mainWindow.Show();
 
-            _logger = GetService<Serilog.ILogger>()!;
             GetService<AppRunningHelper>()!.StartApp();
         } catch (Exception ex) {
             _logger.Error("启动时发生错误: {ExMessage}", ex.Message);

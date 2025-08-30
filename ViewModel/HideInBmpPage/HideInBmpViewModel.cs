@@ -10,35 +10,38 @@ using Microsoft.Win32;
 using Tools.Models;
 using Tools.Services;
 using Tools.Services.IServices;
-using Tools.Views.Pages.HideInBmpDialog;
+using Tools.Views.Pages.HideInBmp;
 
 namespace Tools.ViewModel.HideInBmpPage;
 
 public partial class HideInBmpViewModel : ObservableObject {
     public static string HideInBmpPageTitle => "Bmp图片隐写";
 
+    // Bmp图片
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(StartHideCommand))]
     [NotifyCanExecuteChangedFor(nameof(VerifyCommand))]
     [NotifyCanExecuteChangedFor(nameof(StartExtractCommand))]
-    private string _bmpPath = string.Empty;
+    private string _bmpPath = string.Empty; //Bmp图片路径
 
     [ObservableProperty] private long _bmpSize; //Bmp图片大小
 
 
+    // 隐藏文件
     [ObservableProperty] [NotifyCanExecuteChangedFor(nameof(StartHideCommand))]
-    private string _fileToHidePath = string.Empty;
+    private string _fileToHidePath = string.Empty; //隐藏文件路径
 
     [ObservableProperty] private long _fileToHideSize; //隐藏图片大小
-
     [ObservableProperty] private long _maxHideSize; //最大隐藏图片大小
 
+    // 输出文件夹
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(StartHideCommand))]
     [NotifyCanExecuteChangedFor(nameof(StartExtractCommand))]
     private string _outputFolderPath = string.Empty; //输出文件夹路径
 
-    [ObservableProperty] private string _outputBmpPath = string.Empty; //输出图片路径
+    // 输出图片路径(预览)
+    [ObservableProperty] private string _outputBmpPath = string.Empty;
 
     // 百分比模式隐写进度
     [ObservableProperty] private double _hideOrVerifyOrExtractProgress;
@@ -46,9 +49,10 @@ public partial class HideInBmpViewModel : ObservableObject {
     // 文字模式隐写进度
     [ObservableProperty] private string _hideOrVerifyOrExtractText = "尚未进行操作";
 
-    // 正在执行操作
+    // 不在执行操作
     [ObservableProperty] private bool _notExecuting = true;
 
+    // 进度模式
     [ObservableProperty] private bool _isPercentMode = true;
     [ObservableProperty] private bool _isTextMode;
 
@@ -73,8 +77,7 @@ public partial class HideInBmpViewModel : ObservableObject {
         HideOrVerifyOrExtractProgress = 0;
         HideOrVerifyOrExtractText = "尚未进行操作";
         var newMode = _preferencesService.Get<ShowProgressMode>("ShowProgressMode");
-        IsPercentMode = newMode == ShowProgressMode.Percent;
-        IsTextMode = newMode == ShowProgressMode.Text;
+        UpdateMode(newMode);
     }
 
     [RelayCommand]
@@ -89,9 +92,13 @@ public partial class HideInBmpViewModel : ObservableObject {
                 return;
             }
 
-            IsPercentMode = newMode == ShowProgressMode.Percent;
-            IsTextMode = newMode == ShowProgressMode.Text;
+            UpdateMode(newMode);
         }
+    }
+
+    private void UpdateMode(ShowProgressMode newMode) {
+        IsPercentMode = newMode == ShowProgressMode.Percent;
+        IsTextMode = newMode == ShowProgressMode.Text;
     }
 
     [RelayCommand]
@@ -107,7 +114,7 @@ public partial class HideInBmpViewModel : ObservableObject {
         }
 
         if (!CheckFile(openBmpDialog.FileName)) {
-            _snackbarService.ShowError("选择文件错误", "文件不存在");
+            _snackbarService.ShowWarning("选择文件错误", "文件不存在");
             return;
         }
 
@@ -117,7 +124,7 @@ public partial class HideInBmpViewModel : ObservableObject {
     async partial void OnBmpPathChanged(string value) {
         try {
             if (!CheckFile(value)) {
-                _snackbarService.ShowError("选择文件错误", "文件不存在");
+                _snackbarService.ShowWarning("选择文件错误", "文件不存在");
                 return;
             }
 
@@ -141,7 +148,7 @@ public partial class HideInBmpViewModel : ObservableObject {
         }
 
         if (!CheckFile(openFileDialog.FileName)) {
-            _snackbarService.ShowError("选择文件错误", "文件不存在");
+            _snackbarService.ShowWarning("选择文件错误", "文件不存在");
             return;
         }
 
@@ -150,7 +157,7 @@ public partial class HideInBmpViewModel : ObservableObject {
 
     partial void OnFileToHidePathChanged(string value) {
         if (!CheckFile(value)) {
-            _snackbarService.ShowError("选择文件错误", "文件不存在");
+            _snackbarService.ShowWarning("选择文件错误", "文件不存在");
             return;
         }
 
@@ -172,7 +179,7 @@ public partial class HideInBmpViewModel : ObservableObject {
         }
 
         if (!CheckDirectory(openFolderDialog.FolderName)) {
-            _snackbarService.ShowError("选择文件夹错误", "文件夹不存在");
+            _snackbarService.ShowWarning("选择文件夹错误", "文件夹不存在");
             return;
         }
 
@@ -181,7 +188,7 @@ public partial class HideInBmpViewModel : ObservableObject {
 
     partial void OnOutputFolderPathChanged(string value) {
         if (!CheckDirectory(value)) {
-            _snackbarService.ShowError("选择文件夹错误", "文件夹不存在");
+            _snackbarService.ShowWarning("选择文件夹错误", "文件夹不存在");
         }
     }
 
@@ -197,6 +204,7 @@ public partial class HideInBmpViewModel : ObservableObject {
         }
 
         NotExecuting = false;
+        OutputBmpPath = string.Empty;
 
         try {
             await _bmpSteganographyService.Hide(BmpPath, FileToHidePath, OutputFolderPath,
@@ -217,6 +225,7 @@ public partial class HideInBmpViewModel : ObservableObject {
     [RelayCommand(CanExecute = nameof(CanVerify))]
     private async Task Verify() {
         NotExecuting = false;
+        OutputBmpPath = string.Empty;
         try {
             var result =
                 await _bmpSteganographyService.Verify(BmpPath,
@@ -241,6 +250,7 @@ public partial class HideInBmpViewModel : ObservableObject {
     [RelayCommand(CanExecute = nameof(CanStartExtract))]
     private async Task StartExtract() {
         NotExecuting = false;
+        OutputBmpPath = string.Empty;
         try {
             await _bmpSteganographyService.Extract(BmpPath, OutputFolderPath,
                 IsPercentMode ? progressPercent => { HideOrVerifyOrExtractProgress = progressPercent; } : null,

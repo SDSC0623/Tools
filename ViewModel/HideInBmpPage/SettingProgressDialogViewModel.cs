@@ -8,7 +8,7 @@ using Tools.Helpers;
 using Tools.Models;
 using Tools.Services;
 using Tools.Services.IServices;
-using Tools.Views.Pages.HideInBmpDialog;
+using Tools.Views.Pages.HideInBmp;
 
 namespace Tools.ViewModel.HideInBmpPage;
 

@@ -63,7 +63,8 @@
 
         <!-- 按钮区域 -->
         <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right">
-            <ui:Button Content="关闭" Appearance="Primary" Click="CloseButton_Click" />
+            <ui:Button Content="关闭" Appearance="Primary" Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                       Click="CloseButton_Click" />
         </StackPanel>
     </Grid>
 </ui:FluentWindow>

@@ -5,7 +5,7 @@
   },
   "projects": {
     "D:\\SDSC_Creation\\Program\\C#\\Tools\\Tools.csproj": {
-      "version": "0.2.0-beta1",
+      "version": "0.3.0-beta1",
       "restore": {
         "projectUniqueName": "D:\\SDSC_Creation\\Program\\C#\\Tools\\Tools.csproj",
         "projectName": "Tools",
@@ -53,6 +53,10 @@
               "target": "Package",
               "version": "[8.4.0, )"
             },
+            "JetBrains.Annotations": {
+              "target": "Package",
+              "version": "[2025.2.1, )"
+            },
             "Microsoft.Extensions.DependencyInjection": {
               "target": "Package",
               "version": "[9.0.8, )"
@@ -80,6 +84,10 @@
             "Serilog.Sinks.File": {
               "target": "Package",
               "version": "[7.0.0, )"
+            },
+            "Ude.NetStandard": {
+              "target": "Package",
+              "version": "[1.2.0, )"
             },
             "WPF-UI": {
               "target": "Package",

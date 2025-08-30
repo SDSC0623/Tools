@@ -6,13 +6,15 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <UseWPF>true</UseWPF>
-        <Version>0.2.1-beta1</Version>
+        <Version>0.3.0-beta1</Version>
         <AssemblyName>Tools</AssemblyName>
         <RootNamespace>Tools</RootNamespace>
+        <ApplicationIcon>Assets\Icons\sd_icon.ico</ApplicationIcon>
     </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0"/>
+        <PackageReference Include="JetBrains.Annotations" Version="2025.2.1"/>
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.8"/>
         <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.8"/>
         <PackageReference Include="Newtonsoft.Json" Version="13.0.3"/>
@@ -20,6 +22,7 @@
         <PackageReference Include="Serilog.Extensions.Logging" Version="9.0.2"/>
         <PackageReference Include="Serilog.Sinks.Console" Version="6.0.0"/>
         <PackageReference Include="Serilog.Sinks.File" Version="7.0.0"/>
+        <PackageReference Include="Ude.NetStandard" Version="1.2.0"/>
         <PackageReference Include="WPF-UI" Version="4.0.2"/>
         <PackageReference Include="WPF-UI.DependencyInjection" Version="4.0.2"/>
         <PackageReference Include="WPF-UI.Tray" Version="4.0.2"/>
@@ -33,6 +36,8 @@
         <Resource Include="Assets\Icons\sd_icon.png"/>
         <None Remove="Assets\Icons\sd_icon.ico"/>
         <Resource Include="Assets\Icons\sd_icon.ico"/>
+        <None Remove="Assets\Images\Base64Icon.png"/>
+        <Resource Include="Assets\Images\Base64Icon.png"/>
     </ItemGroup>
 
     <ItemGroup>
@@ -64,6 +69,11 @@
             <Generator>MSBuild:Compile</Generator>
         </Page>
         <Page Update="Views\Pages\CodeforcesInfo\CodeforcesInfoPage.xaml">
+            <Generator>MSBuild:Compile</Generator>
+            <XamlRuntime>Wpf</XamlRuntime>
+            <SubType>Designer</SubType>
+        </Page>
+        <Page Update="Views\Pages\HideInBmpPage\HideInBmpPage.xaml">
             <Generator>MSBuild:Compile</Generator>
             <XamlRuntime>Wpf</XamlRuntime>
             <SubType>Designer</SubType>

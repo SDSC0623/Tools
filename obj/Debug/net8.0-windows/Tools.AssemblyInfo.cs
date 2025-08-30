@@ -12,11 +12,11 @@ using System.Reflection;
 
 [assembly: System.Reflection.AssemblyCompanyAttribute("Tools")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
-[assembly: System.Reflection.AssemblyFileVersionAttribute("0.2.1.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("0.2.1-beta1+38e26d0740ef676efb18bdb3cae9dec13baa5bb0")]
+[assembly: System.Reflection.AssemblyFileVersionAttribute("0.3.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("0.3.0-beta1+63aeaf11e3c9690923aae8326e38990c74dbc2ae")]
 [assembly: System.Reflection.AssemblyProductAttribute("Tools")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Tools")]
-[assembly: System.Reflection.AssemblyVersionAttribute("0.2.1.0")]
+[assembly: System.Reflection.AssemblyVersionAttribute("0.3.0.0")]
 [assembly: System.Runtime.Versioning.TargetPlatformAttribute("Windows7.0")]
 [assembly: System.Runtime.Versioning.SupportedOSPlatformAttribute("Windows7.0")]
 

@@ -5,7 +5,7 @@
 using Tools.ViewModel.HideInBmpPage;
 using Wpf.Ui.Controls;
 
-namespace Tools.Views.Pages.HideInBmpDialog;
+namespace Tools.Views.Pages.HideInBmp;
 
 public partial class SettingProgressDialog : FluentWindow {
     public SettingProgressDialog(SettingProgressDialogViewModel viewModel) {

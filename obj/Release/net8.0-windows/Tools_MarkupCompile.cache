@@ -10,11 +10,11 @@ none
 false
 TRACE;RELEASE;NET;NET8_0;NETCOREAPP
 D:\SDSC_Creation\Program\C#\Tools\App.xaml
-11179993971
+14925004600
 
-35-1249312517
-2391255474785
-Controls\ErrorBox.xaml;Controls\LoadingBox.xaml;Views\MainWindow.xaml;Views\Pages\CodeforcesInfo\CodeforcesInfoPage.xaml;Views\Pages\CodeforcesInfo\ContestListView.xaml;Views\Pages\CodeforcesInfo\ContestsLoadSettingDialog.xaml;Views\Pages\CodeforcesInfo\UserInfoSettingDialog.xaml;Views\Pages\CodeforcesInfo\UserInfoView.xaml;Views\Pages\HomePage.xaml;Views\Pages\SettingPage.xaml;Views\Windows\AboutWindow.xaml;
+47-912365698
+2411871682773
+Controls\ErrorBox.xaml;Controls\LoadingBox.xaml;Views\MainWindow.xaml;Views\Pages\Base64Tool\Base64ToolPage.xaml;Views\Pages\CodeforcesInfo\CodeforcesInfoPage.xaml;Views\Pages\CodeforcesInfo\ContestListView.xaml;Views\Pages\CodeforcesInfo\ContestsLoadSettingDialog.xaml;Views\Pages\CodeforcesInfo\UserInfoSettingDialog.xaml;Views\Pages\CodeforcesInfo\UserInfoView.xaml;Views\Pages\HideInBmp\HideInBmpPage.xaml;Views\Pages\HideInBmp\SettingProgressDialog.xaml;Views\Pages\HomePage.xaml;Views\Pages\SettingPage.xaml;Views\Windows\AboutWindow.xaml;
 
-False
+True
 

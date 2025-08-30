@@ -9,6 +9,8 @@
                  xmlns:extensions="clr-namespace:Tools.Extensions"
                  xmlns:pages="clr-namespace:Tools.Views.Pages"
                  xmlns:codeforcesInfo="clr-namespace:Tools.Views.Pages.CodeforcesInfo"
+                 xmlns:hideInBmp="clr-namespace:Tools.Views.Pages.HideInBmp"
+                 xmlns:base64Tool="clr-namespace:Tools.Views.Pages.Base64Tool"
                  ExtendsContentIntoTitleBar="True"
                  mc:Ignorable="d"
                  d:DataContext="{d:DesignInstance Type=viewModel:MainWindowViewModel}"
@@ -76,9 +78,18 @@
                 <!-- Bmp图片隐写工具 -->
                 <ui:NavigationViewItem Content="Bmp图片隐写工具"
                                        NavigationCacheMode="Enabled"
-                                       TargetPageType="{x:Type pages:HideInBmpPage}">
+                                       TargetPageType="{x:Type hideInBmp:HideInBmpPage}">
                     <ui:NavigationViewItem.Icon>
                         <ui:SymbolIcon Symbol="ImageAltText20" Filled="True" Height="20" Width="20" />
+                    </ui:NavigationViewItem.Icon>
+                </ui:NavigationViewItem>
+
+                <!-- Base64编解码工具 -->
+                <ui:NavigationViewItem Content="Base64编解码工具"
+                                       NavigationCacheMode="Enabled"
+                                       TargetPageType="{x:Type base64Tool:Base64ToolPage}">
+                    <ui:NavigationViewItem.Icon>
+                        <ui:ImageIcon Source="/Assets/Images/Base64Icon.png" Height="20" Width="20" />
                     </ui:NavigationViewItem.Icon>
                 </ui:NavigationViewItem>
             </ui:NavigationView.MenuItems>
@@ -94,6 +105,8 @@
                 </Grid>
             </ui:NavigationView.ContentOverlay>
         </ui:NavigationView>
+
+        <ContentPresenter x:Name="RootContentDialog" Grid.Row="1" Grid.Column="0" />
 
         <tray:NotifyIcon Grid.Column="0" Grid.Row="0"
                          FocusOnLeftClick="False"
