@@ -9,7 +9,7 @@ using System.Reflection;
 
 namespace Tools.Helpers;
 
-public static class GlobleSettings {
+public static class GlobalSettings {
     public const bool IsDebug =
 #if DEBUG
         true;

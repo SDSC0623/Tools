@@ -9,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Serilog;
 using Serilog.Events;
+using Serilog.Sinks.RichTextBox.Abstraction;
 using Tools.Helpers;
 using Tools.Services;
 using Tools.Services.IServices;
@@ -37,7 +38,7 @@ public partial class App : Application {
         .ConfigureLogging(logging => { logging.ClearProviders(); })
         .ConfigureServices((_, services) => {
             // 日志
-            var logFile = Path.Combine(GlobleSettings.LogDirectory, "log.txt");
+            var logFile = Path.Combine(GlobalSettings.LogDirectory, "log.txt");
             var loggerConfiguration = new LoggerConfiguration()
                 .WriteTo.File(logFile,
                     outputTemplate:
@@ -49,6 +50,11 @@ public partial class App : Application {
                 .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
                 .MinimumLevel.Override("Microsoft.Hosting.Lifetime", LogEventLevel.Warning);
 
+            var richTextBox = new RichTextBoxImpl();
+            services.AddSingleton<IRichTextBox>(richTextBox);
+
+            loggerConfiguration.WriteTo.RichTextBox(richTextBox, LogEventLevel.Information);
+            // OutputTemplate "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj}{NewLine}{Exception}"
 
             Log.Logger = loggerConfiguration.CreateLogger();
             services.AddLogging(c => c.AddSerilog());
@@ -114,6 +120,8 @@ public partial class App : Application {
 
             var mainWindow = GetService<MainWindow>()!;
             mainWindow.Show();
+
+            GetService<INavigationService>()!.Navigate(typeof(SettingPage));
 
             GetService<AppRunningHelper>()!.StartApp();
         } catch (Exception ex) {

@@ -15,7 +15,7 @@ public class PreferencesException(string message) : Exception(message);
 
 public class JsonPreferencesService : IPreferencesService {
     // 配置文件储存路径
-    private static readonly string PrefsFilePath = Path.Combine(GlobleSettings.AppDataDirectory, "Preferences.json");
+    private static readonly string PrefsFilePath = Path.Combine(GlobalSettings.AppDataDirectory, "Preferences.json");
 
     // 配置信息字典
     private static readonly Dictionary<string, object?> Preferences = new();

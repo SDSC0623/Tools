@@ -110,3 +110,5 @@ D:\SDSC_Creation\Program\C#\Tools\obj\Debug\net8.0-windows\Views\Pages\Base64Too
 D:\SDSC_Creation\Program\C#\Tools\obj\Debug\net8.0-windows\Views\Pages\Base64Tool\Base64ToolPage.baml
 D:\SDSC_Creation\Program\C#\Tools\bin\Debug\net8.0-windows\Ude.NetStandard.dll
 D:\SDSC_Creation\Program\C#\Tools\bin\Debug\net8.0-windows\JetBrains.Annotations.dll
+D:\SDSC_Creation\Program\C#\Tools\bin\Debug\net8.0-windows\Microsoft.Xaml.Behaviors.dll
+D:\SDSC_Creation\Program\C#\Tools\bin\Debug\net8.0-windows\Serilog.Sinks.RichTextBoxEx.Wpf.dll

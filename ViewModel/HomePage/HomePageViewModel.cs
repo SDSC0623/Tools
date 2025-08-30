@@ -10,7 +10,7 @@ using Tools.Models;
 namespace Tools.ViewModel.HomePage;
 
 public partial class HomePageViewModel : ObservableObject {
-    public static string HomePageTitle => $"主页 v{GlobleSettings.Version}";
+    public static string HomePageTitle => $"主页 v{GlobalSettings.Version}";
 
     public static string HomePageDescription => "欢迎使用\"各种工具\"，本软件是一个集成了多种实用工具的应用程序。";
 

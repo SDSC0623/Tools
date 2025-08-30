@@ -6,6 +6,8 @@
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
       xmlns:converters="clr-namespace:Tools.Converters"
       xmlns:viewModel="clr-namespace:Tools.ViewModel.HideInBmpPage"
+      xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+      xmlns:behaviors="clr-namespace:Tools.Behaviors"
       mc:Ignorable="d"
       d:DesignHeight="550"
       d:DesignWidth="692"
@@ -95,7 +97,11 @@
             <!-- 隐藏/提取目标Bmp文件 -->
             <GroupBox Grid.Row="0" Grid.Column="0" Header="隐藏/提取目标目标文件(仅限BMP图片)"
                       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-                      Margin="0,0,5,0">
+                      Margin="0,0,5,0" Background="Transparent">
+                <b:Interaction.Behaviors>
+                    <behaviors:DropFileOrFolderBehavior FilePath="{Binding BmpPath, Mode=OneWayToSource}"
+                                                        OnlyBmp="True" />
+                </b:Interaction.Behaviors>
                 <StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
                         <ui:TextBlock Text="原始文件大小：" Foreground="{DynamicResource TextFillColorPrimaryBrush}"
@@ -110,6 +116,7 @@
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
+
                         <ui:TextBox Grid.Column="0" Text="{Binding BmpPath}"
                                     ClearButtonEnabled="False"
                                     Foreground="{DynamicResource TextFillColorPrimaryBrush}" Margin="5" />
@@ -121,7 +128,10 @@
             <!-- 隐藏文件 -->
             <GroupBox Grid.Row="1" Grid.Column="0" Header="隐藏文件"
                       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-                      Margin="0,0,5,0">
+                      Margin="0,0,5,0" Background="Transparent">
+                <b:Interaction.Behaviors>
+                    <behaviors:DropFileOrFolderBehavior FilePath="{Binding FileToHidePath, Mode=OneWayToSource}" />
+                </b:Interaction.Behaviors>
                 <StackPanel>
                     <Grid>
                         <Grid.RowDefinitions>
@@ -153,9 +163,10 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         <ui:TextBox Grid.Column="0" Text="{Binding FileToHidePath}" ClearButtonEnabled="False"
-                                    Foreground="{DynamicResource TextFillColorPrimaryBrush}" Margin="5" />
+                                    Foreground="{DynamicResource TextFillColorPrimaryBrush}" Margin="5"
+                                    AllowDrop="True" />
                         <ui:Button Grid.Column="1" Content="浏览" Command="{Binding SelectFileToHidePathCommand}"
-                                   Margin="5" />
+                                   Margin="5" AllowDrop="True" />
                     </Grid>
                 </StackPanel>
             </GroupBox>
@@ -163,7 +174,11 @@
             <!-- 输出文件夹 -->
             <GroupBox Grid.Row="0" Grid.Column="1" Header="输出文件夹"
                       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-                      Margin="5,0,0,0">
+                      Margin="5,0,0,0" Background="Transparent">
+                <b:Interaction.Behaviors>
+                    <behaviors:DropFileOrFolderBehavior FilePath="{Binding OutputFolderPath, Mode=OneWayToSource}"
+                                                        IsFolder="True" />
+                </b:Interaction.Behaviors>
                 <StackPanel VerticalAlignment="Center">
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -201,9 +216,12 @@
 
         <!-- 操作按钮 -->
         <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5">
-            <ui:Button Content="隐写" Command="{Binding StartHideCommand}" IsEnabled="{Binding NotExecuting}" Margin="5" Width="80" />
-            <ui:Button Content="校验" Command="{Binding VerifyCommand}" IsEnabled="{Binding NotExecuting}" Margin="5" Width="80" />
-            <ui:Button Content="提取" Command="{Binding StartExtractCommand}" IsEnabled="{Binding NotExecuting}" Margin="5" Width="80" />
+            <ui:Button Content="隐写" Command="{Binding StartHideCommand}" IsEnabled="{Binding NotExecuting}" Margin="5"
+                       Width="80" />
+            <ui:Button Content="校验" Command="{Binding VerifyCommand}" IsEnabled="{Binding NotExecuting}" Margin="5"
+                       Width="80" />
+            <ui:Button Content="提取" Command="{Binding StartExtractCommand}" IsEnabled="{Binding NotExecuting}"
+                       Margin="5" Width="80" />
         </StackPanel>
     </Grid>
 </Page>

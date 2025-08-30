@@ -9,7 +9,7 @@ using Wpf.Ui.Controls;
 namespace Tools.Views.Windows;
 
 public partial class AboutWindow : FluentWindow {
-    public string Version => GlobleSettings.Version;
+    public string Version => GlobalSettings.Version;
 
     public AboutWindow() {
         InitializeComponent();

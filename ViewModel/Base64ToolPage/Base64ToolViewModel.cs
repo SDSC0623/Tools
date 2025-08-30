@@ -49,6 +49,16 @@ public partial class Base64ToolViewModel : ObservableObject {
     }
 
     [RelayCommand]
+    private void PasteInput() {
+        try {
+            InputText = Clipboard.GetText();
+        } catch (Exception e) {
+            _logger.Error("获取剪贴板内容时发生错误，错误: {Message}", e.Message);
+            _snackbarService.ShowError("获取剪贴板内容时发生错误", e.Message);
+        }
+    }
+
+    [RelayCommand]
     private async Task ClearInput() {
         try {
             var result = await _contentDialogService.ShowSimpleDialogAsync(

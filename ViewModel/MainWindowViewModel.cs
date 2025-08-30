@@ -11,7 +11,7 @@ using Tools.Helpers;
 namespace Tools.ViewModel;
 
 public partial class MainWindowViewModel : ObservableObject {
-    public string Title => $"各种工具{(GlobleSettings.IsDebug ? " · Dev" : string.Empty)}";
+    public string Title => $"各种工具{(GlobalSettings.IsDebug ? " · Dev" : string.Empty)}";
 
     // App运行辅助
     private readonly AppRunningHelper _appRunningHelper;

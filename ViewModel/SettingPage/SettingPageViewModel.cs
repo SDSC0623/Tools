@@ -4,12 +4,15 @@
 
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Reflection;
 using System.Windows.Controls;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Serilog;
+using Serilog.Sinks.RichTextBox.Abstraction;
 using Tools.Attributes;
+using Tools.Helpers;
 using Tools.Models;
 using Tools.Services;
 using Tools.Services.IServices;
@@ -84,5 +87,13 @@ public partial class SettingPageViewModel : ObservableObject {
         var aboutWindow = App.GetService<AboutWindow>()!;
         aboutWindow.Owner = App.Current.MainWindow;
         aboutWindow.ShowDialog();
+    }
+
+    [RelayCommand]
+    private void OpenLogFolder() {
+        Process.Start(new ProcessStartInfo {
+            FileName = GlobalSettings.LogDirectory,
+            UseShellExecute = true
+        });
     }
 }

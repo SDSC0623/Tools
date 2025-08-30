@@ -12,11 +12,13 @@
           "JetBrains.Annotations": "2025.2.1",
           "Microsoft.Extensions.DependencyInjection": "9.0.8",
           "Microsoft.Extensions.Hosting": "9.0.8",
+          "Microsoft.Xaml.Behaviors.Wpf": "1.1.135",
           "Newtonsoft.Json": "13.0.3",
           "Serilog": "4.3.0",
           "Serilog.Extensions.Logging": "9.0.2",
           "Serilog.Sinks.Console": "6.0.0",
           "Serilog.Sinks.File": "7.0.0",
+          "Serilog.Sinks.RichTextBoxEx.Wpf": "1.1.0.1",
           "Ude.NetStandard": "1.2.0",
           "WPF-UI": "4.0.2",
           "WPF-UI.DependencyInjection": "4.0.2",
@@ -423,6 +425,14 @@
           }
         }
       },
+      "Microsoft.Xaml.Behaviors.Wpf/1.1.135": {
+        "runtime": {
+          "lib/net6.0-windows7.0/Microsoft.Xaml.Behaviors.dll": {
+            "assemblyVersion": "1.1.0.0",
+            "fileVersion": "1.1.135.29210"
+          }
+        }
+      },
       "Newtonsoft.Json/13.0.3": {
         "runtime": {
           "lib/net6.0/Newtonsoft.Json.dll": {
@@ -470,6 +480,17 @@
           "lib/net8.0/Serilog.Sinks.File.dll": {
             "assemblyVersion": "7.0.0.0",
             "fileVersion": "7.0.0.0"
+          }
+        }
+      },
+      "Serilog.Sinks.RichTextBoxEx.Wpf/1.1.0.1": {
+        "dependencies": {
+          "Serilog": "4.3.0"
+        },
+        "runtime": {
+          "lib/net8.0-windows7.0/Serilog.Sinks.RichTextBoxEx.Wpf.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
           }
         }
       },
@@ -863,6 +884,13 @@
       "path": "microsoft.win32.systemevents/9.0.1",
       "hashPath": "microsoft.win32.systemevents.9.0.1.nupkg.sha512"
     },
+    "Microsoft.Xaml.Behaviors.Wpf/1.1.135": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-r8qBEXmQfORso2+MVHnt8PSH4761zJ0SIxgQTSEDVLU97EN2FZdG6/ZCYUPhQy+OrPKgnpYBCAs3PS6Bs7wRsg==",
+      "path": "microsoft.xaml.behaviors.wpf/1.1.135",
+      "hashPath": "microsoft.xaml.behaviors.wpf.1.1.135.nupkg.sha512"
+    },
     "Newtonsoft.Json/13.0.3": {
       "type": "package",
       "serviceable": true,
@@ -897,6 +925,13 @@
       "sha512": "sha512-fKL7mXv7qaiNBUC71ssvn/dU0k9t0o45+qm2XgKAlSt19xF+ijjxyA3R6HmCgfKEKwfcfkwWjayuQtRueZFkYw==",
       "path": "serilog.sinks.file/7.0.0",
       "hashPath": "serilog.sinks.file.7.0.0.nupkg.sha512"
+    },
+    "Serilog.Sinks.RichTextBoxEx.Wpf/1.1.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-5Vc1A+CNNQtzwzkuDci5vBMW7E3WuMw6XbkSYh/wpY9BE7NV96yfo80pLYVhUhQE39RCTH695A3o2yk4TLkiiQ==",
+      "path": "serilog.sinks.richtextboxex.wpf/1.1.0.1",
+      "hashPath": "serilog.sinks.richtextboxex.wpf.1.1.0.1.nupkg.sha512"
     },
     "System.Diagnostics.DiagnosticSource/9.0.8": {
       "type": "package",

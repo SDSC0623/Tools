@@ -9,6 +9,8 @@ using Tools.Services;
 using Tools.Services.IServices;
 using Wpf.Ui;
 
+// ReSharper disable ConvertToPrimaryConstructor
+
 namespace Tools.Helpers;
 
 public class AppRunningHelper {
@@ -30,17 +32,13 @@ public class AppRunningHelper {
         _logger = logger;
         _preferencesService = preferencesService;
         _snackbarService = snackbarService;
-        Init();
-    }
-
-    private void Init() {
-        _logger.Information("程序启动完成，详细版本: [{FullVersion}]", GlobleSettings.FullVersion);
     }
 
     public void StartApp() {
         try {
             var targetPage = _preferencesService.Get("StartPage", typeof(HomePage))!;
             _navigationService.Navigate(targetPage);
+            _logger.Information("程序启动完成，详细版本: [{FullVersion}]", GlobalSettings.FullVersion);
         } catch (PreferencesException ex) {
             _navigationService.Navigate(typeof(HomePage));
             _preferencesService.Set("StartPage", typeof(HomePage));

@@ -12,7 +12,7 @@
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       d:DataContext="{d:DesignInstance Type=viewModel:SettingPageViewModel}"
       Title="SettingPage">
-    <StackPanel Margin="42,16,42,12">
+    <StackPanel Margin="42,16">
         <!-- 启动页面选项 -->
         <ui:CardControl Margin="0,0,0,12" Icon="{ui:SymbolIcon Window24}">
             <ui:CardControl.Header>
@@ -70,5 +70,40 @@
                        Command="{Binding OpenAboutWindowCommand}"
                        Content="查看" />
         </ui:CardControl>
+        <!-- 软件日志 -->
+        <ui:CardExpander>
+            <ui:CardExpander.Header>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <ui:TextBlock Grid.Row="0"
+                                  Grid.Column="0"
+                                  FontTypography="Body"
+                                  Text="软件日志"
+                                  TextWrapping="Wrap" />
+                    <ui:TextBlock Grid.Row="1"
+                                  Grid.Column="0"
+                                  Foreground="{ui:ThemeResource TextFillColorTertiaryBrush}"
+                                  Text="查看本软件的日志(与Log文件夹下的文件一致)"
+                                  TextWrapping="Wrap" />
+                    <ui:Button Grid.Row="0"
+                               Grid.RowSpan="2"
+                               Grid.Column="1"
+                               Margin="0,0,20,0"
+                               Command="{Binding OpenLogFolderCommand}"
+                               Content="打开日志文件夹" />
+                </Grid>
+            </ui:CardExpander.Header>
+            <Grid>
+                <ui:RichTextBox x:Name="LogTextBox" MaxHeight="600" Margin="0,0,0,12" Padding="0,5,0,0" FontSize="11"
+                                Foreground="{ui:ThemeResource TextFillColorTertiaryBrush}" IsReadOnly="True" />
+            </Grid>
+        </ui:CardExpander>
     </StackPanel>
 </Page>

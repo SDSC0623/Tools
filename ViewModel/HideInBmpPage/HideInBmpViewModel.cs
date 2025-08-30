@@ -123,13 +123,18 @@ public partial class HideInBmpViewModel : ObservableObject {
 
     async partial void OnBmpPathChanged(string value) {
         try {
-            if (!CheckFile(value)) {
-                _snackbarService.ShowWarning("选择文件错误", "文件不存在");
-                return;
-            }
+            if (!string.IsNullOrEmpty(value)) {
+                if (!CheckFile(value)) {
+                    _snackbarService.ShowWarning("选择文件错误", "文件不存在");
+                    return;
+                }
 
-            BmpSize = new FileInfo(value).Length;
-            MaxHideSize = await _bmpSteganographyService.GetMaxHideSize(value);
+                BmpSize = new FileInfo(value).Length;
+                MaxHideSize = await _bmpSteganographyService.GetMaxHideSize(value);
+            } else {
+                BmpSize = 0;
+                MaxHideSize = 0;
+            }
         } catch (Exception e) {
             _snackbarService.ShowError("文件变更加载信息时错误", e.Message);
         }
@@ -156,12 +161,16 @@ public partial class HideInBmpViewModel : ObservableObject {
     }
 
     partial void OnFileToHidePathChanged(string value) {
-        if (!CheckFile(value)) {
-            _snackbarService.ShowWarning("选择文件错误", "文件不存在");
-            return;
-        }
+        if (!string.IsNullOrEmpty(value)) {
+            if (!CheckFile(value)) {
+                _snackbarService.ShowWarning("选择文件错误", "文件不存在");
+                return;
+            }
 
-        FileToHideSize = new FileInfo(value).Length;
+            FileToHideSize = new FileInfo(value).Length;
+        } else {
+            FileToHideSize = 0;
+        }
     }
 
     private static bool CheckFile(string filePath) {
@@ -187,7 +196,7 @@ public partial class HideInBmpViewModel : ObservableObject {
     }
 
     partial void OnOutputFolderPathChanged(string value) {
-        if (!CheckDirectory(value)) {
+        if (!string.IsNullOrEmpty(value) && !CheckDirectory(value)) {
             _snackbarService.ShowWarning("选择文件夹错误", "文件夹不存在");
         }
     }
