@@ -71,7 +71,7 @@
                        Content="查看" />
         </ui:CardControl>
         <!-- 软件日志 -->
-        <ui:CardExpander>
+        <ui:CardExpander Icon="{ui:SymbolIcon SlideText48}">
             <ui:CardExpander.Header>
                 <Grid>
                     <Grid.RowDefinitions>
