@@ -102,7 +102,7 @@
             </ui:CardExpander.Header>
             <Grid>
                 <ui:RichTextBox x:Name="LogTextBox" MaxHeight="600" Margin="0,0,0,12" Padding="0,5,0,0" FontSize="11"
-                                Foreground="{ui:ThemeResource TextFillColorTertiaryBrush}" IsReadOnly="True" />
+                                Background="#3A3F47" IsReadOnly="True" />
             </Grid>
         </ui:CardExpander>
     </StackPanel>
