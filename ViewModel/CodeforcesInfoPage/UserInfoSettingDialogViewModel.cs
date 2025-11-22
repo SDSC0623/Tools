@@ -82,9 +82,9 @@ public partial class UserInfoSettingDialogViewModel : ObservableObject {
     [RelayCommand]
     private async Task Save() {
         EndEdit();
-        await _preferencesService.Set<string>("Username", Username);
-        await _preferencesService.Set<string>("ApiKey", ApiKey);
-        await _preferencesService.Set<string>("ApiSecret", ApiSecret);
+        await _preferencesService.Set("Username", Username);
+        await _preferencesService.Set("ApiKey", ApiKey);
+        await _preferencesService.Set("ApiSecret", ApiSecret);
         _snackbarService.ShowSuccess("保存成功", $"设置用户名为{Username}\n设置ApiKey为{ApiKey}\n设置ApiSecret为{ApiSecret}");
         CloseDialog(true);
     }

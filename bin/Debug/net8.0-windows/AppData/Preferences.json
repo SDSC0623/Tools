@@ -7,6 +7,7 @@
     "Unit": 3
   },
   "ShowCount": 2,
-  "StartPage": "Tools.Views.Pages.CodeforcesInfo.CodeforcesInfoPage, Tools, Version=0.3.1.0, Culture=neutral, PublicKeyToken=null",
-  "ShowProgressMode": 1
+  "StartPage": "Tools.Views.Pages.DataStructureDisplay.GraphVisualization.GraphVisualizationPage, Tools, Version=0.3.1.0, Culture=neutral, PublicKeyToken=null",
+  "ShowProgressMode": 1,
+  "ExitMode": 1
 }

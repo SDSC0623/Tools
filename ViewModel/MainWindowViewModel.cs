@@ -39,6 +39,11 @@ public partial class MainWindowViewModel : ObservableObject {
         _appRunningHelper.ExitApp();
     }
 
+    [RelayCommand]
+    private void ExitInTray() {
+        _appRunningHelper.ExitApp();
+    }
+
     partial void OnIsDarkChanged(bool value) {
         ApplicationThemeManager.Apply(value ? ApplicationTheme.Dark : ApplicationTheme.Light);
     }

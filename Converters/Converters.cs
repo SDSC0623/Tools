@@ -317,3 +317,69 @@ public class LongToFileSizeConverter : IValueConverter {
         throw new UnexpectedCallException();
     }
 }
+
+// 中点计算转换器
+public class MidpointConverter : IMultiValueConverter {
+    public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture) {
+        if (values is [double val1, double val2]) {
+            return (val1 + val2) / 2;
+        }
+
+        return 0.0;
+    }
+
+    public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture) {
+        throw new UnexpectedCallException();
+    }
+}
+
+// 计算线角度的转换器
+public class LineAngleConverter : IMultiValueConverter {
+    public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture) {
+        if (values is [double x1, double y1, double x2, double y2]) {
+            double dx = x2 - x1;
+            double dy = y2 - y1;
+            double angle = Math.Atan2(dy, dx) * 180 / Math.PI;
+            return angle;
+        }
+
+        return 0;
+    }
+
+    public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture) {
+        throw new UnexpectedCallException();
+    }
+}
+
+// 箭头位置转换器 - 计算箭头应该放置的位置（考虑节点半径）
+public class PositionOffsetConverter : IMultiValueConverter {
+    public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture) {
+        if (values is [int radius, double startX, double startY, double endX, double endY] &&
+            parameter is string param) {
+            // 计算线的方向向量
+            double dx = endX - startX;
+            double dy = endY - startY;
+
+            double angle = Math.Atan2(dy, dx) + Math.PI;
+
+            // 计算箭头位置：终点位置减去节点半径的方向向量
+            double arrowX = endX + Math.Cos(angle) * radius;
+            double arrowY = endY + Math.Sin(angle) * radius;
+
+            // 根据参数返回X或Y坐标
+            if (param == "X") {
+                return arrowX;
+            }
+
+            if (param == "Y") {
+                return arrowY;
+            }
+        }
+
+        return 0.0;
+    }
+
+    public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture) {
+        throw new UnexpectedCallException();
+    }
+}

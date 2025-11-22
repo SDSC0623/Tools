@@ -25,7 +25,7 @@ public partial class ContestsLoadSettingDialogViewModel : ObservableValidator {
     private TimeUnit _unit;
 
     // 取用对象
-    public TimeRange Range => new() { Value = double.Parse((string)Value), Unit = Unit };
+    public TimeRange Range => new() { Value = double.Parse(Value), Unit = Unit };
 
     // 窗口对象
     private ContestsLoadSettingDialog? _window;

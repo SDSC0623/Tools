@@ -18,12 +18,15 @@ using Tools.Views.Pages;
 using Tools.Views.Pages.CodeforcesInfo;
 using Tools.Views.Pages.HideInBmp;
 using Tools.ViewModel;
+using Tools.ViewModel.AskBeforeExitDialog;
 using Tools.ViewModel.Base64ToolPage;
 using Tools.ViewModel.HomePage;
 using Tools.ViewModel.SettingPage;
 using Tools.ViewModel.CodeforcesInfoPage;
+using Tools.ViewModel.GraphVisualization;
 using Tools.ViewModel.HideInBmpPage;
 using Tools.Views.Pages.Base64Tool;
+using Tools.Views.Pages.DataStructureDisplay.GraphVisualization;
 using Tools.Views.Windows;
 using Wpf.Ui;
 using Wpf.Ui.Appearance;
@@ -97,6 +100,9 @@ public partial class App : Application {
             // Base64编解码工具
             services.AddSingleton<Base64ToolViewModel>();
             services.AddSingleton<Base64ToolPage>();
+            // 数据结构可视化
+            services.AddSingleton<GraphVisualizationViewModel>();
+            services.AddSingleton<GraphVisualizationPage>();
             // 问询对话框
             services.AddTransient<UserInfoSettingDialogViewModel>();
             services.AddTransient<UserInfoSettingDialog>();
@@ -104,6 +110,8 @@ public partial class App : Application {
             services.AddTransient<ContestsLoadSettingDialog>();
             services.AddTransient<SettingProgressDialogViewModel>();
             services.AddTransient<SettingProgressDialog>();
+            services.AddTransient<AskBeforeExitViewModel>();
+            services.AddTransient<AskBeforeExit>();
         })
         .Build();
 

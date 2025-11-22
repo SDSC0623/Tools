@@ -112,3 +112,7 @@ D:\SDSC_Creation\Program\C#\Tools\bin\Debug\net8.0-windows\Ude.NetStandard.dll
 D:\SDSC_Creation\Program\C#\Tools\bin\Debug\net8.0-windows\JetBrains.Annotations.dll
 D:\SDSC_Creation\Program\C#\Tools\bin\Debug\net8.0-windows\Microsoft.Xaml.Behaviors.dll
 D:\SDSC_Creation\Program\C#\Tools\bin\Debug\net8.0-windows\Serilog.Sinks.RichTextBoxEx.Wpf.dll
+D:\SDSC_Creation\Program\C#\Tools\obj\Debug\net8.0-windows\Views\Pages\DataStructureDisplay\GraphVisualization\GraphVisualizationPage.g.cs
+D:\SDSC_Creation\Program\C#\Tools\obj\Debug\net8.0-windows\Views\Pages\DataStructureDisplay\GraphVisualization\GraphVisualizationPage.baml
+D:\SDSC_Creation\Program\C#\Tools\obj\Debug\net8.0-windows\Views\Windows\AskBeforeExit.g.cs
+D:\SDSC_Creation\Program\C#\Tools\obj\Debug\net8.0-windows\Views\Windows\AskBeforeExit.baml

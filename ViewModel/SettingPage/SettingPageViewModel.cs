@@ -28,6 +28,9 @@ public partial class SettingPageViewModel : ObservableObject {
     // 启动Page列表
     public ObservableCollection<PageInfo> AvailblePages { get; }
 
+    // 默认退出选项
+    [ObservableProperty] private ExitMode _exitMode = ExitMode.Ask;
+
     // 提示信息服务
     private readonly SnackbarServiceHelper _snackbarService;
 
@@ -48,10 +51,15 @@ public partial class SettingPageViewModel : ObservableObject {
 
     private void Init() {
         StartPageType = _preferencesService.Get("StartPage", typeof(Views.Pages.HomePage))!;
+        ExitMode = _preferencesService.Get("ExitMode", ExitMode.Ask);
     }
 
     partial void OnStartPageTypeChanged(Type value) {
         _preferencesService.Set("StartPage", value);
+    }
+
+    partial void OnExitModeChanged(ExitMode value) {
+        _preferencesService.Set("ExitMode", value);
     }
 
     private ObservableCollection<PageInfo> GetAvailblePages() {

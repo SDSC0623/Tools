@@ -1,0 +1,403 @@
+﻿<Page x:Class="Tools.Views.Pages.DataStructureDisplay.GraphVisualization.GraphVisualizationPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      xmlns:viewModel="clr-namespace:Tools.ViewModel.GraphVisualization"
+      xmlns:converters="clr-namespace:Tools.Converters"
+      xmlns:extensions="clr-namespace:Tools.Extensions"
+      xmlns:models="clr-namespace:Tools.Models"
+      mc:Ignorable="d"
+      d:DesignHeight="700"
+      d:DesignWidth="900"
+      ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
+      ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+      d:DataContext="{d:DesignInstance Type=viewModel:GraphVisualizationViewModel}"
+      Title="GraphVisualizationPage">
+    <Page.Resources>
+        <converters:LineAngleConverter x:Key="LineAngleConverter" />
+        <converters:PositionOffsetConverter x:Key="PositionOffsetConverter" />
+        <converters:EnumDescriptionConverter x:Key="EnumDescriptionConverter" />
+        <extensions:EnumBindingSource x:Key="EnumBindingSource" EnumType="{x:Type models:GraphType}" />
+
+    </Page.Resources>
+    <Grid Margin="42, 16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="0,0,0,10">
+                <ui:SymbolIcon Symbol="Group20"
+                               Filled="True"
+                               FontSize="30"
+                               Margin="0,0,12,0"
+                               Foreground="#2196F3" />
+
+                <ui:TextBlock Text="有向图 / 无向图可视化工具"
+                              FontTypography="Title"
+                              VerticalAlignment="Center"
+                              FontSize="24"
+                              Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
+            </StackPanel>
+        </Grid>
+
+        <!-- 主要内容区域 -->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <!-- 左侧操作面板 -->
+            <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto" Margin="0,0,16,0">
+                <StackPanel>
+                    <!-- 添加节点区域 -->
+                    <ui:CardControl Margin="0,0,0,16">
+                        <ui:CardControl.Header>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <ui:TextBlock Grid.Row="0" Text="添加节点" FontTypography="Subtitle" Margin="0,0,0,4" />
+                                <Grid Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <ui:TextBlock Grid.Column="0" Text="节点标签:" VerticalAlignment="Center"
+                                                  FontTypography="Caption" Margin="0,0,8,0" />
+                                    <ui:TextBox Grid.Column="2" VerticalAlignment="Center"
+                                                Text="{Binding NewNodeLabel, UpdateSourceTrigger=PropertyChanged}"
+                                                Width="120" />
+                                </Grid>
+                                <ui:Button Grid.Row="2" Content="添加节点" Margin="0,4,0,0"
+                                           Command="{Binding AddNodeCommand}" />
+                            </Grid>
+                        </ui:CardControl.Header>
+                    </ui:CardControl>
+
+                    <!-- 添加边区域 -->
+                    <ui:CardControl Margin="0,0,0,16">
+                        <ui:CardControl.Header>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+
+                                <ui:TextBlock Grid.Row="0" Text="添加边" FontTypography="Subtitle" Margin="0,0,0,8" />
+
+                                <!-- 起点和终点选择 -->
+                                <Grid Grid.Row="1" Margin="0,0,0,8">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <Grid Grid.Row="0" Margin="0,0,0,4">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <ui:TextBlock Grid.Column="0" Text="起点:" VerticalAlignment="Center"
+                                                      FontTypography="Caption" Margin="0,0,8,0" />
+                                        <ComboBox Grid.Column="1"
+                                                  ItemsSource="{Binding GraphData.Nodes}"
+                                                  DisplayMemberPath="Label"
+                                                  SelectedValue="{Binding StartNode}" />
+                                    </Grid>
+                                    <Grid Grid.Row="1">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <ui:TextBlock Grid.Column="0" Text="终点:" VerticalAlignment="Center"
+                                                      FontTypography="Caption" Margin="0,0,8,0" />
+                                        <ComboBox Grid.Column="1"
+                                                  ItemsSource="{Binding GraphData.Nodes}"
+                                                  DisplayMemberPath="Label"
+                                                  SelectedValue="{Binding EndNode}" />
+                                    </Grid>
+                                </Grid>
+
+                                <!-- 权重输入 -->
+                                <Grid Grid.Row="2" Margin="0,0,0,8">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <ui:TextBlock Grid.Column="0" Text="权重:" VerticalAlignment="Center"
+                                                  FontTypography="Caption" Margin="0,0,8,0" />
+                                    <ui:NumberBox Grid.Column="1"
+                                                  Value="{Binding EdgeWeight, UpdateSourceTrigger=PropertyChanged}"
+                                                  Minimum="1" SpinButtonPlacementMode="Hidden" />
+                                </Grid>
+
+                                <StackPanel Grid.Row="3" Orientation="Horizontal">
+                                    <!-- 双向边选项 -->
+                                    <CheckBox Content="双向边" IsChecked="{Binding IsBidirectional}" />
+
+                                    <ui:Button Content="添加边" Command="{Binding AddEdgeCommand}" />
+                                </StackPanel>
+                            </Grid>
+                        </ui:CardControl.Header>
+                    </ui:CardControl>
+
+                    <!-- 图操作区域 -->
+                    <ui:CardControl Margin="0,0,0,8">
+                        <ui:CardControl.Header>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+
+                                <ui:TextBlock Grid.Row="0" Text="图操作" FontTypography="Subtitle" Margin="0,0,0,8" />
+
+                                <ui:Button Grid.Row="1" Content="清空图"
+                                           Command="{Binding ClearGraphCommand}"
+                                           Margin="0,0,0,8" Appearance="Danger" />
+
+                                <Grid Grid.Row="2" Margin="0,0,0,8">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <ComboBox Grid.Column="0" Margin="0,0,8,0"
+                                              SelectedValue="{Binding RandomGenerateType}"
+                                              ItemsSource="{Binding Source={StaticResource EnumBindingSource}}">
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <ui:TextBlock
+                                                    Text="{Binding Converter={StaticResource EnumDescriptionConverter}}"
+                                                    TextAlignment="Center" />
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                    </ComboBox>
+                                    <ui:Button Grid.Column="1" Content="随机生成"
+                                               Command="{Binding RandomGenerateCommand}"
+                                               Margin="0,0,0,8" />
+                                </Grid>
+
+                                <ui:Button Grid.Row="3" Content="Kruskal生成树"
+                                           Command="{Binding KruskalGenerateCommand}"
+                                           Margin="0,0,0,8" />
+                            </Grid>
+                        </ui:CardControl.Header>
+                    </ui:CardControl>
+                </StackPanel>
+            </ScrollViewer>
+
+            <!-- 右侧图可视化区域 -->
+            <Border Grid.Column="1"
+                    Background="{DynamicResource ControlFillColorDefaultBrush}"
+                    BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1" CornerRadius="4"
+                    Margin="0,0,0,8">
+
+                <!-- 图可视化画布 -->
+                <Canvas Background="Transparent"
+                        Width="{Binding CanvasWidth, Mode=TwoWay}"
+                        Height="{Binding CanvasHeight, Mode=TwoWay}">
+                    <!-- 边 -->
+                    <ItemsControl ItemsSource="{Binding GraphData.Edges}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <Canvas />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <!-- 边可视化 -->
+                                    <Line X1="{Binding StartNode.X}" Y1="{Binding StartNode.Y}"
+                                          X2="{Binding EndNode.X}" Y2="{Binding EndNode.Y}"
+                                          Stroke="{DynamicResource TextFillColorTertiaryBrush}"
+                                          StrokeThickness="2">
+                                    </Line>
+                                    <!-- 箭头（使用Polygon） -->
+                                    <Polygon Points="0,0 -10,-5 -10,5"
+                                             Fill="{DynamicResource TextFillColorTertiaryBrush}"
+                                             Stroke="{DynamicResource TextFillColorTertiaryBrush}"
+                                             StrokeThickness="1">
+                                        <Polygon.RenderTransform>
+                                            <TransformGroup>
+                                                <RotateTransform>
+                                                    <RotateTransform.Angle>
+                                                        <MultiBinding Converter="{StaticResource LineAngleConverter}">
+                                                            <Binding Path="StartNode.X" />
+                                                            <Binding Path="StartNode.Y" />
+                                                            <Binding Path="EndNode.X" />
+                                                            <Binding Path="EndNode.Y" />
+                                                        </MultiBinding>
+                                                    </RotateTransform.Angle>
+                                                </RotateTransform>
+                                                <!-- 箭头位置：计算线上距离终点节点边缘的位置 -->
+                                                <TranslateTransform>
+                                                    <TranslateTransform.X>
+                                                        <MultiBinding ConverterParameter="X"
+                                                                      Converter="{StaticResource PositionOffsetConverter}">
+                                                            <Binding
+                                                                Source="{x:Static viewModel:GraphVisualizationViewModel.ArrowOffset}" />
+                                                            <Binding Path="StartNode.X" />
+                                                            <Binding Path="StartNode.Y" />
+                                                            <Binding Path="EndNode.X" />
+                                                            <Binding Path="EndNode.Y" />
+                                                        </MultiBinding>
+                                                    </TranslateTransform.X>
+                                                    <TranslateTransform.Y>
+                                                        <MultiBinding ConverterParameter="Y"
+                                                                      Converter="{StaticResource PositionOffsetConverter}">
+                                                            <Binding
+                                                                Source="{x:Static viewModel:GraphVisualizationViewModel.ArrowOffset}" />
+                                                            <Binding Path="StartNode.X" />
+                                                            <Binding Path="StartNode.Y" />
+                                                            <Binding Path="EndNode.X" />
+                                                            <Binding Path="EndNode.Y" />
+                                                        </MultiBinding>
+                                                    </TranslateTransform.Y>
+                                                </TranslateTransform>
+                                            </TransformGroup>
+                                        </Polygon.RenderTransform>
+                                    </Polygon>
+                                    <!--权值-->
+                                    <ui:TextBlock
+                                        Text="{Binding Weight}"
+                                        FontSize="14" FontTypography="Caption"
+                                        Foreground="{DynamicResource TextFillColorSecondaryBrush}">
+                                        <ui:TextBlock.RenderTransform>
+                                            <!--<TranslateTransform>
+                                                <TranslateTransform.X>
+                                                    <MultiBinding Converter="{StaticResource MidpointConverter}">
+                                                        <Binding Path="StartNode.X" />
+                                                        <Binding Path="EndNode.X" />
+                                                    </MultiBinding>
+                                                </TranslateTransform.X>
+                                                <TranslateTransform.Y>
+                                                    <MultiBinding Converter="{StaticResource MidpointConverter}">
+                                                        <Binding Path="StartNode.Y" />
+                                                        <Binding Path="EndNode.Y" />
+                                                    </MultiBinding>
+                                                </TranslateTransform.Y>
+                                            </TranslateTransform>-->
+                                            <TranslateTransform>
+                                                <TranslateTransform.X>
+                                                    <MultiBinding ConverterParameter="X"
+                                                                  Converter="{StaticResource PositionOffsetConverter}">
+                                                        <Binding
+                                                            Source="{x:Static viewModel:GraphVisualizationViewModel.TextOffset}" />
+                                                        <Binding Path="StartNode.X" />
+                                                        <Binding Path="StartNode.Y" />
+                                                        <Binding Path="EndNode.X" />
+                                                        <Binding Path="EndNode.Y" />
+                                                    </MultiBinding>
+                                                </TranslateTransform.X>
+                                                <TranslateTransform.Y>
+                                                    <MultiBinding ConverterParameter="Y"
+                                                                  Converter="{StaticResource PositionOffsetConverter}">
+                                                        <Binding
+                                                            Source="{x:Static viewModel:GraphVisualizationViewModel.TextOffset}" />
+                                                        <Binding Path="StartNode.X" />
+                                                        <Binding Path="StartNode.Y" />
+                                                        <Binding Path="EndNode.X" />
+                                                        <Binding Path="EndNode.Y" />
+                                                    </MultiBinding>
+                                                </TranslateTransform.Y>
+                                            </TranslateTransform>
+                                        </ui:TextBlock.RenderTransform>
+                                    </ui:TextBlock>
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                    <!-- 节点 -->
+                    <ItemsControl ItemsSource="{Binding GraphData.Nodes}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <Canvas />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemContainerStyle>
+                            <Style TargetType="ContentPresenter">
+                                <Setter Property="Canvas.Left" Value="{Binding X}" />
+                                <Setter Property="Canvas.Top" Value="{Binding Y}" />
+                            </Style>
+                        </ItemsControl.ItemContainerStyle>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <!-- 节点可视化 -->
+                                <Grid>
+                                    <!-- 节点圆形 -->
+                                    <Ellipse Width="40" Height="40"
+                                             Fill="{DynamicResource ApplicationBackgroundBrush}"
+                                             Stroke="{DynamicResource TextFillColorTertiaryBrush}"
+                                             StrokeThickness="2">
+                                        <Ellipse.RenderTransform>
+                                            <TranslateTransform X="-20" Y="-20" />
+                                        </Ellipse.RenderTransform>
+                                    </Ellipse>
+
+                                    <!-- 节点标签 -->
+                                    <TextBlock Text="{Binding Label}"
+                                               Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               FontWeight="Bold"
+                                               RenderTransformOrigin="0.5,0.5">
+                                        <TextBlock.RenderTransform>
+                                            <TranslateTransform X="-20" Y="-20" />
+                                        </TextBlock.RenderTransform>
+                                    </TextBlock>
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Canvas>
+            </Border>
+        </Grid>
+
+        <!-- 状态栏 -->
+        <StatusBar Grid.Row="2" Background="Transparent">
+            <StackPanel Orientation="Horizontal">
+                <!-- 添加图信息到状态栏 -->
+                <StatusBarItem HorizontalAlignment="Left" Margin="20,0,0,0">
+                    <StackPanel Orientation="Horizontal">
+                        <ui:SymbolIcon Symbol="DataHistogram20"
+                                       FontSize="12"
+                                       Margin="0,0,4,0"
+                                       Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+                        <ui:TextBlock Text="{Binding GraphData.GraphInfo}"
+                                      FontTypography="Caption"
+                                      Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+                    </StackPanel>
+                </StatusBarItem>
+
+                <!-- 状态栏 -->
+                <StatusBarItem HorizontalAlignment="Left" Margin="20,0,0,0">
+                    <StackPanel Orientation="Horizontal">
+                        <ui:TextBlock Text="{Binding StatusMessage}"
+                                      FontTypography="Caption"
+                                      Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+                    </StackPanel>
+                </StatusBarItem>
+            </StackPanel>
+        </StatusBar>
+    </Grid>
+</Page>

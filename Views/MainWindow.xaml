@@ -7,18 +7,18 @@
                  xmlns:tray="http://schemas.lepo.co/wpfui/2022/xaml/tray"
                  xmlns:viewModel="clr-namespace:Tools.ViewModel"
                  xmlns:controls="clr-namespace:Tools.Controls"
-                 xmlns:extensions="clr-namespace:Tools.Extensions"
                  xmlns:pages="clr-namespace:Tools.Views.Pages"
                  xmlns:codeforcesInfo="clr-namespace:Tools.Views.Pages.CodeforcesInfo"
                  xmlns:hideInBmp="clr-namespace:Tools.Views.Pages.HideInBmp"
                  xmlns:base64Tool="clr-namespace:Tools.Views.Pages.Base64Tool"
+                 xmlns:graphVisualization="clr-namespace:Tools.Views.Pages.DataStructureDisplay.GraphVisualization"
                  ExtendsContentIntoTitleBar="True"
                  mc:Ignorable="d"
                  d:DataContext="{d:DesignInstance Type=viewModel:MainWindowViewModel}"
                  ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
                  ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                  WindowStartupLocation="CenterScreen"
-                 Title="MainWindow" Height="600" Width="900">
+                 Title="MainWindow" Height="750" Width="1000">
     <ui:FluentWindow.Resources>
         <!--<BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />-->
     </ui:FluentWindow.Resources>
@@ -99,10 +99,19 @@
                         <ui:SymbolIcon Symbol="ClipboardCode24" Filled="False" Height="20" Width="20" />
                     </ui:NavigationViewItem.Icon>
                 </ui:NavigationViewItem>
+
+                <!-- 数据结构课可视化界面 -->
+                <ui:NavigationViewItem Content="数据结构课可视化界面"
+                                       NavigationCacheMode="Enabled"
+                                       TargetPageType="{x:Type graphVisualization:GraphVisualizationPage}">
+                    <ui:NavigationViewItem.Icon>
+                        <ui:SymbolIcon Symbol="Group20" Filled="False" Height="20" Width="20" />
+                    </ui:NavigationViewItem.Icon>
+                </ui:NavigationViewItem>
             </ui:NavigationView.MenuItems>
             <ui:NavigationView.FooterMenuItems>
                 <ui:NavigationViewItem Content="设置"
-                                       NavigationCacheMode="Enabled"
+                                       NavigationCacheMode="Required"
                                        Icon="{ui:SymbolIcon Settings16}"
                                        TargetPageType="{x:Type pages:SettingPage}" />
             </ui:NavigationView.FooterMenuItems>
@@ -121,14 +130,14 @@
                          LeftDoubleClick="OnNotifyIconLeftDoubleClick"
                          MenuOnRightClick="True">
             <tray:NotifyIcon.Menu>
-                <ContextMenu>
-                    <ContextMenu.DataContext>
-                        <extensions:ServiceLocator Type="{x:Type viewModel:MainWindowViewModel}" />
-                    </ContextMenu.DataContext>
+                <ContextMenu DataContext="{Binding DataContext, Source={x:Reference RootNavigation}}">
+                    <!-- <ContextMenu.DataContext> -->
+                    <!--     <extensions:ServiceLocator Type="{x:Type viewModel:MainWindowViewModel}" /> -->
+                    <!-- </ContextMenu.DataContext> -->
                     <ui:MenuItem Command="{Binding ShowCommand}"
                                  Icon="{ui:SymbolIcon OpenFolder24}"
                                  Header="显示主界面" d:DataContext="{d:DesignInstance viewModel:MainWindowViewModel }" />
-                    <ui:MenuItem Command="{Binding ExitCommand}"
+                    <ui:MenuItem Command="{Binding ExitInTrayCommand}"
                                  Icon="{ui:SymbolIcon ArrowExit20, Filled=True}"
                                  Header="退出" d:DataContext="{d:DesignInstance viewModel:MainWindowViewModel }" />
                 </ContextMenu>
