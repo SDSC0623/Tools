@@ -132,7 +132,20 @@ public partial class App : Application {
     protected override async void OnStartup(StartupEventArgs e) {
         try {
             base.OnStartup(e);
+            if (GlobalSettings.BaseDirectory.Split(Path.DirectorySeparatorChar).Length == 1 ||
+                new DirectoryInfo(GlobalSettings.BaseDirectory).Parent == null) {
+                var messageBox = new Wpf.Ui.Controls.MessageBox {
+                    Title = "程序主动停止",
+                    Content = "请不要在根目录下运行程序，你应当把本程序放在一个文件夹内运行。",
+                    CloseButtonText = "确认"
+                };
+                await messageBox.ShowDialogAsync();
+                Environment.Exit(-1);
+                return;
+            }
+
             await Host.StartAsync();
+
             _logger = GetService<Serilog.ILogger>()!;
 
             var mainWindow = GetService<MainWindow>()!;
