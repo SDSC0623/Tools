@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "22Tr8MgDtro=",
+  "dgSpecHash": "Nvqu0DsVqdA=",
   "success": true,
   "projectFilePath": "D:\\SDSC_Creation\\Program\\C#\\Tools\\Tools.csproj",
   "expectedPackageFiles": [
@@ -33,6 +33,9 @@
     "C:\\Users\\wuhao\\.nuget\\packages\\microsoft.extensions.options\\9.0.8\\microsoft.extensions.options.9.0.8.nupkg.sha512",
     "C:\\Users\\wuhao\\.nuget\\packages\\microsoft.extensions.options.configurationextensions\\9.0.8\\microsoft.extensions.options.configurationextensions.9.0.8.nupkg.sha512",
     "C:\\Users\\wuhao\\.nuget\\packages\\microsoft.extensions.primitives\\9.0.8\\microsoft.extensions.primitives.9.0.8.nupkg.sha512",
+    "C:\\Users\\wuhao\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
+    "C:\\Users\\wuhao\\.nuget\\packages\\microsoft.toolkit.uwp.notifications\\7.1.3\\microsoft.toolkit.uwp.notifications.7.1.3.nupkg.sha512",
+    "C:\\Users\\wuhao\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",
     "C:\\Users\\wuhao\\.nuget\\packages\\microsoft.win32.systemevents\\9.0.1\\microsoft.win32.systemevents.9.0.1.nupkg.sha512",
     "C:\\Users\\wuhao\\.nuget\\packages\\microsoft.xaml.behaviors.wpf\\1.1.135\\microsoft.xaml.behaviors.wpf.1.1.135.nupkg.sha512",
     "C:\\Users\\wuhao\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
@@ -45,14 +48,19 @@
     "C:\\Users\\wuhao\\.nuget\\packages\\system.diagnostics.eventlog\\9.0.8\\system.diagnostics.eventlog.9.0.8.nupkg.sha512",
     "C:\\Users\\wuhao\\.nuget\\packages\\system.drawing.common\\9.0.1\\system.drawing.common.9.0.1.nupkg.sha512",
     "C:\\Users\\wuhao\\.nuget\\packages\\system.io.pipelines\\9.0.8\\system.io.pipelines.9.0.8.nupkg.sha512",
+    "C:\\Users\\wuhao\\.nuget\\packages\\system.reflection.emit\\4.7.0\\system.reflection.emit.4.7.0.nupkg.sha512",
+    "C:\\Users\\wuhao\\.nuget\\packages\\system.security.accesscontrol\\4.7.0\\system.security.accesscontrol.4.7.0.nupkg.sha512",
+    "C:\\Users\\wuhao\\.nuget\\packages\\system.security.principal.windows\\4.7.0\\system.security.principal.windows.4.7.0.nupkg.sha512",
     "C:\\Users\\wuhao\\.nuget\\packages\\system.text.encodings.web\\9.0.8\\system.text.encodings.web.9.0.8.nupkg.sha512",
     "C:\\Users\\wuhao\\.nuget\\packages\\system.text.json\\9.0.8\\system.text.json.9.0.8.nupkg.sha512",
+    "C:\\Users\\wuhao\\.nuget\\packages\\system.valuetuple\\4.5.0\\system.valuetuple.4.5.0.nupkg.sha512",
     "C:\\Users\\wuhao\\.nuget\\packages\\ude.netstandard\\1.2.0\\ude.netstandard.1.2.0.nupkg.sha512",
     "C:\\Users\\wuhao\\.nuget\\packages\\wpf-ui\\4.0.2\\wpf-ui.4.0.2.nupkg.sha512",
     "C:\\Users\\wuhao\\.nuget\\packages\\wpf-ui.abstractions\\4.0.2\\wpf-ui.abstractions.4.0.2.nupkg.sha512",
     "C:\\Users\\wuhao\\.nuget\\packages\\wpf-ui.dependencyinjection\\4.0.2\\wpf-ui.dependencyinjection.4.0.2.nupkg.sha512",
     "C:\\Users\\wuhao\\.nuget\\packages\\wpf-ui.tray\\4.0.2\\wpf-ui.tray.4.0.2.nupkg.sha512",
-    "C:\\Users\\wuhao\\.nuget\\packages\\wpf-ui.violeta\\4.0.2\\wpf-ui.violeta.4.0.2.nupkg.sha512"
+    "C:\\Users\\wuhao\\.nuget\\packages\\wpf-ui.violeta\\4.0.2\\wpf-ui.violeta.4.0.2.nupkg.sha512",
+    "C:\\Users\\wuhao\\.nuget\\packages\\microsoft.windows.sdk.net.ref\\10.0.22621.44\\microsoft.windows.sdk.net.ref.10.0.22621.44.nupkg.sha512"
   ],
   "logs": []
 }

@@ -4,7 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-      xmlns:viewModel="clr-namespace:Tools.ViewModel.GraphVisualization"
+      xmlns:viewModel="clr-namespace:Tools.ViewModel.DataStructureDisplay.GraphVisualization"
       xmlns:converters="clr-namespace:Tools.Converters"
       xmlns:extensions="clr-namespace:Tools.Extensions"
       xmlns:models="clr-namespace:Tools.Models"
@@ -40,7 +40,7 @@
                                Filled="True"
                                FontSize="30"
                                Margin="0,0,12,0"
-                               Foreground="#2196F3" />
+                               Foreground="#4CAF50" />
 
                 <ui:TextBlock Text="有向图 / 无向图可视化工具"
                               FontTypography="Title"
@@ -282,20 +282,6 @@
                                         FontSize="14" FontTypography="Caption"
                                         Foreground="{DynamicResource TextFillColorSecondaryBrush}">
                                         <ui:TextBlock.RenderTransform>
-                                            <!--<TranslateTransform>
-                                                <TranslateTransform.X>
-                                                    <MultiBinding Converter="{StaticResource MidpointConverter}">
-                                                        <Binding Path="StartNode.X" />
-                                                        <Binding Path="EndNode.X" />
-                                                    </MultiBinding>
-                                                </TranslateTransform.X>
-                                                <TranslateTransform.Y>
-                                                    <MultiBinding Converter="{StaticResource MidpointConverter}">
-                                                        <Binding Path="StartNode.Y" />
-                                                        <Binding Path="EndNode.Y" />
-                                                    </MultiBinding>
-                                                </TranslateTransform.Y>
-                                            </TranslateTransform>-->
                                             <TranslateTransform>
                                                 <TranslateTransform.X>
                                                     <MultiBinding ConverterParameter="X"

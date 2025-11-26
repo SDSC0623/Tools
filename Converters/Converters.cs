@@ -318,21 +318,6 @@ public class LongToFileSizeConverter : IValueConverter {
     }
 }
 
-// 中点计算转换器
-public class MidpointConverter : IMultiValueConverter {
-    public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture) {
-        if (values is [double val1, double val2]) {
-            return (val1 + val2) / 2;
-        }
-
-        return 0.0;
-    }
-
-    public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture) {
-        throw new UnexpectedCallException();
-    }
-}
-
 // 计算线角度的转换器
 public class LineAngleConverter : IMultiValueConverter {
     public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture) {
@@ -377,6 +362,21 @@ public class PositionOffsetConverter : IMultiValueConverter {
         }
 
         return 0.0;
+    }
+
+    public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture) {
+        throw new UnexpectedCallException();
+    }
+}
+
+// 双布尔值到样式选择转换器
+public class DoubleBooleanToStylesConverter : IMultiValueConverter {
+    public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture) {
+        if (values is [bool flag1, bool flag2, Style style1, Style style2, Style style3]) {
+            return flag2 ? style3 : flag1 ? style2 : style1;
+        }
+
+        return new Style();
     }
 
     public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture) {

@@ -73,7 +73,7 @@ public partial class GraphData : ObservableObject {
     public void SetCanvasSize(double width, double height) {
         _canvasWidth = width;
         _canvasHeight = height;
-        _baseRadius = Math.Max(_canvasWidth / 3.0, _canvasHeight / 3.0);
+        _baseRadius = Math.Min(_canvasWidth / 4.0, _canvasHeight / 4.0);
         ApplyCircularLayout();
     }
 
@@ -102,13 +102,12 @@ public partial class GraphData : ObservableObject {
         double adjustedRadius = _baseRadius;
 
         if (nodeCount > 8) {
-            adjustedRadius = _baseRadius + (nodeCount - 8) * 10;
+            adjustedRadius += (nodeCount - 8) * 50;
         } else if (nodeCount < 4) {
-            adjustedRadius = _baseRadius - (4 - nodeCount) * 20;
+            adjustedRadius += (4 - nodeCount) * 20;
         }
-
         // 确保半径不会太大或太小
-        return Math.Max(200, Math.Min(adjustedRadius, 400));
+        return Math.Clamp(adjustedRadius, 200, 200);
     }
 
     // 图操作方法

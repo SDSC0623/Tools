@@ -12,6 +12,7 @@
                  xmlns:hideInBmp="clr-namespace:Tools.Views.Pages.HideInBmp"
                  xmlns:base64Tool="clr-namespace:Tools.Views.Pages.Base64Tool"
                  xmlns:graphVisualization="clr-namespace:Tools.Views.Pages.DataStructureDisplay.GraphVisualization"
+                 xmlns:treeVisualization="clr-namespace:Tools.Views.Pages.DataStructureDisplay.TreeVisualization"
                  ExtendsContentIntoTitleBar="True"
                  mc:Ignorable="d"
                  d:DataContext="{d:DesignInstance Type=viewModel:MainWindowViewModel}"
@@ -101,14 +102,35 @@
                 </ui:NavigationViewItem>
 
                 <!-- 数据结构课可视化界面 -->
-                <ui:NavigationViewItem Content="数据结构课可视化界面"
-                                       NavigationCacheMode="Enabled"
-                                       TargetPageType="{x:Type graphVisualization:GraphVisualizationPage}">
+                <ui:NavigationViewItem Content="数据结构课可视化"
+                                       NavigationCacheMode="Enabled">
                     <ui:NavigationViewItem.Icon>
                         <ui:SymbolIcon Symbol="Group20" Filled="False" Height="20" Width="20" />
                     </ui:NavigationViewItem.Icon>
+                    <ui:NavigationViewItem.MenuItems>
+                        <!-- 数据结构课可视化界面 -->
+                        <ui:NavigationViewItem Content="图可视化"
+                                               NavigationCacheMode="Enabled"
+                                               TargetPageType="{x:Type graphVisualization:GraphVisualizationPage}">
+                            <ui:NavigationViewItem.Icon>
+                                <ui:SymbolIcon Symbol="Group20" Filled="False" Height="20" Width="20" />
+                            </ui:NavigationViewItem.Icon>
+                        </ui:NavigationViewItem>
+
+                        <!-- 数据结构课可视化界面 -->
+                        <ui:NavigationViewItem Content="树可视化"
+                                               NavigationCacheMode="Enabled"
+                                               TargetPageType="{x:Type treeVisualization:TreeVisualizationPage}">
+                            <ui:NavigationViewItem.Icon>
+                                <ui:SymbolIcon Symbol="Branch20" Filled="False" Height="20" Width="20" />
+                            </ui:NavigationViewItem.Icon>
+                        </ui:NavigationViewItem>
+                    </ui:NavigationViewItem.MenuItems>
                 </ui:NavigationViewItem>
+
             </ui:NavigationView.MenuItems>
+
+            <!-- 底部菜单项 -->
             <ui:NavigationView.FooterMenuItems>
                 <ui:NavigationViewItem Content="设置"
                                        NavigationCacheMode="Required"

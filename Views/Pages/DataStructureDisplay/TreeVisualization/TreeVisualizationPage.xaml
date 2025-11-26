@@ -1,0 +1,379 @@
+﻿<Page x:Class="Tools.Views.Pages.DataStructureDisplay.TreeVisualization.TreeVisualizationPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      xmlns:viewModel="clr-namespace:Tools.ViewModel.DataStructureDisplay.TreeVisualization"
+      xmlns:converters="clr-namespace:Tools.Converters"
+      xmlns:extensions="clr-namespace:Tools.Extensions"
+      xmlns:models="clr-namespace:Tools.Models"
+      mc:Ignorable="d"
+      d:DesignHeight="700"
+      d:DesignWidth="900"
+      ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
+      ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+      d:DataContext="{d:DesignInstance Type=viewModel:TreeVisualizationViewModel}"
+      Title="TreeVisualizationPage">
+
+    <Page.Resources>
+        <converters:BooleanToVisibleConverter x:Key="BooleanToVisibleConverter" />
+        <converters:EnumDescriptionConverter x:Key="EnumDescriptionConverter" />
+        <converters:DoubleBooleanToStylesConverter x:Key="DoubleBooleanToStylesConverter" />
+        <extensions:EnumBindingSource x:Key="TreeTypeBindingSource" EnumType="{x:Type models:TreeType}" />
+        <extensions:EnumBindingSource x:Key="TraversalTypeBindingSource" EnumType="{x:Type models:TraversalType}" />
+
+        <!-- 树节点样式 -->
+        <Style x:Key="TreeNodeStyle" TargetType="Ellipse">
+            <Setter Property="Width" Value="40" />
+            <Setter Property="Height" Value="40" />
+            <Setter Property="Fill" Value="{DynamicResource ApplicationBackgroundBrush}" />
+            <Setter Property="Stroke" Value="{DynamicResource TextFillColorTertiaryBrush}" />
+            <Setter Property="StrokeThickness" Value="2" />
+        </Style>
+        <Style x:Key="SelectedTreeNodeStyle" TargetType="Ellipse">
+            <Setter Property="Width" Value="40" />
+            <Setter Property="Height" Value="40" />
+            <Setter Property="Fill" Value="{DynamicResource ApplicationBackgroundBrush}" />
+            <Setter Property="Stroke" Value="{DynamicResource AccentTextFillColorPrimaryBrush}" />
+            <Setter Property="StrokeThickness" Value="2" />
+        </Style>
+        <Style x:Key="TargetTreeNodeStyle" TargetType="Ellipse">
+            <Setter Property="Width" Value="40" />
+            <Setter Property="Height" Value="40" />
+            <Setter Property="Fill" Value="{DynamicResource ApplicationBackgroundBrush}" />
+            <Setter Property="Stroke" Value="Goldenrod" />
+            <Setter Property="StrokeThickness" Value="2" />
+        </Style>
+    </Page.Resources>
+
+    <Grid Margin="42, 16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- 标题栏 -->
+        <Grid Grid.Row="0">
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <ui:SymbolIcon Symbol="Branch20"
+                               Filled="True"
+                               FontSize="30"
+                               Margin="0,0,12,0"
+                               Foreground="#4CAF50" />
+
+                <ui:TextBlock Text="树结构可视化工具 (本工具建议全屏使用)"
+                              FontTypography="Title"
+                              VerticalAlignment="Center"
+                              FontSize="24"
+                              Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
+            </StackPanel>
+        </Grid>
+
+        <!-- 主要内容区域 -->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="250" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <!-- 左侧操作面板 -->
+            <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto" Margin="0,0,16,0">
+                <StackPanel>
+                    <!-- 树类型选择 -->
+                    <ui:CardControl Margin="0,0,0,16">
+                        <ui:CardControl.Header>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+
+                                <ui:TextBlock Grid.Row="0" Text="树类型" FontTypography="Subtitle" Margin="0,0,0,8" />
+
+                                <ComboBox Grid.Row="1"
+                                          SelectedValue="{Binding CurrentTreeType}"
+                                          ItemsSource="{Binding Source={StaticResource TreeTypeBindingSource}}">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <ui:TextBlock
+                                                Text="{Binding Converter={StaticResource EnumDescriptionConverter}}"
+                                                TextAlignment="Center" />
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                            </Grid>
+                        </ui:CardControl.Header>
+                    </ui:CardControl>
+
+                    <!-- 添加节点区域 -->
+                    <ui:CardControl Margin="0,0,0,16">
+                        <ui:CardControl.Header>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+
+                                <ui:TextBlock Grid.Row="0" Text="添加节点" FontTypography="Subtitle" Margin="0,0,0,8" />
+
+                                <!-- 节点值输入 -->
+                                <Grid Grid.Row="1" Margin="0,0,0,8">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <ui:TextBlock Grid.Column="0" Text="节点值:" VerticalAlignment="Center"
+                                                  FontTypography="Caption" Margin="0,0,8,0" />
+                                    <ui:TextBox Grid.Column="1"
+                                                Text="{Binding NewNodeValue, UpdateSourceTrigger=PropertyChanged}" />
+                                </Grid>
+
+                                <!-- 父节点选择 -->
+                                <Grid Grid.Row="2" Margin="0,0,0,8"
+                                      Visibility="{Binding IsNotBinarySearchTree, Converter={StaticResource BooleanToVisibleConverter}}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <ui:TextBlock Grid.Column="0" Text="父节点:" VerticalAlignment="Center"
+                                                  FontTypography="Caption" Margin="0,0,8,0" />
+                                    <ComboBox Grid.Column="1"
+                                              ItemsSource="{Binding TreeData.Nodes}"
+                                              DisplayMemberPath="Value"
+                                              SelectedValue="{Binding ParentNode}"
+                                              IsEnabled="{Binding HasNodes}" />
+                                </Grid>
+
+                                <!-- 插入位置（用于二叉树） -->
+                                <Grid Grid.Row="3" Margin="0,0,0,8"
+                                      Visibility="{Binding IsBinaryTree, Converter={StaticResource BooleanToVisibleConverter}}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <ui:TextBlock Grid.Column="0" Text="插入位置:" VerticalAlignment="Center"
+                                                  FontTypography="Caption" Margin="0,0,8,0" />
+                                    <StackPanel Grid.Column="1">
+                                        <RadioButton Content="左子树" IsChecked="{Binding InsertLeft, Mode=TwoWay}" />
+                                        <RadioButton Content="右子树" IsChecked="{Binding InsertRight, Mode=TwoWay}" />
+                                    </StackPanel>
+                                </Grid>
+
+                                <ui:Button Grid.Row="4" Content="添加节点"
+                                           Command="{Binding AddNodeCommand}" />
+                            </Grid>
+                        </ui:CardControl.Header>
+                    </ui:CardControl>
+
+                    <!-- 查找/删除节点区域 -->
+                    <ui:CardControl Margin="0,0,0,16" Visibility="{Binding IsNotBinarySearchTree, Converter={StaticResource BooleanToVisibleConverter}, ConverterParameter=True}">
+                        <ui:CardControl.Header>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+
+                                <ui:TextBlock Grid.Row="0" Text="查找/删除节点" FontTypography="Subtitle" Margin="0,0,0,8" />
+
+                                <!-- 节点值输入 -->
+                                <Grid Grid.Row="1" Margin="0,0,0,8">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <ui:TextBlock Grid.Column="0" Text="节点值:" VerticalAlignment="Center"
+                                                  FontTypography="Caption" Margin="0,0,8,0" />
+                                    <ui:TextBox Grid.Column="1"
+                                                Text="{Binding OperateNodeValue, UpdateSourceTrigger=PropertyChanged}" />
+                                </Grid>
+
+                                <!-- 查找/删除节点按钮 -->
+                                <Grid Grid.Row="2" Margin="0,0,0,8">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <ui:Button Grid.Column="0" Content="查找节点"
+                                               Command="{Binding QueryNodeCommand}" />
+                                    <ui:Button Grid.Column="2" Content="删除节点"
+                                               Command="{Binding DeleteNodeCommand}" />
+                                </Grid>
+                            </Grid>
+                        </ui:CardControl.Header>
+                    </ui:CardControl>
+
+                    <!-- 树操作区域 -->
+                    <ui:CardControl Margin="0,0,0,16">
+                        <ui:CardControl.Header>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+
+                                <ui:TextBlock Grid.Row="0" Text="树操作" FontTypography="Subtitle" Margin="0,0,0,8" />
+
+                                <!-- 清空树 -->
+                                <ui:Button Grid.Row="1" Content="清空树"
+                                           Command="{Binding ClearTreeCommand}"
+                                           Margin="0,0,0,8" Appearance="Danger" />
+
+                                <!-- 随机生成 -->
+                                <Grid Grid.Row="2" Margin="0,0,0,8">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <ui:NumberBox Grid.Column="0" Margin="0,0,8,0"
+                                                  Value="{Binding RandomNodeCount, UpdateSourceTrigger=PropertyChanged}"
+                                                  Minimum="1" Maximum="64" SpinButtonPlacementMode="Compact" />
+                                    <ui:Button Grid.Column="1" Content="随机生成"
+                                               Command="{Binding RandomGenerateCommand}" />
+                                </Grid>
+
+                                <!-- 遍历操作 -->
+                                <Grid Grid.Row="3" Margin="0,0,0,8">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <ComboBox Grid.Column="0" Margin="0,0,8,0"
+                                              SelectedValue="{Binding SelectedTraversalType}"
+                                              ItemsSource="{Binding Source={StaticResource TraversalTypeBindingSource}}">
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <ui:TextBlock
+                                                    Text="{Binding Converter={StaticResource EnumDescriptionConverter}}"
+                                                    TextAlignment="Center" />
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                    </ComboBox>
+                                    <ui:Button Grid.Column="1" Content="执行遍历"
+                                               Command="{Binding TraverseCommand}" />
+                                </Grid>
+
+                                <!-- 遍历结果显示 -->
+                                <ui:TextBlock Grid.Row="4" Text="{Binding TraversalResult}"
+                                              FontTypography="Caption"
+                                              TextWrapping="Wrap"
+                                              Margin="0,4,0,0"
+                                              Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+                            </Grid>
+                        </ui:CardControl.Header>
+                    </ui:CardControl>
+                </StackPanel>
+            </ScrollViewer>
+
+            <!-- 右侧树可视化区域 -->
+            <Border Grid.Column="1"
+                    Background="{DynamicResource ControlFillColorDefaultBrush}"
+                    BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1" CornerRadius="4">
+
+                <!-- 树可视化画布 -->
+                <Canvas x:Name="Canvas" SizeChanged="OnCanvasSizeChanged" Background="Transparent">
+                    <!-- 连接线 -->
+                    <ItemsControl ItemsSource="{Binding TreeData.Connections}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <Canvas />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Line X1="{Binding StartNode.X}" Y1="{Binding StartNode.Y}"
+                                      X2="{Binding EndNode.X}" Y2="{Binding EndNode.Y}"
+                                      Stroke="{DynamicResource TextFillColorTertiaryBrush}"
+                                      StrokeThickness="2" />
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                    <!-- 树节点 -->
+                    <ItemsControl ItemsSource="{Binding TreeData.Nodes}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <Canvas />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemContainerStyle>
+                            <Style TargetType="ContentPresenter">
+                                <Setter Property="Canvas.Left" Value="{Binding X}" />
+                                <Setter Property="Canvas.Top" Value="{Binding Y}" />
+                            </Style>
+                        </ItemsControl.ItemContainerStyle>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <!-- 节点圆形 -->
+                                    <Ellipse>
+                                        <Ellipse.Style>
+                                            <MultiBinding Converter="{StaticResource DoubleBooleanToStylesConverter}">
+                                                <Binding Path="IsSelected" />
+                                                <Binding Path="IsTarget" />
+                                                <Binding Source="{StaticResource TreeNodeStyle}" />
+                                                <Binding Source="{StaticResource SelectedTreeNodeStyle}" />
+                                                <Binding Source="{StaticResource TargetTreeNodeStyle}" />
+                                            </MultiBinding>
+                                        </Ellipse.Style>
+                                        <Ellipse.RenderTransform>
+                                            <TranslateTransform X="-20" Y="-20" />
+                                        </Ellipse.RenderTransform>
+                                    </Ellipse>
+
+                                    <!-- 节点值 -->
+                                    <ui:TextBlock Text="{Binding Value}"
+                                                  Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                                                  HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                  FontWeight="Bold" RenderTransformOrigin="0.5,0.5">
+                                        <TextBlock.RenderTransform>
+                                            <TranslateTransform X="-20" Y="-20" />
+                                        </TextBlock.RenderTransform>
+                                    </ui:TextBlock>
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Canvas>
+            </Border>
+        </Grid>
+
+        <!-- 状态栏 -->
+        <StatusBar Grid.Row="2" Background="Transparent">
+            <StackPanel Orientation="Horizontal">
+                <!-- 树信息 -->
+                <StatusBarItem HorizontalAlignment="Left" Margin="20,0,0,0">
+                    <StackPanel Orientation="Horizontal">
+                        <ui:SymbolIcon Symbol="DataHistogram20"
+                                       FontSize="12"
+                                       Margin="0,0,4,0"
+                                       Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+                        <ui:TextBlock Text="{Binding TreeData.TreeInfo}"
+                                      FontTypography="Caption"
+                                      Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+                    </StackPanel>
+                </StatusBarItem>
+
+                <!-- 状态消息 -->
+                <StatusBarItem HorizontalAlignment="Left" Margin="20,0,0,0">
+                    <StackPanel Orientation="Horizontal">
+                        <ui:TextBlock Text="{Binding StatusMessage}"
+                                      FontTypography="Caption"
+                                      Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+                    </StackPanel>
+                </StatusBarItem>
+            </StackPanel>
+        </StatusBar>
+    </Grid>
+</Page>

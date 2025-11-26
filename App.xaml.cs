@@ -23,10 +23,12 @@ using Tools.ViewModel.Base64ToolPage;
 using Tools.ViewModel.HomePage;
 using Tools.ViewModel.SettingPage;
 using Tools.ViewModel.CodeforcesInfoPage;
-using Tools.ViewModel.GraphVisualization;
+using Tools.ViewModel.DataStructureDisplay.GraphVisualization;
+using Tools.ViewModel.DataStructureDisplay.TreeVisualization;
 using Tools.ViewModel.HideInBmpPage;
 using Tools.Views.Pages.Base64Tool;
 using Tools.Views.Pages.DataStructureDisplay.GraphVisualization;
+using Tools.Views.Pages.DataStructureDisplay.TreeVisualization;
 using Tools.Views.Windows;
 using Wpf.Ui;
 using Wpf.Ui.Appearance;
@@ -48,12 +50,13 @@ public partial class App : Application {
                     outputTemplate:
                     "[{Timestamp:HH:mm:ss} {Level:u3}] {Message} {SourceContext} {Exception}{NewLine}{NewLine}",
                     rollingInterval: RollingInterval.Day)
-                .WriteTo.Console(
-                    outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj} {Exception}{NewLine}{NewLine}")
                 .MinimumLevel.Debug()
                 .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
                 .MinimumLevel.Override("Microsoft.Hosting.Lifetime", LogEventLevel.Warning);
-
+#if DEBUG
+            loggerConfiguration.WriteTo.Console(
+                outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj} {Exception}{NewLine}{NewLine}");
+#endif
             var richTextBox = new RichTextBoxImpl();
             services.AddSingleton<IRichTextBox>(richTextBox);
 
@@ -74,6 +77,7 @@ public partial class App : Application {
             services.AddSingleton<IPreferencesService, JsonPreferencesService>();
             services.AddSingleton<IBmpSteganographyService, BmpSteganographyService>();
             services.AddSingleton<IContentDialogService, ContentDialogService>();
+            services.AddSingleton<INotificationService, WindowsToastNotificationService>();
 
             // 特殊服务
             services.AddSingleton<SnackbarServiceHelper>(); // 弹窗服务
@@ -101,8 +105,12 @@ public partial class App : Application {
             services.AddSingleton<Base64ToolViewModel>();
             services.AddSingleton<Base64ToolPage>();
             // 数据结构可视化
+            // 图
             services.AddSingleton<GraphVisualizationViewModel>();
             services.AddSingleton<GraphVisualizationPage>();
+            // 树
+            services.AddSingleton<TreeVisualizationViewModel>();
+            services.AddSingleton<TreeVisualizationPage>();
             // 问询对话框
             services.AddTransient<UserInfoSettingDialogViewModel>();
             services.AddTransient<UserInfoSettingDialog>();
