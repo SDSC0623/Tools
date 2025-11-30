@@ -101,14 +101,14 @@
                     </ui:NavigationViewItem.Icon>
                 </ui:NavigationViewItem>
 
-                <!-- 数据结构课可视化界面 -->
-                <ui:NavigationViewItem Content="数据结构课可视化"
+                <!-- 数据结构可视化界面 -->
+                <ui:NavigationViewItem Content="数据结构可视化"
                                        NavigationCacheMode="Enabled">
                     <ui:NavigationViewItem.Icon>
                         <ui:SymbolIcon Symbol="Group20" Filled="False" Height="20" Width="20" />
                     </ui:NavigationViewItem.Icon>
                     <ui:NavigationViewItem.MenuItems>
-                        <!-- 数据结构课可视化界面 -->
+                        <!-- 数据结构可视化界面 -->
                         <ui:NavigationViewItem Content="图可视化"
                                                NavigationCacheMode="Enabled"
                                                TargetPageType="{x:Type graphVisualization:GraphVisualizationPage}">

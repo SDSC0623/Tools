@@ -41,6 +41,7 @@ namespace Tools;
 
 public partial class App : Application {
     private static readonly IHost Host = Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder()
+        .UseElevated()
         .ConfigureLogging(logging => { logging.ClearProviders(); })
         .ConfigureServices((_, services) => {
             // 日志
@@ -78,6 +79,7 @@ public partial class App : Application {
             services.AddSingleton<IBmpSteganographyService, BmpSteganographyService>();
             services.AddSingleton<IContentDialogService, ContentDialogService>();
             services.AddSingleton<INotificationService, WindowsToastNotificationService>();
+            services.AddSingleton<IWindowsPickerService, WindowsPickerService>();
 
             // 特殊服务
             services.AddSingleton<SnackbarServiceHelper>(); // 弹窗服务
@@ -178,5 +180,12 @@ public partial class App : Application {
 
     public static object? GetService(Type type) {
         return ServiceProvider.GetService(type);
+    }
+}
+
+internal static class StartExtension {
+    public static IHostBuilder UseElevated(this IHostBuilder app) {
+        AppRunningHelper.EnsureAdmin();
+        return app;
     }
 }

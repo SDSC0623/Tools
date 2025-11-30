@@ -4,6 +4,7 @@
 
 using System.IO;
 using System.Reflection;
+using System.Security.Principal;
 
 // ReSharper disable MemberCanBePrivate.Global
 
@@ -26,4 +27,12 @@ public static class GlobalSettings {
     public static string LogDirectory => Path.Combine(BaseDirectory, "Log");
 
     public static string AppDataDirectory => Path.Combine(BaseDirectory, "AppData");
+
+    public static bool IsAdmin { get; } = GetElevated();
+
+    private static bool GetElevated() {
+        using var identity = WindowsIdentity.GetCurrent();
+        WindowsPrincipal principal = new(identity);
+        return principal.IsInRole(WindowsBuiltInRole.Administrator);
+    }
 }
