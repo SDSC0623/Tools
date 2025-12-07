@@ -383,3 +383,47 @@ public class DoubleBooleanToStylesConverter : IMultiValueConverter {
         throw new UnexpectedCallException();
     }
 }
+
+public class ProcessStatusToColorConverter : IValueConverter {
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture) {
+        if (value is bool hasRunning) {
+            return hasRunning ? Brushes.Green : Brushes.Red;
+        }
+
+        return Brushes.DarkGray;
+    }
+
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) {
+        throw new UnexpectedCallException();
+    }
+}
+
+// 启动状态到图标转换器
+public class ProcessStatusToIconConverter : IValueConverter {
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture) {
+        if (value is bool hasRunning) {
+            return hasRunning ? SymbolRegular.Checkmark12 : SymbolRegular.Dismiss12;
+        }
+
+        return SymbolRegular.Question16;
+    }
+
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) {
+        throw new UnexpectedCallException();
+    }
+}
+
+// 启动状态到文本转换器
+public class ProcessStatusToTextConverter : IValueConverter {
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture) {
+        if (value is bool hasRunning) {
+            return hasRunning ? "已启动过" : "未启动过";
+        }
+
+        return "未知状态";
+    }
+
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) {
+        throw new UnexpectedCallException();
+    }
+}

@@ -28,9 +28,9 @@ public static class GlobalSettings {
 
     public static string AppDataDirectory => Path.Combine(BaseDirectory, "AppData");
 
-    public static bool IsAdmin { get; } = GetElevated();
+    public static bool IsAdmin { get; } = GetAdmin();
 
-    private static bool GetElevated() {
+    private static bool GetAdmin() {
         using var identity = WindowsIdentity.GetCurrent();
         WindowsPrincipal principal = new(identity);
         return principal.IsInRole(WindowsBuiltInRole.Administrator);

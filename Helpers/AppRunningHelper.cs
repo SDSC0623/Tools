@@ -4,8 +4,12 @@
 
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
+using System.Reflection;
 using System.Windows;
+using System.Windows.Controls;
 using Serilog;
+using Tools.Attributes;
 using Tools.Views.Pages;
 using Tools.Services;
 using Tools.Services.IServices;
@@ -29,16 +33,12 @@ public class AppRunningHelper {
     // 提示信息服务
     private readonly SnackbarServiceHelper _snackbarService;
 
-    private readonly IWindowsPickerService _windowsPickerService;
-
     public AppRunningHelper(INavigationService navigationService, ILogger logger,
-        IPreferencesService preferencesService, SnackbarServiceHelper snackbarService,
-        IWindowsPickerService windowsPickerService) {
+        IPreferencesService preferencesService, SnackbarServiceHelper snackbarService) {
         _navigationService = navigationService;
         _logger = logger;
         _preferencesService = preferencesService;
         _snackbarService = snackbarService;
-        _windowsPickerService = windowsPickerService;
     }
 
     private static string ReArguments() {
@@ -58,7 +58,7 @@ public class AppRunningHelper {
             ProcessStartInfo startInfo = new() {
                 UseShellExecute = true,
                 WorkingDirectory = GlobalSettings.BaseDirectory,
-                FileName = "Tools.exe",
+                FileName = Path.GetFileName(Environment.ProcessPath),
                 Arguments = ReArguments(),
                 Verb = "runas"
             };
@@ -86,20 +86,40 @@ public class AppRunningHelper {
         }
     }
 
+    public void InitPageWhenStartup() {
+        var assembly = Assembly.GetExecutingAssembly();
+
+        var pageTypes = assembly.GetTypes()
+            .Where(t => t.IsSubclassOf(typeof(Page)))
+            .Where(t => t.GetCustomAttribute<NeedStartupInitAttribute>() != null)
+            .OrderBy(t => t.Name);
+
+        foreach (var pageType in pageTypes) {
+            _navigationService.Navigate(pageType);
+        }
+    }
+
+    public void DisposePageWhenExit() {
+        var assembly = Assembly.GetExecutingAssembly();
+
+        var pageTypes = assembly.GetTypes()
+            .Where(t => t.IsSubclassOf(typeof(Page)))
+            .Where(t => t.GetCustomAttribute<NeedDisposePageAttribute>() != null)
+            .OrderBy(t => t.Name);
+
+        foreach (var pageType in pageTypes) {
+            var methodName = pageType.GetCustomAttribute<NeedDisposePageAttribute>()!.DisposeAction;
+            var method = pageType.GetMethod(methodName);
+            method?.Invoke(App.GetService(pageType), null);
+        }
+    }
+
     public void StartApp() {
         try {
             var targetPage = _preferencesService.Get("StartPage", typeof(HomePage))!;
             _navigationService.Navigate(targetPage);
             _logger.Information("程序启动完成，详细版本: [{FullVersion}]", GlobalSettings.FullVersion);
-
-            var windows = _windowsPickerService.GetAllWindows();
-            string temp = "\n";
-            foreach (var windowInfo in windows) {
-                temp += windowInfo.Title + "\n" + windowInfo.ProcessName + "\n" + windowInfo.Handle + "\n" +
-                        windowInfo.ExecutablePath + "\n" + "\n";
-            }
-
-            _logger.Information("获取所有窗口信息: {Windows}", temp);
+            _logger.Information("运行路径: [{BaseDirectory}]", GlobalSettings.BaseDirectory);
         } catch (PreferencesException ex) {
             _navigationService.Navigate(typeof(HomePage));
             _preferencesService.Set("StartPage", typeof(HomePage));

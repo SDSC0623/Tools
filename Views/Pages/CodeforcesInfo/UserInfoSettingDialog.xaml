@@ -72,8 +72,7 @@
             <!-- 反馈按钮 -->
             <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
                 <ui:Button Content="取消" Command="{Binding CancelCommand}" Margin="0,0,10,0" />
-                <ui:Button Content="保存" Command="{Binding SaveCommand}" Appearance="Primary"
-                           Foreground="White" />
+                <ui:Button Content="保存" Command="{Binding SaveCommand}" Appearance="Primary" />
             </StackPanel>
         </Grid>
     </Grid>

@@ -42,7 +42,7 @@ public partial class SettingProgressDialogViewModel : ObservableObject {
 
     private void CloseDialog(bool result) {
         if (_window == null) {
-            return;
+            throw new Exception("窗口绑定异常");
         }
 
         _window.DialogResult = result;

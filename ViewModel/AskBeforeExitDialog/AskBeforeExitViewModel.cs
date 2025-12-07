@@ -4,7 +4,6 @@
 
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Tools.Helpers;
 using Tools.Models;
 using Tools.Services;
 using Tools.Services.IServices;
@@ -18,18 +17,13 @@ public partial class AskBeforeExitViewModel : ObservableObject {
     // 窗口对象
     private AskBeforeExit? _window;
 
-    // App运行辅助
-    private readonly AppRunningHelper _appRunningHelper;
-
     // 配置本地化服务
     private readonly IPreferencesService _preferencesService;
 
     // 提示信息服务
     private readonly SnackbarServiceHelper _snackbarService;
 
-    public AskBeforeExitViewModel(AppRunningHelper appRunningHelper, SnackbarServiceHelper snackbarService,
-        IPreferencesService preferencesService) {
-        _appRunningHelper = appRunningHelper;
+    public AskBeforeExitViewModel(SnackbarServiceHelper snackbarService, IPreferencesService preferencesService) {
         _snackbarService = snackbarService;
         _preferencesService = preferencesService;
     }
@@ -40,7 +34,7 @@ public partial class AskBeforeExitViewModel : ObservableObject {
 
     private void CloseDialog(bool result) {
         if (_window == null) {
-            return;
+            throw new Exception("窗口绑定异常");
         }
 
         _window.DialogResult = result;

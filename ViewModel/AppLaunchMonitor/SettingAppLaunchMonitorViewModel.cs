@@ -8,12 +8,11 @@ using CommunityToolkit.Mvvm.Input;
 using Tools.Models;
 using Tools.Services;
 using Tools.Services.IServices;
-using Tools.Views.Pages.CodeforcesInfo;
+using Tools.Views.Pages.AppLaunchMonitor;
 
-namespace Tools.ViewModel.CodeforcesInfoPage;
+namespace Tools.ViewModel.AppLaunchMonitor;
 
-public partial class ContestsLoadSettingDialogViewModel : ObservableValidator {
-    // 时间数字部分
+public partial class SettingAppLaunchMonitorViewModel : ObservableValidator {
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(Range))]
     [Required]
@@ -27,8 +26,12 @@ public partial class ContestsLoadSettingDialogViewModel : ObservableValidator {
     // 取用对象
     public TimeRange Range => new() { Value = Value, Unit = Unit };
 
+    // fps
+    [ObservableProperty] [Required] [Range(10.0, 60.0, ErrorMessage = "输入不合法，请输入 10 - 60 之内的实数")]
+    private double _fps;
+
     // 窗口对象
-    private ContestsLoadSettingDialog? _window;
+    private SettingAppLaunchMonitorDialog? _window;
 
     // 配置本地化服务
     private readonly IPreferencesService _preferencesService;
@@ -36,22 +39,22 @@ public partial class ContestsLoadSettingDialogViewModel : ObservableValidator {
     // 提示信息服务
     private readonly SnackbarServiceHelper _snackbarService;
 
-    public ContestsLoadSettingDialogViewModel(IPreferencesService preferencesService,
+    public SettingAppLaunchMonitorViewModel(IPreferencesService preferencesService,
         SnackbarServiceHelper snackbarService) {
         _preferencesService = preferencesService;
         _snackbarService = snackbarService;
         Init();
     }
 
-    public void SetWindow(ContestsLoadSettingDialog window) {
-        _window = window;
+    private void Init() {
+        var temp = _preferencesService.Get("DaySeparatorOffset", new TimeRange { Value = 0, Unit = TimeUnit.Hour })!;
+        Value = temp.Value;
+        Unit = temp.Unit;
+        Fps = _preferencesService.Get("ShowWindowFps", 30.0);
     }
 
-    private void Init() {
-        var range = _preferencesService.Get("ContestsLoadTimeRange",
-            new TimeRange { Value = 30, Unit = TimeUnit.Day })!;
-        Value = range.Value;
-        Unit = range.Unit;
+    public void SetWindow(SettingAppLaunchMonitorDialog window) {
+        _window = window;
     }
 
     // 实时校验
@@ -59,14 +62,12 @@ public partial class ContestsLoadSettingDialogViewModel : ObservableValidator {
         ValidateProperty(value, nameof(Value));
     }
 
-    [RelayCommand]
-    private void Reset() {
-        Value = 30;
-        Unit = TimeUnit.Day;
+    partial void OnFpsChanged(double value) {
+        ValidateProperty(value, nameof(Fps));
     }
 
-    private void CloseDialog(bool result) {
-        if (_window == null) {
+    private void CloseWindow(bool result) {
+        if (_window is null) {
             throw new Exception("窗口绑定异常");
         }
 
@@ -75,21 +76,28 @@ public partial class ContestsLoadSettingDialogViewModel : ObservableValidator {
     }
 
     [RelayCommand]
-    private async Task Save() {
+    private void Reset() {
+        Value = 0;
+        Unit = TimeUnit.Hour;
+        Fps = 30;
+    }
+
+    [RelayCommand]
+    private void Cancel() {
+        CloseWindow(false);
+    }
+
+    [RelayCommand]
+    private void Save() {
         ValidateAllProperties();
         if (HasErrors) {
             _snackbarService.ShowWarning("不可保存", string.Join(Environment.NewLine, GetErrors(nameof(Value))));
             return;
         }
 
-        await _preferencesService.Set("ContestsLoadTimeRange", Range);
-        _snackbarService.ShowSuccess("保存成功", $"设置展示时间为{Range}");
-        CloseDialog(true);
-    }
-
-    [RelayCommand]
-    private void Cancel() {
-        _snackbarService.ShowInfo("取消保存", "已取消保存");
-        CloseDialog(false);
+        _preferencesService.Set("DaySeparatorOffset", Range);
+        _preferencesService.Set("ShowWindowFps", Fps);
+        _snackbarService.ShowSuccess("保存成功", $"设置偏移时间为{Range}, 预览帧率{Fps}");
+        CloseWindow(true);
     }
 }

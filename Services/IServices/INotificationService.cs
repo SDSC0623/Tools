@@ -5,5 +5,5 @@
 namespace Tools.Services.IServices;
 
 public interface INotificationService {
-    void ShowNotification(string title, string[] message, TimeSpan? duration = null);
+    void ShowNotification(string title, List<string> message, TimeSpan? duration = null);
 }

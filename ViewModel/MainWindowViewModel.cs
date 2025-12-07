@@ -5,6 +5,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Tools.Helpers;
+using Tools.Services.IServices;
 using Wpf.Ui.Appearance;
 
 // ReSharper disable ConvertToPrimaryConstructor
@@ -19,8 +20,13 @@ public partial class MainWindowViewModel : ObservableObject {
     // App运行辅助
     private readonly AppRunningHelper _appRunningHelper;
 
-    public MainWindowViewModel(AppRunningHelper appRunningHelper) {
+    // 配置本地化服务
+    private readonly IPreferencesService _preferencesService;
+
+    public MainWindowViewModel(AppRunningHelper appRunningHelper, IPreferencesService preferencesService) {
         _appRunningHelper = appRunningHelper;
+        _preferencesService = preferencesService;
+        IsDark = _preferencesService.Get("ThemeIsDark", true);
     }
 
     [RelayCommand]
@@ -50,10 +56,12 @@ public partial class MainWindowViewModel : ObservableObject {
     [RelayCommand]
     private void ChangeToDark() {
         IsDark = true;
+        _ = _preferencesService.Set("ThemeIsDark", IsDark);
     }
 
     [RelayCommand]
     private void ChangeToLight() {
         IsDark = false;
+        _ = _preferencesService.Set("ThemeIsDark", IsDark);
     }
 }

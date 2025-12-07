@@ -6,11 +6,12 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using Serilog;
 using Serilog.Sinks.RichTextBox.Abstraction;
+using Tools.Attributes;
 using Tools.Helpers;
 using Tools.ViewModel.SettingPage;
 
 namespace Tools.Views.Pages;
-
+[NeedStartupInit]
 public partial class SettingPage : Page {
     public SettingPage(SettingPageViewModel viewModel, IRichTextBox richTextBox) {
         InitializeComponent();

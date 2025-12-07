@@ -18,6 +18,7 @@ using Tools.Views.Pages;
 using Tools.Views.Pages.CodeforcesInfo;
 using Tools.Views.Pages.HideInBmp;
 using Tools.ViewModel;
+using Tools.ViewModel.AppLaunchMonitor;
 using Tools.ViewModel.AskBeforeExitDialog;
 using Tools.ViewModel.Base64ToolPage;
 using Tools.ViewModel.HomePage;
@@ -25,7 +26,9 @@ using Tools.ViewModel.SettingPage;
 using Tools.ViewModel.CodeforcesInfoPage;
 using Tools.ViewModel.DataStructureDisplay.GraphVisualization;
 using Tools.ViewModel.DataStructureDisplay.TreeVisualization;
+using Tools.ViewModel.GetTextsDialogViewModel;
 using Tools.ViewModel.HideInBmpPage;
+using Tools.Views.Pages.AppLaunchMonitor;
 using Tools.Views.Pages.Base64Tool;
 using Tools.Views.Pages.DataStructureDisplay.GraphVisualization;
 using Tools.Views.Pages.DataStructureDisplay.TreeVisualization;
@@ -33,6 +36,7 @@ using Tools.Views.Windows;
 using Wpf.Ui;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.DependencyInjection;
+using MessageBox = Wpf.Ui.Controls.MessageBox;
 
 // ReSharper disable UnusedMember.Global
 // ReSharper disable RedundantExtendsListEntry
@@ -41,7 +45,9 @@ namespace Tools;
 
 public partial class App : Application {
     private static readonly IHost Host = Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder()
-        .UseElevated()
+        .UseAdmin()
+        .EnsureNotInRoot().Result
+        .EnsureNotInDesktop().Result
         .ConfigureLogging(logging => { logging.ClearProviders(); })
         .ConfigureServices((_, services) => {
             // 日志
@@ -113,6 +119,9 @@ public partial class App : Application {
             // 树
             services.AddSingleton<TreeVisualizationViewModel>();
             services.AddSingleton<TreeVisualizationPage>();
+            // App启动监控
+            services.AddSingleton<AppLaunchMonitorViewModel>();
+            services.AddSingleton<AppLaunchMonitorPage>();
             // 问询对话框
             services.AddTransient<UserInfoSettingDialogViewModel>();
             services.AddTransient<UserInfoSettingDialog>();
@@ -122,6 +131,12 @@ public partial class App : Application {
             services.AddTransient<SettingProgressDialog>();
             services.AddTransient<AskBeforeExitViewModel>();
             services.AddTransient<AskBeforeExit>();
+            services.AddTransient<PickWindowDialogViewModel>();
+            services.AddTransient<PickWindowDialog>();
+            services.AddTransient<GetTextsDialogViewModel>();
+            services.AddTransient<GetTextsDialog>();
+            services.AddTransient<SettingAppLaunchMonitorViewModel>();
+            services.AddTransient<SettingAppLaunchMonitorDialog>();
         })
         .Build();
 
@@ -134,17 +149,6 @@ public partial class App : Application {
     protected override async void OnStartup(StartupEventArgs e) {
         try {
             base.OnStartup(e);
-            if (GlobalSettings.BaseDirectory.Split(Path.DirectorySeparatorChar).Length == 1 ||
-                new DirectoryInfo(GlobalSettings.BaseDirectory).Parent == null) {
-                var messageBox = new Wpf.Ui.Controls.MessageBox {
-                    Title = "程序主动停止",
-                    Content = "请不要在根目录下运行程序，你应当把本程序放在一个文件夹内运行。",
-                    CloseButtonText = "确认"
-                };
-                await messageBox.ShowDialogAsync();
-                Environment.Exit(-1);
-                return;
-            }
 
             await Host.StartAsync();
 
@@ -153,10 +157,12 @@ public partial class App : Application {
             var mainWindow = GetService<MainWindow>()!;
             mainWindow.Show();
 
-            GetService<INavigationService>()!.Navigate(typeof(SettingPage));
+            GetService<AppRunningHelper>()!.InitPageWhenStartup();
 
             GetService<AppRunningHelper>()!.StartApp();
-            ApplicationThemeManager.Apply(ApplicationTheme.Dark);
+            ApplicationThemeManager.Apply(GetService<IPreferencesService>()!.Get("ThemeIsDark", true)
+                ? ApplicationTheme.Dark
+                : ApplicationTheme.Light);
         } catch (Exception ex) {
             _logger.Error("启动时发生错误: {ExMessage}", ex.Message);
         }
@@ -164,6 +170,8 @@ public partial class App : Application {
 
     protected override async void OnExit(ExitEventArgs e) {
         try {
+            GetService<AppRunningHelper>()!.DisposePageWhenExit();
+
             base.OnExit(e);
 
             await Host.StopAsync();
@@ -184,8 +192,39 @@ public partial class App : Application {
 }
 
 internal static class StartExtension {
-    public static IHostBuilder UseElevated(this IHostBuilder app) {
+    public static IHostBuilder UseAdmin(this IHostBuilder app) {
         AppRunningHelper.EnsureAdmin();
+        return app;
+    }
+
+    public static async Task<IHostBuilder> EnsureNotInRoot(this IHostBuilder app) {
+        if (GlobalSettings.BaseDirectory.Split(Path.DirectorySeparatorChar).Length == 1 ||
+            new DirectoryInfo(GlobalSettings.BaseDirectory).Parent == null) {
+            var messageBox = new MessageBox {
+                Title = "程序主动停止",
+                Content = "请不要在根目录下运行程序，你应当把本程序放在一个文件夹内运行。",
+                CloseButtonText = "确认"
+            };
+            await messageBox.ShowDialogAsync();
+            Environment.Exit('r' + 'u' + 'n' + 'i' + 'n' + 'r' + 'o' + 'o' + 't');
+        }
+
+
+        return app;
+    }
+
+    public static async Task<IHostBuilder> EnsureNotInDesktop(this IHostBuilder app) {
+        if (Path.TrimEndingDirectorySeparator(GlobalSettings.BaseDirectory) ==
+            Environment.GetFolderPath(Environment.SpecialFolder.Desktop)) {
+            var messageBox = new MessageBox {
+                Title = "程序主动停止",
+                Content = "请不要在桌面运行本程序，你应当把本程序放在一个独立文件夹内运行。",
+                CloseButtonText = "确认"
+            };
+            await messageBox.ShowDialogAsync();
+            Environment.Exit('r' + 'u' + 'n' + 'i' + 'n' + 'd' + 'e' + 's' + 'k' + 't' + 'o' + 'p');
+        }
+
         return app;
     }
 }

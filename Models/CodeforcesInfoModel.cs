@@ -194,22 +194,15 @@ public class TimeRange {
     public TimeUnit Unit { get; set; }
 
     public TimeSpan ToTimeSpan() {
-        switch (Unit) {
-            case TimeUnit.Second:
-                return TimeSpan.FromSeconds(Value);
-            case TimeUnit.Minute:
-                return TimeSpan.FromMinutes(Value);
-            case TimeUnit.Hour:
-                return TimeSpan.FromHours(Value);
-            case TimeUnit.Day:
-                return TimeSpan.FromDays(Value);
-            case TimeUnit.Month:
-                return TimeSpan.FromDays(Value * 30);
-            case TimeUnit.Year:
-                return TimeSpan.FromDays(Value * 365);
-            default:
-                return TimeSpan.FromDays(30);
-        }
+        return Unit switch {
+            TimeUnit.Second => TimeSpan.FromSeconds(Value),
+            TimeUnit.Minute => TimeSpan.FromMinutes(Value),
+            TimeUnit.Hour => TimeSpan.FromHours(Value),
+            TimeUnit.Day => TimeSpan.FromDays(Value),
+            TimeUnit.Month => TimeSpan.FromDays(Value * 30),
+            TimeUnit.Year => TimeSpan.FromDays(Value * 365),
+            _ => TimeSpan.FromDays(30)
+        };
     }
 
     public override string ToString() {

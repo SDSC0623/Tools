@@ -13,7 +13,6 @@
       d:DataContext="{d:DesignInstance Type=viewModel:Base64ToolViewModel}"
       Title="Base64ToolPage">
 
-
     <Grid Margin="42, 16">
         <Grid.RowDefinitions>
             <RowDefinition Height="60" />

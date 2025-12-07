@@ -42,8 +42,7 @@
             </Grid.ColumnDefinitions>
             <ui:Button Grid.Column="0" Content="取消" Command="{Binding CancelCommand}" />
             <ui:Button Grid.Column="2" Content="隐藏" Command="{Binding HideCommand}" />
-            <ui:Button Grid.Column="4" Content="确定" Command="{Binding ExitCommand}" Foreground="White"
-                       Appearance="Primary" />
+            <ui:Button Grid.Column="4" Content="确定" Command="{Binding ExitCommand}" Appearance="Primary" />
         </Grid>
     </Grid>
 </ui:FluentWindow>

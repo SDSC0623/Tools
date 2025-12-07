@@ -13,6 +13,7 @@
                  xmlns:base64Tool="clr-namespace:Tools.Views.Pages.Base64Tool"
                  xmlns:graphVisualization="clr-namespace:Tools.Views.Pages.DataStructureDisplay.GraphVisualization"
                  xmlns:treeVisualization="clr-namespace:Tools.Views.Pages.DataStructureDisplay.TreeVisualization"
+                 xmlns:appLaunchMonitor="clr-namespace:Tools.Views.Pages.AppLaunchMonitor"
                  ExtendsContentIntoTitleBar="True"
                  mc:Ignorable="d"
                  d:DataContext="{d:DesignInstance Type=viewModel:MainWindowViewModel}"
@@ -47,7 +48,7 @@
                                              EnableCommand="{Binding ChangeToDarkCommand}"
                                              DisableIcon="{ui:SymbolIcon WeatherMoon24}"
                                              DisableCommand="{Binding ChangeToLightCommand}"
-                                             IsChecked="{Binding IsDark}" />
+                                             IsChecked="{Binding IsDark, Mode=TwoWay}" />
                     <ui:Button Width="46" Height="32"
                                Background="Transparent"
                                BorderBrush="Transparent"
@@ -128,6 +129,15 @@
                     </ui:NavigationViewItem.MenuItems>
                 </ui:NavigationViewItem>
 
+                <!-- App启动监控工具 -->
+                <ui:NavigationViewItem Content="App启动监控工具"
+                                       NavigationCacheMode="Enabled"
+                                       TargetPageType="{x:Type appLaunchMonitor:AppLaunchMonitorPage}">
+                    <ui:NavigationViewItem.Icon>
+                        <ui:SymbolIcon Symbol="CameraDome16" Filled="False" Height="20" Width="20" />
+                    </ui:NavigationViewItem.Icon>
+                </ui:NavigationViewItem>
+
             </ui:NavigationView.MenuItems>
 
             <!-- 底部菜单项 -->
@@ -153,9 +163,6 @@
                          MenuOnRightClick="True">
             <tray:NotifyIcon.Menu>
                 <ContextMenu DataContext="{Binding DataContext, Source={x:Reference RootNavigation}}">
-                    <!-- <ContextMenu.DataContext> -->
-                    <!--     <extensions:ServiceLocator Type="{x:Type viewModel:MainWindowViewModel}" /> -->
-                    <!-- </ContextMenu.DataContext> -->
                     <ui:MenuItem Command="{Binding ShowCommand}"
                                  Icon="{ui:SymbolIcon OpenFolder24}"
                                  Header="显示主界面" d:DataContext="{d:DesignInstance viewModel:MainWindowViewModel }" />

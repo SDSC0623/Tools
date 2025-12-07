@@ -3,13 +3,13 @@
                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
                  xmlns:extensions="clr-namespace:Tools.Extensions"
                  xmlns:converters="clr-namespace:Tools.Converters"
-                 xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
                  xmlns:models="clr-namespace:Tools.Models"
-                 xmlns:codeforcesInfoPage="clr-namespace:Tools.ViewModel.CodeforcesInfoPage"
+                 xmlns:viewModel="clr-namespace:Tools.ViewModel.CodeforcesInfoPage"
                  mc:Ignorable="d"
-                 d:DataContext="{d:DesignInstance Type=codeforcesInfoPage:ContestsLoadSettingDialogViewModel}"
+                 d:DataContext="{d:DesignInstance Type=viewModel:ContestsLoadSettingDialogViewModel}"
                  Title="用户信息设置"
                  MaxHeight="240"
                  MaxWidth="330"
@@ -34,8 +34,9 @@
         <!-- 最远显示比赛时间 -->
         <ui:TextBlock Grid.Row="0" Text="最早显示比赛时间" FontTypography="BodyStrong" Margin="0,0,0,5" />
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
-            <ui:TextBox Text="{Binding Value, UpdateSourceTrigger=PropertyChanged}"
-                        PlaceholderText="输入时间" Width="100" TextAlignment="Center" ClearButtonEnabled="False" />
+            <ui:NumberBox Text="{Binding Value, UpdateSourceTrigger=PropertyChanged}"
+                          PlaceholderText="输入时间" Width="100" TextAlignment="Center" ClearButtonEnabled="False"
+                          SpinButtonPlacementMode="Hidden" />
             <ComboBox SelectedItem="{Binding Unit}"
                       ItemsSource="{Binding Source={StaticResource TimeUnitEnumSource}}"
                       Margin="10,0,0,0" Width="80">
@@ -71,8 +72,7 @@
             <!-- 反馈按钮 -->
             <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
                 <ui:Button Content="取消" Command="{Binding CancelCommand}" Margin="0,0,10,0" />
-                <ui:Button Content="保存" Command="{Binding SaveCommand}" Appearance="Primary"
-                           Foreground="White" />
+                <ui:Button Content="保存" Command="{Binding SaveCommand}" Appearance="Primary" />
             </StackPanel>
         </Grid>
     </Grid>

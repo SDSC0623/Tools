@@ -54,10 +54,8 @@
             </StackPanel>
             <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="0,0,0,16">
                 <ui:Button Icon="{ui:SymbolIcon Settings16, FontSize=22, Filled=True}"
-                           Width="42"
-                           Height="42"
-                           Background="Transparent"
-                           BorderBrush="Transparent"
+                           Width="42" Height="42"
+                           Background="Transparent" BorderBrush="Transparent"
                            IsEnabled="{Binding FinishedContestCodeLoading}"
                            Command="{Binding SettingContestsLoadTimeRangeCommand}"
                            Margin="5, 0" />
@@ -112,10 +110,11 @@
 
                                             <!-- 比赛类型和状态标签 -->
                                             <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
-                                                <ui:Border Background="{DynamicResource SolidBackgroundFillColorQuarternaryBrush}"
-                                                           CornerRadius="6"
-                                                           Padding="6,4"
-                                                           Margin="0,0,8,0">
+                                                <ui:Border
+                                                    Background="{DynamicResource SolidBackgroundFillColorQuarternaryBrush}"
+                                                    CornerRadius="6"
+                                                    Padding="6,4"
+                                                    Margin="0,0,8,0">
                                                     <StackPanel Orientation="Horizontal">
                                                         <ui:SymbolIcon
                                                             Symbol="{Binding Type, Converter={StaticResource ContestTypeToIconConverter}}"

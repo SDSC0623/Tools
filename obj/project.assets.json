@@ -750,6 +750,49 @@
           }
         }
       },
+      "Microsoft.Windows.CsWin32/0.3.257": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Windows.SDK.Win32Docs": "0.1.42-alpha",
+          "Microsoft.Windows.SDK.Win32Metadata": "65.0.8-preview",
+          "Microsoft.Windows.WDK.Win32Metadata": "0.13.25-experimental"
+        },
+        "build": {
+          "build/netstandard1.0/Microsoft.Windows.CsWin32.props": {},
+          "build/netstandard1.0/Microsoft.Windows.CsWin32.targets": {}
+        }
+      },
+      "Microsoft.Windows.SDK.Win32Docs/0.1.42-alpha": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/_._": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/_._": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/netstandard1.0/Microsoft.Windows.SDK.Win32Docs.props": {}
+        }
+      },
+      "Microsoft.Windows.SDK.Win32Metadata/65.0.8-preview": {
+        "type": "package",
+        "build": {
+          "buildTransitive/netstandard1.0/Microsoft.Windows.SDK.Win32Metadata.props": {}
+        }
+      },
+      "Microsoft.Windows.WDK.Win32Metadata/0.13.25-experimental": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Windows.SDK.Win32Metadata": "63.0.31-preview"
+        },
+        "build": {
+          "buildTransitive/netstandard1.0/Microsoft.Windows.WDK.Win32Metadata.props": {}
+        }
+      },
       "Microsoft.Xaml.Behaviors.Wpf/1.1.135": {
         "type": "package",
         "compile": {
@@ -863,6 +906,22 @@
           "Microsoft.WindowsDesktop.App.WPF"
         ]
       },
+      "System.CodeDom/10.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/System.CodeDom.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/System.CodeDom.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net8.0/_._": {}
+        }
+      },
       "System.Diagnostics.DiagnosticSource/9.0.8": {
         "type": "package",
         "compile": {
@@ -944,6 +1003,31 @@
         },
         "build": {
           "buildTransitive/net8.0/_._": {}
+        }
+      },
+      "System.Management/10.0.0": {
+        "type": "package",
+        "dependencies": {
+          "System.CodeDom": "10.0.0"
+        },
+        "compile": {
+          "lib/net8.0/System.Management.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/System.Management.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net8.0/_._": {}
+        },
+        "runtimeTargets": {
+          "runtimes/win/lib/net8.0/System.Management.dll": {
+            "assetType": "runtime",
+            "rid": "win"
+          }
         }
       },
       "System.Reflection.Emit/4.7.0": {
@@ -1061,7 +1145,7 @@
           "lib/netstandard2.0/Ude.NetStandard.dll": {}
         }
       },
-      "Vanara.Core/4.2.0": {
+      "Vanara.Core/4.2.1": {
         "type": "package",
         "compile": {
           "lib/net8.0-windows7.0/Vanara.Core.dll": {
@@ -1113,11 +1197,11 @@
           }
         }
       },
-      "Vanara.PInvoke.Kernel32/4.2.0": {
+      "Vanara.PInvoke.Kernel32/4.2.1": {
         "type": "package",
         "dependencies": {
-          "Vanara.Core": "4.2.0",
-          "Vanara.PInvoke.Shared": "4.2.0"
+          "Vanara.Core": "4.2.1",
+          "Vanara.PInvoke.Shared": "4.2.1"
         },
         "compile": {
           "lib/net8.0-windows7.0/Vanara.PInvoke.Kernel32.dll": {
@@ -1147,10 +1231,10 @@
           }
         }
       },
-      "Vanara.PInvoke.Shared/4.2.0": {
+      "Vanara.PInvoke.Shared/4.2.1": {
         "type": "package",
         "dependencies": {
-          "Vanara.Core": "4.2.0"
+          "Vanara.Core": "4.2.1"
         },
         "compile": {
           "lib/net8.0-windows7.0/Vanara.PInvoke.Shared.dll": {
@@ -2420,6 +2504,156 @@
         "useSharedDesignerContext.txt"
       ]
     },
+    "Microsoft.Windows.CsWin32/0.3.257": {
+      "sha512": "tLFBLCPEkuYw6f4NeNakRNrjQjUiJY1kN+i15alHNWWt/5SUbOna9CrN3RyWkj8JgFRUKv/An+7gVqO4xOlAMg==",
+      "type": "package",
+      "path": "microsoft.windows.cswin32/0.3.257",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "NOTICE.txt",
+        "README.md",
+        "_manifest/spdx_2.2/manifest.spdx.json",
+        "_manifest/spdx_2.2/manifest.spdx.json.sha256",
+        "analyzers/cs/MessagePack.Annotations.dll",
+        "analyzers/cs/MessagePack.dll",
+        "analyzers/cs/Microsoft.Bcl.AsyncInterfaces.dll",
+        "analyzers/cs/Microsoft.Windows.CsWin32.dll",
+        "analyzers/cs/Microsoft.Windows.SDK.Win32Docs.dll",
+        "analyzers/cs/System.Text.Encodings.Web.dll",
+        "analyzers/cs/System.Text.Json.dll",
+        "build/Microsoft.Windows.CsWin32.BuildTasks.dll",
+        "build/Microsoft.Windows.CsWin32.props",
+        "build/Microsoft.Windows.CsWin32.targets",
+        "build/net20/Microsoft.Windows.CsWin32.props",
+        "build/net20/Microsoft.Windows.CsWin32.targets",
+        "build/netstandard1.0/Microsoft.Windows.CsWin32.props",
+        "build/netstandard1.0/Microsoft.Windows.CsWin32.targets",
+        "build/tools/CsWin32Generator.deps.json",
+        "build/tools/CsWin32Generator.dll",
+        "build/tools/CsWin32Generator.pdb",
+        "build/tools/CsWin32Generator.runtimeconfig.json",
+        "build/tools/CsWin32Generator.xml",
+        "build/tools/MessagePack.Annotations.dll",
+        "build/tools/MessagePack.dll",
+        "build/tools/Microsoft.CodeAnalysis.CSharp.dll",
+        "build/tools/Microsoft.CodeAnalysis.dll",
+        "build/tools/Microsoft.Windows.CsWin32.dll",
+        "build/tools/Microsoft.Windows.CsWin32.pdb",
+        "build/tools/Microsoft.Windows.CsWin32.xml",
+        "build/tools/Microsoft.Windows.SDK.Win32Docs.dll",
+        "build/tools/System.Collections.Immutable.dll",
+        "build/tools/System.CommandLine.dll",
+        "build/tools/System.IO.Pipelines.dll",
+        "build/tools/System.Reflection.Metadata.dll",
+        "build/tools/System.Text.Encodings.Web.dll",
+        "build/tools/System.Text.Json.dll",
+        "build/tools/cs/Microsoft.CodeAnalysis.CSharp.resources.dll",
+        "build/tools/cs/Microsoft.CodeAnalysis.resources.dll",
+        "build/tools/cs/System.CommandLine.resources.dll",
+        "build/tools/de/Microsoft.CodeAnalysis.CSharp.resources.dll",
+        "build/tools/de/Microsoft.CodeAnalysis.resources.dll",
+        "build/tools/de/System.CommandLine.resources.dll",
+        "build/tools/es/Microsoft.CodeAnalysis.CSharp.resources.dll",
+        "build/tools/es/Microsoft.CodeAnalysis.resources.dll",
+        "build/tools/es/System.CommandLine.resources.dll",
+        "build/tools/fr/Microsoft.CodeAnalysis.CSharp.resources.dll",
+        "build/tools/fr/Microsoft.CodeAnalysis.resources.dll",
+        "build/tools/fr/System.CommandLine.resources.dll",
+        "build/tools/it/Microsoft.CodeAnalysis.CSharp.resources.dll",
+        "build/tools/it/Microsoft.CodeAnalysis.resources.dll",
+        "build/tools/it/System.CommandLine.resources.dll",
+        "build/tools/ja/Microsoft.CodeAnalysis.CSharp.resources.dll",
+        "build/tools/ja/Microsoft.CodeAnalysis.resources.dll",
+        "build/tools/ja/System.CommandLine.resources.dll",
+        "build/tools/ko/Microsoft.CodeAnalysis.CSharp.resources.dll",
+        "build/tools/ko/Microsoft.CodeAnalysis.resources.dll",
+        "build/tools/ko/System.CommandLine.resources.dll",
+        "build/tools/pl/Microsoft.CodeAnalysis.CSharp.resources.dll",
+        "build/tools/pl/Microsoft.CodeAnalysis.resources.dll",
+        "build/tools/pl/System.CommandLine.resources.dll",
+        "build/tools/pt-BR/Microsoft.CodeAnalysis.CSharp.resources.dll",
+        "build/tools/pt-BR/Microsoft.CodeAnalysis.resources.dll",
+        "build/tools/pt-BR/System.CommandLine.resources.dll",
+        "build/tools/ru/Microsoft.CodeAnalysis.CSharp.resources.dll",
+        "build/tools/ru/Microsoft.CodeAnalysis.resources.dll",
+        "build/tools/ru/System.CommandLine.resources.dll",
+        "build/tools/runtimes/browser/lib/net8.0/System.Text.Encodings.Web.dll",
+        "build/tools/tr/Microsoft.CodeAnalysis.CSharp.resources.dll",
+        "build/tools/tr/Microsoft.CodeAnalysis.resources.dll",
+        "build/tools/tr/System.CommandLine.resources.dll",
+        "build/tools/zh-Hans/Microsoft.CodeAnalysis.CSharp.resources.dll",
+        "build/tools/zh-Hans/Microsoft.CodeAnalysis.resources.dll",
+        "build/tools/zh-Hans/System.CommandLine.resources.dll",
+        "build/tools/zh-Hant/Microsoft.CodeAnalysis.CSharp.resources.dll",
+        "build/tools/zh-Hant/Microsoft.CodeAnalysis.resources.dll",
+        "build/tools/zh-Hant/System.CommandLine.resources.dll",
+        "microsoft.windows.cswin32.0.3.257.nupkg.sha512",
+        "microsoft.windows.cswin32.nuspec",
+        "readme.txt",
+        "tools/install.ps1",
+        "tools/uninstall.ps1"
+      ]
+    },
+    "Microsoft.Windows.SDK.Win32Docs/0.1.42-alpha": {
+      "sha512": "Z/9po23gUA9aoukirh2ItMU2ZS9++Js9Gdds9fu5yuMojDrmArvY2y+tq9985tR3cxFxpZO1O35Wjfo0khj5HA==",
+      "type": "package",
+      "path": "microsoft.windows.sdk.win32docs/0.1.42-alpha",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "apidocs.msgpack",
+        "buildTransitive/Microsoft.Windows.SDK.Win32Docs.props",
+        "buildTransitive/net20/Microsoft.Windows.SDK.Win32Docs.props",
+        "buildTransitive/netstandard1.0/Microsoft.Windows.SDK.Win32Docs.props",
+        "images/windows.png",
+        "lib/netstandard2.0/Microsoft.Windows.SDK.Win32Docs.dll",
+        "lib/netstandard2.0/Microsoft.Windows.SDK.Win32Docs.xml",
+        "microsoft.windows.sdk.win32docs.0.1.42-alpha.nupkg.sha512",
+        "microsoft.windows.sdk.win32docs.nuspec"
+      ]
+    },
+    "Microsoft.Windows.SDK.Win32Metadata/65.0.8-preview": {
+      "sha512": "U9D/tsGezMDzPpSkQhZDrIwJqtAKSaACoZt2GKHH0q0Z1MOsZ2ZrZkpuYyqISr0EjOERDNYtGFwLxuoDdWRIeg==",
+      "type": "package",
+      "path": "microsoft.windows.sdk.win32metadata/65.0.8-preview",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Windows.Win32.winmd",
+        "build/Microsoft.Windows.SDK.Win32Metadata.props",
+        "build/net20/Microsoft.Windows.SDK.Win32Metadata.props",
+        "build/netstandard1.0/Microsoft.Windows.SDK.Win32Metadata.props",
+        "buildTransitive/Microsoft.Windows.SDK.Win32Metadata.props",
+        "buildTransitive/net20/Microsoft.Windows.SDK.Win32Metadata.props",
+        "buildTransitive/netstandard1.0/Microsoft.Windows.SDK.Win32Metadata.props",
+        "images/windows.png",
+        "microsoft.windows.sdk.win32metadata.65.0.8-preview.nupkg.sha512",
+        "microsoft.windows.sdk.win32metadata.nuspec",
+        "sdk_license.txt"
+      ]
+    },
+    "Microsoft.Windows.WDK.Win32Metadata/0.13.25-experimental": {
+      "sha512": "IM50tb/+UIwBr9FMr6ZKcZjCMW+Axo6NjGqKxgjUfyCY8dRnYUfrJEXxAaXoWtYP4X8EmASmC1Jtwh4XucseZg==",
+      "type": "package",
+      "path": "microsoft.windows.wdk.win32metadata/0.13.25-experimental",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Windows.Wdk.winmd",
+        "build/Microsoft.Windows.WDK.Win32Metadata.props",
+        "build/net20/Microsoft.Windows.WDK.Win32Metadata.props",
+        "build/netstandard1.0/Microsoft.Windows.WDK.Win32Metadata.props",
+        "buildTransitive/Microsoft.Windows.WDK.Win32Metadata.props",
+        "buildTransitive/net20/Microsoft.Windows.WDK.Win32Metadata.props",
+        "buildTransitive/netstandard1.0/Microsoft.Windows.WDK.Win32Metadata.props",
+        "images/windows.png",
+        "microsoft.windows.wdk.win32metadata.0.13.25-experimental.nupkg.sha512",
+        "microsoft.windows.wdk.win32metadata.nuspec",
+        "sdk_license.txt"
+      ]
+    },
     "Microsoft.Xaml.Behaviors.Wpf/1.1.135": {
       "sha512": "r8qBEXmQfORso2+MVHnt8PSH4761zJ0SIxgQTSEDVLU97EN2FZdG6/ZCYUPhQy+OrPKgnpYBCAs3PS6Bs7wRsg==",
       "type": "package",
@@ -2592,6 +2826,35 @@
         "serilog.sinks.richtextboxex.wpf.nuspec"
       ]
     },
+    "System.CodeDom/10.0.0": {
+      "sha512": "QWERdKi/tQAx+MbrPxTGcpchqMANnVXNiv2r2tILBBB38E74buD+fABSUhozZ1G9kjbadFB0m+HPFMkhJPeFvA==",
+      "type": "package",
+      "path": "system.codedom/10.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "PACKAGE.md",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net461/System.CodeDom.targets",
+        "buildTransitive/net462/_._",
+        "buildTransitive/net8.0/_._",
+        "buildTransitive/netcoreapp2.0/System.CodeDom.targets",
+        "lib/net10.0/System.CodeDom.dll",
+        "lib/net10.0/System.CodeDom.xml",
+        "lib/net462/System.CodeDom.dll",
+        "lib/net462/System.CodeDom.xml",
+        "lib/net8.0/System.CodeDom.dll",
+        "lib/net8.0/System.CodeDom.xml",
+        "lib/net9.0/System.CodeDom.dll",
+        "lib/net9.0/System.CodeDom.xml",
+        "lib/netstandard2.0/System.CodeDom.dll",
+        "lib/netstandard2.0/System.CodeDom.xml",
+        "system.codedom.10.0.0.nupkg.sha512",
+        "system.codedom.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
     "System.Diagnostics.DiagnosticSource/9.0.8": {
       "sha512": "Lj8/a1Hzli1z6jo8H9urc16GxkpVJtJM+W9fmivXMNu7nwzHziGkxn4vO0DFscMbudkEVKSezdDuHk5kgM0X/g==",
       "type": "package",
@@ -2720,6 +2983,38 @@
         "lib/netstandard2.0/System.IO.Pipelines.xml",
         "system.io.pipelines.9.0.8.nupkg.sha512",
         "system.io.pipelines.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
+    "System.Management/10.0.0": {
+      "sha512": "LE3rDZoPzulou78Tsq+3ALhUs4vatQ03v2QWbYVIenVPneUH/+LTUmHyyl098OxIFLQI6sNkZs8YHbUnT/sm3A==",
+      "type": "package",
+      "path": "system.management/10.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "PACKAGE.md",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net8.0/_._",
+        "buildTransitive/netcoreapp2.0/System.Management.targets",
+        "lib/net10.0/System.Management.dll",
+        "lib/net10.0/System.Management.xml",
+        "lib/net462/_._",
+        "lib/net8.0/System.Management.dll",
+        "lib/net8.0/System.Management.xml",
+        "lib/net9.0/System.Management.dll",
+        "lib/net9.0/System.Management.xml",
+        "lib/netstandard2.0/System.Management.dll",
+        "lib/netstandard2.0/System.Management.xml",
+        "runtimes/win/lib/net10.0/System.Management.dll",
+        "runtimes/win/lib/net10.0/System.Management.xml",
+        "runtimes/win/lib/net8.0/System.Management.dll",
+        "runtimes/win/lib/net8.0/System.Management.xml",
+        "runtimes/win/lib/net9.0/System.Management.dll",
+        "runtimes/win/lib/net9.0/System.Management.xml",
+        "system.management.10.0.0.nupkg.sha512",
+        "system.management.nuspec",
         "useSharedDesignerContext.txt"
       ]
     },
@@ -3041,10 +3336,10 @@
         "ude.netstandard.nuspec"
       ]
     },
-    "Vanara.Core/4.2.0": {
-      "sha512": "POrSEl9HpSRyWPBCll7ql1pJ0Vv9Y2c2YVPPPszHJApFFPmwQMTw3B5GRCWbL6mnyivzF5qwLjCcb18hbUv+6A==",
+    "Vanara.Core/4.2.1": {
+      "sha512": "S6Hk/up/27HfKK2PaXx0oWE8szV0dktT0u2n5xL7iNFbS/zC7K7ZA7i1h6I8LpHwQNbvPddWewb/mSEmZl00/Q==",
       "type": "package",
-      "path": "vanara.core/4.2.0",
+      "path": "vanara.core/4.2.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -3077,7 +3372,7 @@
         "lib/netstandard2.1/Vanara.Core.xml",
         "lib/netstandard2.1/fr/Vanara.Core.resources.dll",
         "pkgreadme.md",
-        "vanara.core.4.2.0.nupkg.sha512",
+        "vanara.core.4.2.1.nupkg.sha512",
         "vanara.core.nuspec"
       ]
     },
@@ -3143,10 +3438,10 @@
         "vanara.pinvoke.gdi32.nuspec"
       ]
     },
-    "Vanara.PInvoke.Kernel32/4.2.0": {
-      "sha512": "OLS0An3xcEqX1DFLUKqThG9Gvj387v7OuIG75G2+1vdq6nI7Cl2MSv6h0zg9CITIqGeYmJ3/96Orux9KfEXimQ==",
+    "Vanara.PInvoke.Kernel32/4.2.1": {
+      "sha512": "RDHekPrUI+u8+3Iy6/X7wV+TDTSf+OwWLhmWhQBUgk2QfK6a0jjWzJvxowC6NQXCHk18s7z3cFaoQXlnbMymqg==",
       "type": "package",
-      "path": "vanara.pinvoke.kernel32/4.2.0",
+      "path": "vanara.pinvoke.kernel32/4.2.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -3170,7 +3465,7 @@
         "lib/netstandard2.1/Vanara.PInvoke.Kernel32.dll",
         "lib/netstandard2.1/Vanara.PInvoke.Kernel32.xml",
         "pkgreadme.md",
-        "vanara.pinvoke.kernel32.4.2.0.nupkg.sha512",
+        "vanara.pinvoke.kernel32.4.2.1.nupkg.sha512",
         "vanara.pinvoke.kernel32.nuspec"
       ]
     },
@@ -3205,10 +3500,10 @@
         "vanara.pinvoke.ntdll.nuspec"
       ]
     },
-    "Vanara.PInvoke.Shared/4.2.0": {
-      "sha512": "Bji1/luZEF228/pyw9IH5epyA6l7vHFCy9AUhK1IIo0/Tf1N42qB94oFumnwu/PHvh/Ij2vF7BAI3kfcAxLsPA==",
+    "Vanara.PInvoke.Shared/4.2.1": {
+      "sha512": "EVLvS02V6mL3xWo4cMv0OCo5H3uVR0eWxb0TtfcoI/SVaCKYWi1F000nax+uuEBJGmS90cfpYDvsgPn408b2ag==",
       "type": "package",
-      "path": "vanara.pinvoke.shared/4.2.0",
+      "path": "vanara.pinvoke.shared/4.2.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -3232,7 +3527,7 @@
         "lib/netstandard2.1/Vanara.PInvoke.Shared.dll",
         "lib/netstandard2.1/Vanara.PInvoke.Shared.xml",
         "pkgreadme.md",
-        "vanara.pinvoke.shared.4.2.0.nupkg.sha512",
+        "vanara.pinvoke.shared.4.2.1.nupkg.sha512",
         "vanara.pinvoke.shared.nuspec"
       ]
     },
@@ -3562,6 +3857,7 @@
       "Microsoft.Extensions.Hosting >= 9.0.8",
       "Microsoft.Management.Infrastructure >= 3.0.0",
       "Microsoft.Toolkit.Uwp.Notifications >= 7.1.3",
+      "Microsoft.Windows.CsWin32 >= 0.3.257",
       "Microsoft.Xaml.Behaviors.Wpf >= 1.1.135",
       "Newtonsoft.Json >= 13.0.3",
       "Serilog >= 4.3.0",
@@ -3569,9 +3865,11 @@
       "Serilog.Sinks.Console >= 6.0.0",
       "Serilog.Sinks.File >= 7.0.0",
       "Serilog.Sinks.RichTextBoxEx.Wpf >= 1.1.0.1",
+      "System.Management >= 10.0.0",
       "Ude.NetStandard >= 1.2.0",
       "Vanara.PInvoke.DwmApi >= 4.2.0",
       "Vanara.PInvoke.Gdi32 >= 4.2.0",
+      "Vanara.PInvoke.Kernel32 >= 4.2.1",
       "Vanara.PInvoke.NtDll >= 4.2.0",
       "Vanara.PInvoke.SHCore >= 4.2.0",
       "Vanara.PInvoke.User32 >= 4.2.0",
@@ -3654,6 +3952,12 @@
             "target": "Package",
             "version": "[7.1.3, )"
           },
+          "Microsoft.Windows.CsWin32": {
+            "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+            "suppressParent": "All",
+            "target": "Package",
+            "version": "[0.3.257, )"
+          },
           "Microsoft.Xaml.Behaviors.Wpf": {
             "target": "Package",
             "version": "[1.1.135, )"
@@ -3682,6 +3986,10 @@
             "target": "Package",
             "version": "[1.1.0.1, )"
           },
+          "System.Management": {
+            "target": "Package",
+            "version": "[10.0.0, )"
+          },
           "Ude.NetStandard": {
             "target": "Package",
             "version": "[1.2.0, )"
@@ -3693,6 +4001,10 @@
           "Vanara.PInvoke.Gdi32": {
             "target": "Package",
             "version": "[4.2.0, )"
+          },
+          "Vanara.PInvoke.Kernel32": {
+            "target": "Package",
+            "version": "[4.2.1, )"
           },
           "Vanara.PInvoke.NtDll": {
             "target": "Package",
