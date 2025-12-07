@@ -63,6 +63,10 @@ public partial class SettingAppLaunchMonitorViewModel : ObservableValidator {
         Value = temp.Value;
         Unit = temp.Unit;
         Fps = _preferencesService.Get("ShowWindowFps", 30.0);
+        IsEmailNotificationEnabled = _preferencesService.Get("NeedEmailNotification", false);
+        NotifyEmailAddress = _preferencesService.Get("EmailNotificationAddress", string.Empty)!;
+        EmailAuthCode = _preferencesService.Get("EmailNotificationAuthCode", string.Empty)!;
+        IsWindowsNotificationEnabled = _preferencesService.Get("NeedWindowsToastNotification", false);
     }
 
     public void SetWindow(SettingAppLaunchMonitorDialog window) {
