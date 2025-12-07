@@ -7,6 +7,7 @@ using System.Diagnostics;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Serilog;
+using Tools.Helpers;
 using Tools.Models;
 using Tools.Services;
 using Tools.Services.IServices;
@@ -95,10 +96,12 @@ public partial class AppLaunchMonitorViewModel : ObservableObject {
     }
 
     public void Dispose() {
-        NotifiedHasStart("App监视器已关闭");
         if (_hook is { IsNull: false, IsInvalid: false }) {
             User32.UnhookWinEvent(_hook);
         }
+
+        NotifiedHasStartByWindowsToast("App监视器已关闭");
+        NotifiedHasStartByEmail();
     }
 
     private void SaveData() {
@@ -120,19 +123,53 @@ public partial class AppLaunchMonitorViewModel : ObservableObject {
         }
 
         if (newStartApps.Count != 0) {
-            NotifiedHasStart($"检测到程序 {string.Join(", ", newStartApps)} 启动");
+            NotifiedHasStartByWindowsToast($"检测到程序 {string.Join(", ", newStartApps)} 启动");
         }
     }
 
-    private void NotifiedHasStart(string s) {
+    private void NotifiedHasStartByWindowsToast(string title) {
+        if (!_preferencesService.Get("NeedWindowsToastNotification", false)) {
+            return;
+        }
+
+        var apps = GetNotStartApps();
+
+        var content = apps.Count == 0 ? "标记的应用已全部启动" : $"{apps.Count} 个应用未启动";
+
+        _notificationService.ShowWindowsToastNotification(title, [content, string.Join(", ", apps)],
+            TimeSpan.FromHours(1));
+    }
+
+    private void NotifiedHasStartByEmail() {
+        try {
+            if (!_preferencesService.Get("NeedEmailNotification", false)) {
+                return;
+            }
+
+            var emailAddress = _preferencesService.Get("EmailNotificationAddress", "");
+            var emailAuthCode = _preferencesService.Get("EmailNotificationAuthCode", "");
+            if (string.IsNullOrWhiteSpace(emailAddress) || string.IsNullOrWhiteSpace(emailAuthCode)) {
+                _logger.Warning("通知邮箱地址或授权码未配置");
+                return;
+            }
+
+            var apps = GetNotStartApps();
+            var status = apps.Count == 0 ? "已全部启动" : $"{apps.Count}个应用未启动";
+            var subject = $"📱 应用启动报告 - {DateTime.Now:yyyy-MM-dd HH:mm} [{status}]";
+            var body = EmailTemplateHelper.GenerateAppNotificationHtml(MonitoredApps.ToList(), DaySeparatorOffset);
+
+            _notificationService.PostEmail(subject, body, emailAddress, emailAddress, emailAuthCode);
+        } catch (Exception e) {
+            _logger.Error("发送邮件通知时发生错误{Ex}", e);
+        }
+    }
+
+    private List<string> GetNotStartApps() {
         List<string> apps = [];
         apps.AddRange(from monitoredApp in MonitoredApps
             where !monitoredApp.HasStartToday
             select $"{monitoredApp.ProcessName}: {monitoredApp.DisplayTitle}");
-
-        var content = apps.Count == 0 ? "标记的应用已全部启动" : $"{apps.Count} 个应用未启动";
-
-        _notificationService.ShowNotification(s, [content, string.Join(", ", apps)], TimeSpan.FromHours(1));
+        return apps;
     }
 
     [RelayCommand]

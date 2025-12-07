@@ -135,6 +135,7 @@ public partial class PickWindowDialogViewModel : ObservableObject {
     }
 
     partial void OnSelectedWindowChanged(WindowInfo value) {
+        SelectedWindowScreenshot = null!;
         _windowsPickerService.StartShowWindow(value, source => { SelectedWindowScreenshot = source; }, _fps);
     }
 

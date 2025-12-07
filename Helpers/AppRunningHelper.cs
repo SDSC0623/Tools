@@ -86,7 +86,7 @@ public class AppRunningHelper {
         }
     }
 
-    public void InitPageWhenStartup() {
+    private void InitPageWhenStartup() {
         var assembly = Assembly.GetExecutingAssembly();
 
         var pageTypes = assembly.GetTypes()
@@ -99,7 +99,27 @@ public class AppRunningHelper {
         }
     }
 
-    public void DisposePageWhenExit() {
+    public void StartApp() {
+        try {
+            InitPageWhenStartup();
+            App.Current.SessionEnding += (_, _) => {
+                EndApp();
+            };
+            var targetPage = _preferencesService.Get("StartPage", typeof(HomePage))!;
+            _navigationService.Navigate(targetPage);
+            _logger.Information("程序启动完成，详细版本: [{FullVersion}]", GlobalSettings.FullVersion);
+            _logger.Information("运行路径: [{BaseDirectory}]", GlobalSettings.BaseDirectory);
+        } catch (PreferencesException ex) {
+            _navigationService.Navigate(typeof(HomePage));
+            _preferencesService.Set("StartPage", typeof(HomePage));
+            _snackbarService.ShowError("加载设定页面失败，已跳转到首页并重置本地化配置为首页", ex.Message);
+        } catch (Exception ex) {
+            _logger.Error("导航到设定启动页面时出错，错误：{Message}", ex.Message);
+            _snackbarService.ShowError("导航到设定页面是时发生错误", ex.Message);
+        }
+    }
+
+    private void DisposePageWhenExit() {
         var assembly = Assembly.GetExecutingAssembly();
 
         var pageTypes = assembly.GetTypes()
@@ -114,20 +134,8 @@ public class AppRunningHelper {
         }
     }
 
-    public void StartApp() {
-        try {
-            var targetPage = _preferencesService.Get("StartPage", typeof(HomePage))!;
-            _navigationService.Navigate(targetPage);
-            _logger.Information("程序启动完成，详细版本: [{FullVersion}]", GlobalSettings.FullVersion);
-            _logger.Information("运行路径: [{BaseDirectory}]", GlobalSettings.BaseDirectory);
-        } catch (PreferencesException ex) {
-            _navigationService.Navigate(typeof(HomePage));
-            _preferencesService.Set("StartPage", typeof(HomePage));
-            _snackbarService.ShowError("加载设定页面失败，已跳转到首页并重置本地化配置为首页", ex.Message);
-        } catch (Exception ex) {
-            _logger.Error("导航到设定启动页面时出错，错误：{Message}", ex.Message);
-            _snackbarService.ShowError("导航到设定页面是时发生错误", ex.Message);
-        }
+    public void EndApp() {
+        DisposePageWhenExit();
     }
 
     public void Hide() {

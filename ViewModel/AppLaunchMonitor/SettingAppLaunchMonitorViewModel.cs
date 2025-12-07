@@ -26,6 +26,18 @@ public partial class SettingAppLaunchMonitorViewModel : ObservableValidator {
     // 取用对象
     public TimeRange Range => new() { Value = Value, Unit = Unit };
 
+    // 是否启用邮件通知
+    [ObservableProperty] private bool _isEmailNotificationEnabled;
+
+    // 邮件通知地址
+    [ObservableProperty] private string _notifyEmailAddress = string.Empty;
+
+    // 邮件授权码
+    [ObservableProperty] private string _emailAuthCode = string.Empty;
+
+    // 是否启用Windows通知
+    [ObservableProperty] private bool _isWindowsNotificationEnabled;
+
     // fps
     [ObservableProperty] [Required] [Range(10.0, 60.0, ErrorMessage = "输入不合法，请输入 10 - 60 之内的实数")]
     private double _fps;
@@ -80,6 +92,8 @@ public partial class SettingAppLaunchMonitorViewModel : ObservableValidator {
         Value = 0;
         Unit = TimeUnit.Hour;
         Fps = 30;
+        IsEmailNotificationEnabled = false;
+        IsWindowsNotificationEnabled = false;
     }
 
     [RelayCommand]
@@ -96,8 +110,12 @@ public partial class SettingAppLaunchMonitorViewModel : ObservableValidator {
         }
 
         _preferencesService.Set("DaySeparatorOffset", Range);
+        _preferencesService.Set("NeedEmailNotification", IsEmailNotificationEnabled);
+        _preferencesService.Set("EmailNotificationAddress", NotifyEmailAddress);
+        _preferencesService.Set("EmailNotificationAuthCode", EmailAuthCode);
+        _preferencesService.Set("NeedWindowsToastNotification", IsWindowsNotificationEnabled);
         _preferencesService.Set("ShowWindowFps", Fps);
-        _snackbarService.ShowSuccess("保存成功", $"设置偏移时间为{Range}, 预览帧率{Fps}");
+        _snackbarService.ShowSuccess("保存成功", $"设置偏移时间为{Range}, 预览帧率{Fps} 等");
         CloseWindow(true);
     }
 }

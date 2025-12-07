@@ -157,8 +157,6 @@ public partial class App : Application {
             var mainWindow = GetService<MainWindow>()!;
             mainWindow.Show();
 
-            GetService<AppRunningHelper>()!.InitPageWhenStartup();
-
             GetService<AppRunningHelper>()!.StartApp();
             ApplicationThemeManager.Apply(GetService<IPreferencesService>()!.Get("ThemeIsDark", true)
                 ? ApplicationTheme.Dark
@@ -170,7 +168,7 @@ public partial class App : Application {
 
     protected override async void OnExit(ExitEventArgs e) {
         try {
-            GetService<AppRunningHelper>()!.DisposePageWhenExit();
+            GetService<AppRunningHelper>()!.EndApp();
 
             base.OnExit(e);
 

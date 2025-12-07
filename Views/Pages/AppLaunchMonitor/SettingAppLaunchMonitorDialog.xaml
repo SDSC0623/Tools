@@ -10,10 +10,10 @@
                  xmlns:viewModel="clr-namespace:Tools.ViewModel.AppLaunchMonitor"
                  mc:Ignorable="d"
                  Title="SettingAppLaunchMonitorDialog"
-                 MaxHeight="300"
-                 MaxWidth="330"
-                 MinHeight="300"
-                 MinWidth="330"
+                 MaxHeight="600"
+                 MaxWidth="450"
+                 MinHeight="600"
+                 MinWidth="450"
                  ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
                  ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                  d:DataContext="{d:DesignInstance viewModel:SettingAppLaunchMonitorViewModel}"
@@ -32,8 +32,17 @@
         <!-- 标题 -->
         <ui:TextBlock Grid.Row="0" Text="App启动监视相关设置" FontTypography="BodyStrong" Margin="0,0,0,5" />
 
+        <!-- 设置区域 -->
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
@@ -62,17 +71,85 @@
                           Margin="0,10,0,5" Foreground="{DynamicResource TextFillColorDisabledBrush}"
                           FontTypography="Caption" FontSize="14" />
 
-            <!-- 帧率设置 -->
-            <ui:NumberBox Grid.Row="3" Value="{Binding Fps }"
-                          SpinButtonPlacementMode="Hidden" ClearButtonEnabled="False" Width="150"
-                          PlaceholderText="请输入帧率" TextAlignment="Center" />
+            <!-- 分隔线 -->
+            <Separator Grid.Row="2" Margin="0,5,0,10" />
 
-            <!-- 实时预览帧率说明 -->
-            <ui:TextBlock Grid.Row="4" Text="此选项将设置设置界面的实时预览帧率，范围10-60，默认为30帧，高帧率可能会导致电脑卡顿" TextWrapping="Wrap"
-                          Margin="0,10,0,5" Foreground="{DynamicResource TextFillColorDisabledBrush}"
-                          FontTypography="Caption" FontSize="14" />
+            <!-- 邮箱通知设置 -->
+            <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0,0,0,10">
+                <ui:TextBlock Text="邮箱通知：" VerticalAlignment="Center" Width="120" />
+                <ui:ToggleSwitch IsChecked="{Binding IsEmailNotificationEnabled}"
+                                 OffContent="关闭" OnContent="开启" Width="120" />
+            </StackPanel>
+
+            <!-- 邮箱地址设置 -->
+            <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="0,0,0,10">
+                <ui:TextBlock Text="通知邮箱地址：" VerticalAlignment="Center" Width="120" />
+                <ui:TextBox Text="{Binding NotifyEmailAddress, UpdateSourceTrigger=PropertyChanged}"
+                            PlaceholderText="请输入邮箱地址" Width="200" IsEnabled="{Binding IsEmailNotificationEnabled}" />
+            </StackPanel>
+
+            <!-- 授权码设置 -->
+            <StackPanel Grid.Row="5" Orientation="Horizontal" Margin="0,0,0,10">
+                <ui:TextBlock Text="授权码：" VerticalAlignment="Center" Width="120" />
+                <ui:TextBox Text="{Binding EmailAuthCode, UpdateSourceTrigger=PropertyChanged}"
+                            PlaceholderText="请输入SMTP授权码" Width="200" IsEnabled="{Binding IsEmailNotificationEnabled}" />
+            </StackPanel>
+
+            <!-- 邮箱设置说明 -->
+            <ui:TextBlock Grid.Row="6"
+                          Text="启用邮箱通知后，当本软件关闭，或电脑关机时会发送通知到指定邮箱"
+                          TextWrapping="Wrap"
+                          Margin="120,0,0,10"
+                          Foreground="{DynamicResource TextFillColorDisabledBrush}"
+                          FontTypography="Caption"
+                          FontSize="12" />
+
+            <!-- 分隔线 -->
+            <Separator Grid.Row="7" Margin="0,5,0,10" />
+
+            <!-- Windows通知设置 -->
+            <StackPanel Grid.Row="8" Orientation="Horizontal" Margin="0,0,0,10">
+                <ui:TextBlock Text="Windows通知：" VerticalAlignment="Center" Width="120" />
+                <ui:ToggleSwitch IsChecked="{Binding IsWindowsNotificationEnabled}"
+                                 OffContent="关闭"
+                                 OnContent="开启"
+                                 Width="120" />
+            </StackPanel>
+
+            <!-- Windows通知说明 -->
+            <ui:TextBlock Grid.Row="9"
+                          Text="启用Windows通知后，当监测到App启动时会在Windows显示通知"
+                          TextWrapping="Wrap"
+                          Margin="120,0,0,10"
+                          Foreground="{DynamicResource TextFillColorDisabledBrush}"
+                          FontTypography="Caption"
+                          FontSize="12" />
+
+            <!-- 分隔线 -->
+            <Separator Grid.Row="10" Margin="0,5,0,10" />
+
+            <!-- 帧率设置 -->
+            <StackPanel Grid.Row="11" Orientation="Horizontal" Margin="0,0,0,5">
+                <ui:TextBlock Text="预览帧率：" VerticalAlignment="Center" Width="120" />
+                <ui:NumberBox Value="{Binding Fps}"
+                              SpinButtonPlacementMode="Hidden"
+                              ClearButtonEnabled="False"
+                              Width="100"
+                              PlaceholderText="请输入帧率"
+                              TextAlignment="Center" />
+            </StackPanel>
+
+            <!-- 帧率说明 -->
+            <ui:TextBlock Grid.Row="12"
+                          Text="此选项将设置设置界面的实时预览帧率，范围10-60，默认为30帧，高帧率可能会导致电脑卡顿"
+                          TextWrapping="Wrap"
+                          Margin="120,0,0,0"
+                          Foreground="{DynamicResource TextFillColorDisabledBrush}"
+                          FontTypography="Caption"
+                          FontSize="12" />
         </Grid>
 
+        <!-- 按钮栏 -->
         <Grid Grid.Row="2" Margin="0,20,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
