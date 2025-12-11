@@ -10,6 +10,8 @@
                  xmlns:viewModel="clr-namespace:Tools.ViewModel.AppLaunchMonitor"
                  mc:Ignorable="d"
                  Title="SettingAppLaunchMonitorDialog"
+                 d:DesignHeight="2000"
+                 d:DesignWidth="450"
                  MaxHeight="600"
                  MaxWidth="450"
                  MinHeight="600"
@@ -83,7 +85,7 @@
                 </Grid>
 
                 <!-- 分隔线 -->
-                <Separator Grid.Row="1" Margin="0,0,0,20" />
+                <Separator Grid.Row="1" Margin="0,0,0,10" />
 
                 <!-- 邮箱通知设置组 -->
                 <Grid Grid.Row="2" Margin="0,0,0,20">
@@ -99,7 +101,7 @@
 
                     <!-- 标题 -->
                     <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
-                        <ui:TextBlock Text="邮箱通知设置" FontWeight="SemiBold" FontSize="16" />
+                        <ui:TextBlock Text="邮箱通知设置" FontTypography="BodyStrong" />
                     </StackPanel>
 
                     <!-- 邮箱通知开关 -->
@@ -152,7 +154,7 @@
                 </Grid>
 
                 <!-- 分隔线 -->
-                <Separator Grid.Row="3" Margin="0,0,0,20" />
+                <Separator Grid.Row="3" Margin="0,0,0,10" />
 
                 <!-- Windows通知设置组 -->
                 <Grid Grid.Row="4" Margin="0,0,0,20">
@@ -164,7 +166,7 @@
 
                     <!-- 标题 -->
                     <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
-                        <ui:TextBlock Text="Windows通知设置" FontWeight="SemiBold" FontSize="16" />
+                        <ui:TextBlock Text="Windows通知设置" FontTypography="BodyStrong" />
                     </StackPanel>
 
                     <!-- Windows通知开关 -->
@@ -185,7 +187,7 @@
                 </Grid>
 
                 <!-- 分隔线 -->
-                <Separator Grid.Row="5" Margin="0,0,0,20" />
+                <Separator Grid.Row="5" Margin="0,0,0,10" />
 
                 <!-- 预览帧率设置组 -->
                 <Grid Grid.Row="6">
@@ -197,7 +199,7 @@
 
                     <!-- 标题 -->
                     <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
-                        <ui:TextBlock Text="预览设置" FontWeight="SemiBold" FontSize="16" />
+                        <ui:TextBlock Text="预览设置" FontTypography="BodyStrong" />
                     </StackPanel>
 
                     <!-- 帧率设置 -->
