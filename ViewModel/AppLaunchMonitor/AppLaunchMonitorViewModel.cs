@@ -128,7 +128,7 @@ public partial class AppLaunchMonitorViewModel : ObservableObject {
     }
 
     private void NotifiedHasStartByWindowsToast(string title) {
-        if (!_preferencesService.Get("NeedWindowsToastNotification", false)) {
+        if (MonitoredApps.Count == 0 || !_preferencesService.Get("NeedWindowsToastNotification", false)) {
             return;
         }
 
@@ -142,14 +142,36 @@ public partial class AppLaunchMonitorViewModel : ObservableObject {
 
     private void NotifiedHasStartByEmail() {
         try {
-            if (!_preferencesService.Get("NeedEmailNotification", false)) {
+            if (MonitoredApps.Count == 0 || !_preferencesService.Get("NeedEmailNotification", false)) {
                 return;
             }
 
+            var smtpServerAddress = _preferencesService.Get("EmailNotificationSmtpServerAddress", "");
+            var smtpServerPort = _preferencesService.Get<int?>("EmailNotificationSmtpServerPort");
             var emailAddress = _preferencesService.Get("EmailNotificationAddress", "");
             var emailAuthCode = _preferencesService.Get("EmailNotificationAuthCode", "");
-            if (string.IsNullOrWhiteSpace(emailAddress) || string.IsNullOrWhiteSpace(emailAuthCode)) {
-                _logger.Warning("通知邮箱地址或授权码未配置");
+            if (string.IsNullOrWhiteSpace(smtpServerAddress) ||
+                smtpServerPort == null ||
+                string.IsNullOrWhiteSpace(emailAddress) ||
+                string.IsNullOrWhiteSpace(emailAuthCode)) {
+                var temp = new List<string>();
+                if (string.IsNullOrWhiteSpace(smtpServerAddress)) {
+                    temp.Add("SMTP服务器地址");
+                }
+
+                if (smtpServerPort == null) {
+                    temp.Add("SMTP服务器端口");
+                }
+
+                if (string.IsNullOrWhiteSpace(emailAddress)) {
+                    temp.Add("通知邮箱地址");
+                }
+
+                if (string.IsNullOrWhiteSpace(emailAuthCode)) {
+                    temp.Add("SMTP服务授权码");
+                }
+
+                _logger.Warning("{Ex}未配置", string.Join("、", temp));
                 return;
             }
 
@@ -158,7 +180,8 @@ public partial class AppLaunchMonitorViewModel : ObservableObject {
             var subject = $"📱 应用启动报告 - {DateTime.Now:yyyy-MM-dd HH:mm} [{status}]";
             var body = EmailTemplateHelper.GenerateAppNotificationHtml(MonitoredApps.ToList(), DaySeparatorOffset);
 
-            _notificationService.PostEmail(subject, body, emailAddress, emailAddress, emailAuthCode);
+            _notificationService.PostEmail(subject, body, smtpServerAddress, smtpServerPort.Value, emailAddress,
+                emailAddress, emailAuthCode);
         } catch (Exception e) {
             _logger.Error("发送邮件通知时发生错误{Ex}", e);
         }

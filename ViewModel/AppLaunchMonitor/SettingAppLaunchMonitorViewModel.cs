@@ -29,6 +29,12 @@ public partial class SettingAppLaunchMonitorViewModel : ObservableValidator {
     // 是否启用邮件通知
     [ObservableProperty] private bool _isEmailNotificationEnabled;
 
+    // SMTP服务地址
+    [ObservableProperty] private string _smtpServerAddress = string.Empty;
+
+    // SMTP服务端口
+    [ObservableProperty] private int? _smtpServerPort;
+
     // 邮件通知地址
     [ObservableProperty] private string _notifyEmailAddress = string.Empty;
 
@@ -64,6 +70,8 @@ public partial class SettingAppLaunchMonitorViewModel : ObservableValidator {
         Unit = temp.Unit;
         Fps = _preferencesService.Get("ShowWindowFps", 30.0);
         IsEmailNotificationEnabled = _preferencesService.Get("NeedEmailNotification", false);
+        SmtpServerAddress = _preferencesService.Get("EmailNotificationSmtpServerAddress", string.Empty)!;
+        SmtpServerPort = _preferencesService.Get<int?>("EmailNotificationSmtpServerPort");
         NotifyEmailAddress = _preferencesService.Get("EmailNotificationAddress", string.Empty)!;
         EmailAuthCode = _preferencesService.Get("EmailNotificationAuthCode", string.Empty)!;
         IsWindowsNotificationEnabled = _preferencesService.Get("NeedWindowsToastNotification", false);
@@ -115,6 +123,8 @@ public partial class SettingAppLaunchMonitorViewModel : ObservableValidator {
 
         _preferencesService.Set("DaySeparatorOffset", Range);
         _preferencesService.Set("NeedEmailNotification", IsEmailNotificationEnabled);
+        _preferencesService.Set("EmailNotificationSmtpServerAddress", SmtpServerAddress);
+        _preferencesService.Set("EmailNotificationSmtpServerPort", SmtpServerPort);
         _preferencesService.Set("EmailNotificationAddress", NotifyEmailAddress);
         _preferencesService.Set("EmailNotificationAuthCode", EmailAuthCode);
         _preferencesService.Set("NeedWindowsToastNotification", IsWindowsNotificationEnabled);

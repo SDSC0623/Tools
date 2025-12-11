@@ -33,121 +33,197 @@
         <ui:TextBlock Grid.Row="0" Text="App启动监视相关设置" FontTypography="BodyStrong" Margin="0,0,0,5" />
 
         <!-- 设置区域 -->
-        <Grid Grid.Row="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-            <!-- App启动监视相关设置 -->
-            <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
-                <ui:NumberBox Value="{Binding Value, UpdateSourceTrigger=PropertyChanged}"
-                              PlaceholderText="输入时间" Width="100" TextAlignment="Center" ClearButtonEnabled="False"
-                              SpinButtonPlacementMode="Hidden" />
-                <ComboBox SelectedItem="{Binding Unit}"
-                          ItemsSource="{Binding Source={StaticResource TimeUnitEnumSource}}"
-                          Margin="10,0,0,0" Width="80">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Converter={StaticResource EnumDescriptionConverter}}"
-                                       TextAlignment="Center" />
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
-            </StackPanel>
+        <ui:DynamicScrollViewer Grid.Row="1">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
 
-            <!-- 偏移时间说明 -->
-            <ui:TextBlock Grid.Row="1" Text="此选项将设置每天的偏移时间，系统将判定当天的 0点+偏移时间 为下一天的开始" TextWrapping="Wrap"
-                          Margin="0,10,0,5" Foreground="{DynamicResource TextFillColorDisabledBrush}"
-                          FontTypography="Caption" FontSize="14" />
+                <!-- 偏移时间设置组 -->
+                <Grid Grid.Row="0" Margin="0,0,0,20">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
 
-            <!-- 分隔线 -->
-            <Separator Grid.Row="2" Margin="0,5,0,10" />
+                    <!-- 标题 -->
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
+                        <ui:TextBlock Text="偏移时间设置" FontTypography="BodyStrong" />
+                    </StackPanel>
 
-            <!-- 邮箱通知设置 -->
-            <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0,0,0,10">
-                <ui:TextBlock Text="邮箱通知：" VerticalAlignment="Center" Width="120" />
-                <ui:ToggleSwitch IsChecked="{Binding IsEmailNotificationEnabled}"
-                                 OffContent="关闭" OnContent="开启" Width="120" />
-            </StackPanel>
+                    <!-- 偏移时间控制 -->
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                        <ui:NumberBox Value="{Binding Value, UpdateSourceTrigger=PropertyChanged}"
+                                      PlaceholderText="输入时间" Width="100" TextAlignment="Center"
+                                      ClearButtonEnabled="False"
+                                      SpinButtonPlacementMode="Hidden" />
+                        <ComboBox SelectedItem="{Binding Unit}"
+                                  ItemsSource="{Binding Source={StaticResource TimeUnitEnumSource}}"
+                                  Margin="10,0,0,0" Width="80">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Converter={StaticResource EnumDescriptionConverter}}"
+                                               TextAlignment="Center" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </StackPanel>
 
-            <!-- 邮箱地址设置 -->
-            <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="0,0,0,10">
-                <ui:TextBlock Text="通知邮箱地址：" VerticalAlignment="Center" Width="120" />
-                <ui:TextBox Text="{Binding NotifyEmailAddress, UpdateSourceTrigger=PropertyChanged}"
-                            PlaceholderText="请输入邮箱地址" Width="200" IsEnabled="{Binding IsEmailNotificationEnabled}" />
-            </StackPanel>
+                    <!-- 偏移时间说明 -->
+                    <ui:TextBlock Grid.Row="2" Text="此选项将设置每天的偏移时间，系统将判定当天的 0点+偏移时间 为下一天的开始" TextWrapping="Wrap"
+                                  Margin="0,10,0,5" Foreground="{DynamicResource TextFillColorDisabledBrush}"
+                                  FontTypography="Caption" FontSize="14" />
+                </Grid>
 
-            <!-- 授权码设置 -->
-            <StackPanel Grid.Row="5" Orientation="Horizontal" Margin="0,0,0,10">
-                <ui:TextBlock Text="授权码：" VerticalAlignment="Center" Width="120" />
-                <ui:TextBox Text="{Binding EmailAuthCode, UpdateSourceTrigger=PropertyChanged}"
-                            PlaceholderText="请输入SMTP授权码" Width="200" IsEnabled="{Binding IsEmailNotificationEnabled}" />
-            </StackPanel>
+                <!-- 分隔线 -->
+                <Separator Grid.Row="1" Margin="0,0,0,20" />
 
-            <!-- 邮箱设置说明 -->
-            <ui:TextBlock Grid.Row="6"
-                          Text="启用邮箱通知后，当本软件关闭，或电脑关机时会发送通知到指定邮箱"
-                          TextWrapping="Wrap"
-                          Margin="120,0,0,10"
-                          Foreground="{DynamicResource TextFillColorDisabledBrush}"
-                          FontTypography="Caption"
-                          FontSize="12" />
+                <!-- 邮箱通知设置组 -->
+                <Grid Grid.Row="2" Margin="0,0,0,20">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
 
-            <!-- 分隔线 -->
-            <Separator Grid.Row="7" Margin="0,5,0,10" />
+                    <!-- 标题 -->
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
+                        <ui:TextBlock Text="邮箱通知设置" FontWeight="SemiBold" FontSize="16" />
+                    </StackPanel>
 
-            <!-- Windows通知设置 -->
-            <StackPanel Grid.Row="8" Orientation="Horizontal" Margin="0,0,0,10">
-                <ui:TextBlock Text="Windows通知：" VerticalAlignment="Center" Width="120" />
-                <ui:ToggleSwitch IsChecked="{Binding IsWindowsNotificationEnabled}"
-                                 OffContent="关闭"
-                                 OnContent="开启"
-                                 Width="120" />
-            </StackPanel>
+                    <!-- 邮箱通知开关 -->
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,10">
+                        <ui:TextBlock Text="邮箱通知：" VerticalAlignment="Center" Width="120" />
+                        <ui:ToggleSwitch IsChecked="{Binding IsEmailNotificationEnabled}"
+                                         OffContent="关闭" OnContent="开启" />
+                    </StackPanel>
 
-            <!-- Windows通知说明 -->
-            <ui:TextBlock Grid.Row="9"
-                          Text="启用Windows通知后，当监测到App启动时会在Windows显示通知"
-                          TextWrapping="Wrap"
-                          Margin="120,0,0,10"
-                          Foreground="{DynamicResource TextFillColorDisabledBrush}"
-                          FontTypography="Caption"
-                          FontSize="12" />
+                    <!-- SMTP服务器设置 -->
+                    <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,0,0,10">
+                        <ui:TextBlock Text="SMTP服务器：" VerticalAlignment="Center" Width="120" />
+                        <ui:TextBox Text="{Binding SmtpServerAddress, UpdateSourceTrigger=PropertyChanged}"
+                                    PlaceholderText="例如：smtp.qq.com" Width="200"
+                                    IsEnabled="{Binding IsEmailNotificationEnabled}" />
+                    </StackPanel>
 
-            <!-- 分隔线 -->
-            <Separator Grid.Row="10" Margin="0,5,0,10" />
+                    <!-- SMTP端口设置 -->
+                    <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0,0,0,10">
+                        <ui:TextBlock Text="SMTP端口：" VerticalAlignment="Center" Width="120" />
+                        <ui:TextBox Text="{Binding SmtpServerPort, UpdateSourceTrigger=PropertyChanged}"
+                                    PlaceholderText="例如：587" Width="200"
+                                    IsEnabled="{Binding IsEmailNotificationEnabled}" />
+                    </StackPanel>
 
-            <!-- 帧率设置 -->
-            <StackPanel Grid.Row="11" Orientation="Horizontal" Margin="0,0,0,5">
-                <ui:TextBlock Text="预览帧率：" VerticalAlignment="Center" Width="120" />
-                <ui:NumberBox Value="{Binding Fps}"
-                              SpinButtonPlacementMode="Hidden"
-                              ClearButtonEnabled="False"
-                              Width="100"
-                              PlaceholderText="请输入帧率"
-                              TextAlignment="Center" />
-            </StackPanel>
+                    <!-- 通知邮箱地址 -->
+                    <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="0,0,0,10">
+                        <ui:TextBlock Text="通知邮箱地址：" VerticalAlignment="Center" Width="120" />
+                        <ui:TextBox Text="{Binding NotifyEmailAddress, UpdateSourceTrigger=PropertyChanged}"
+                                    PlaceholderText="请输入通知邮箱地址" Width="200"
+                                    IsEnabled="{Binding IsEmailNotificationEnabled}" />
+                    </StackPanel>
 
-            <!-- 帧率说明 -->
-            <ui:TextBlock Grid.Row="12"
-                          Text="此选项将设置设置界面的实时预览帧率，范围10-60，默认为30帧，高帧率可能会导致电脑卡顿"
-                          TextWrapping="Wrap"
-                          Margin="120,0,0,0"
-                          Foreground="{DynamicResource TextFillColorDisabledBrush}"
-                          FontTypography="Caption"
-                          FontSize="12" />
-        </Grid>
+                    <!-- 授权码设置 -->
+                    <StackPanel Grid.Row="5" Orientation="Horizontal" Margin="0,0,0,10">
+                        <ui:TextBlock Text="授权码：" VerticalAlignment="Center" Width="120" />
+                        <ui:TextBox Text="{Binding EmailAuthCode, UpdateSourceTrigger=PropertyChanged}"
+                                    PlaceholderText="请输入SMTP授权码" Width="200"
+                                    IsEnabled="{Binding IsEmailNotificationEnabled}" />
+                    </StackPanel>
+
+                    <!-- 邮箱设置说明 -->
+                    <ui:TextBlock Grid.Row="6"
+                                  Text="启用邮箱通知后，当本软件关闭，或电脑关机时会发送通知到指定邮箱。(SMTP服务的发送和接收邮箱都相同，都应该填你自己的邮箱地址)"
+                                  TextWrapping="Wrap"
+                                  Margin="120,0,0,0"
+                                  Foreground="{DynamicResource TextFillColorDisabledBrush}"
+                                  FontTypography="Caption"
+                                  FontSize="12" />
+                </Grid>
+
+                <!-- 分隔线 -->
+                <Separator Grid.Row="3" Margin="0,0,0,20" />
+
+                <!-- Windows通知设置组 -->
+                <Grid Grid.Row="4" Margin="0,0,0,20">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <!-- 标题 -->
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
+                        <ui:TextBlock Text="Windows通知设置" FontWeight="SemiBold" FontSize="16" />
+                    </StackPanel>
+
+                    <!-- Windows通知开关 -->
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,10">
+                        <ui:TextBlock Text="Windows通知：" VerticalAlignment="Center" Width="120" />
+                        <ui:ToggleSwitch IsChecked="{Binding IsWindowsNotificationEnabled}"
+                                         OffContent="关闭" OnContent="开启" Width="120" />
+                    </StackPanel>
+
+                    <!-- Windows通知说明 -->
+                    <ui:TextBlock Grid.Row="2"
+                                  Text="启用Windows通知后，当监测到App启动时会在Windows显示通知"
+                                  TextWrapping="Wrap"
+                                  Margin="120,0,0,0"
+                                  Foreground="{DynamicResource TextFillColorDisabledBrush}"
+                                  FontTypography="Caption"
+                                  FontSize="12" />
+                </Grid>
+
+                <!-- 分隔线 -->
+                <Separator Grid.Row="5" Margin="0,0,0,20" />
+
+                <!-- 预览帧率设置组 -->
+                <Grid Grid.Row="6">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <!-- 标题 -->
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
+                        <ui:TextBlock Text="预览设置" FontWeight="SemiBold" FontSize="16" />
+                    </StackPanel>
+
+                    <!-- 帧率设置 -->
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,10">
+                        <ui:TextBlock Text="预览帧率：" VerticalAlignment="Center" Width="120" />
+                        <ui:NumberBox Value="{Binding Fps}"
+                                      SpinButtonPlacementMode="Hidden"
+                                      ClearButtonEnabled="False"
+                                      Width="100"
+                                      PlaceholderText="10-60"
+                                      TextAlignment="Center"
+                                      Minimum="10"
+                                      Maximum="60" />
+                    </StackPanel>
+
+                    <!-- 帧率说明 -->
+                    <ui:TextBlock Grid.Row="2"
+                                  Text="此选项将设置设置界面的实时预览帧率，范围10-60，默认为30帧，高帧率可能会导致电脑卡顿"
+                                  TextWrapping="Wrap"
+                                  Margin="120,0,0,0"
+                                  Foreground="{DynamicResource TextFillColorDisabledBrush}"
+                                  FontTypography="Caption"
+                                  FontSize="12" />
+                </Grid>
+            </Grid>
+        </ui:DynamicScrollViewer>
 
         <!-- 按钮栏 -->
         <Grid Grid.Row="2" Margin="0,20,0,0">

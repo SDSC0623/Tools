@@ -34,11 +34,11 @@ public class WindowsToastNotificationService : INotificationService {
         toastContentBuilder.Show(toast => { toast.ExpirationTime = DateTime.Now.Add(duration.Value); });
     }
 
-    public void PostEmail(string subject, string body, string toAddress, string fromAddress, string fromPassword) {
+    public void PostEmail(string subject, string body, string smtpServerAddress, int smtpServerPort, string toAddress, string fromAddress, string fromPassword) {
         try {
             var smtp = new SmtpClient {
-                Host = "smtp.qq.com",
-                Port = 587,
+                Host = smtpServerAddress,
+                Port = smtpServerPort,
                 EnableSsl = true,
                 DeliveryMethod = SmtpDeliveryMethod.Network,
                 UseDefaultCredentials = false,
