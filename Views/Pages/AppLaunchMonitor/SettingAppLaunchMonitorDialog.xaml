@@ -12,9 +12,9 @@
                  Title="SettingAppLaunchMonitorDialog"
                  d:DesignHeight="2000"
                  d:DesignWidth="450"
-                 MaxHeight="600"
+                 MaxHeight="630"
                  MaxWidth="450"
-                 MinHeight="600"
+                 MinHeight="630"
                  MinWidth="450"
                  ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
                  ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
@@ -87,8 +87,80 @@
                 <!-- 分隔线 -->
                 <Separator Grid.Row="1" Margin="0,0,0,10" />
 
-                <!-- 邮箱通知设置组 -->
+                <!-- Windows通知设置组 -->
                 <Grid Grid.Row="2" Margin="0,0,0,20">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <!-- 标题 -->
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
+                        <ui:TextBlock Text="Windows通知设置" FontTypography="BodyStrong" />
+                    </StackPanel>
+
+                    <!-- Windows通知开关 -->
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,10">
+                        <ui:TextBlock Text="Windows通知：" VerticalAlignment="Center" Width="120" />
+                        <ui:ToggleSwitch IsChecked="{Binding IsWindowsNotificationEnabled}"
+                                         OffContent="关闭" OnContent="开启" Width="120" />
+                    </StackPanel>
+
+                    <!-- Windows通知说明 -->
+                    <ui:TextBlock Grid.Row="2"
+                                  Text="启用Windows通知后，当监测到App启动时会在Windows显示通知"
+                                  TextWrapping="Wrap"
+                                  Margin="120,0,0,0"
+                                  Foreground="{DynamicResource TextFillColorDisabledBrush}"
+                                  FontTypography="Caption"
+                                  FontSize="12" />
+                </Grid>
+
+                <!-- 分隔线 -->
+                <Separator Grid.Row="3" Margin="0,0,0,10" />
+
+                <!-- 预览帧率设置组 -->
+                <Grid Grid.Row="4" Margin="0,0,0,20">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <!-- 标题 -->
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
+                        <ui:TextBlock Text="预览设置" FontTypography="BodyStrong" />
+                    </StackPanel>
+
+                    <!-- 帧率设置 -->
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,10">
+                        <ui:TextBlock Text="预览帧率：" VerticalAlignment="Center" Width="120" />
+                        <ui:NumberBox Value="{Binding Fps}"
+                                      SpinButtonPlacementMode="Hidden"
+                                      ClearButtonEnabled="False"
+                                      Width="100"
+                                      PlaceholderText="10-60"
+                                      TextAlignment="Center"
+                                      Minimum="10"
+                                      Maximum="60" />
+                    </StackPanel>
+
+                    <!-- 帧率说明 -->
+                    <ui:TextBlock Grid.Row="2"
+                                  Text="此选项将设置设置界面的实时预览帧率，范围10-60，默认为30帧，高帧率可能会导致电脑卡顿"
+                                  TextWrapping="Wrap"
+                                  Margin="120,0,0,0"
+                                  Foreground="{DynamicResource TextFillColorDisabledBrush}"
+                                  FontTypography="Caption"
+                                  FontSize="12" />
+                </Grid>
+
+                <!-- 分隔线 -->
+                <Separator Grid.Row="5" Margin="0,0,0,10" />
+
+                <!-- 邮箱通知设置组 -->
+                <Grid Grid.Row="6">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
@@ -146,78 +218,6 @@
                     <!-- 邮箱设置说明 -->
                     <ui:TextBlock Grid.Row="6"
                                   Text="启用邮箱通知后，当本软件关闭，或电脑关机时会发送通知到指定邮箱。(SMTP服务的发送和接收邮箱都相同，都应该填你自己的邮箱地址)"
-                                  TextWrapping="Wrap"
-                                  Margin="120,0,0,0"
-                                  Foreground="{DynamicResource TextFillColorDisabledBrush}"
-                                  FontTypography="Caption"
-                                  FontSize="12" />
-                </Grid>
-
-                <!-- 分隔线 -->
-                <Separator Grid.Row="3" Margin="0,0,0,10" />
-
-                <!-- Windows通知设置组 -->
-                <Grid Grid.Row="4" Margin="0,0,0,20">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-
-                    <!-- 标题 -->
-                    <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
-                        <ui:TextBlock Text="Windows通知设置" FontTypography="BodyStrong" />
-                    </StackPanel>
-
-                    <!-- Windows通知开关 -->
-                    <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,10">
-                        <ui:TextBlock Text="Windows通知：" VerticalAlignment="Center" Width="120" />
-                        <ui:ToggleSwitch IsChecked="{Binding IsWindowsNotificationEnabled}"
-                                         OffContent="关闭" OnContent="开启" Width="120" />
-                    </StackPanel>
-
-                    <!-- Windows通知说明 -->
-                    <ui:TextBlock Grid.Row="2"
-                                  Text="启用Windows通知后，当监测到App启动时会在Windows显示通知"
-                                  TextWrapping="Wrap"
-                                  Margin="120,0,0,0"
-                                  Foreground="{DynamicResource TextFillColorDisabledBrush}"
-                                  FontTypography="Caption"
-                                  FontSize="12" />
-                </Grid>
-
-                <!-- 分隔线 -->
-                <Separator Grid.Row="5" Margin="0,0,0,10" />
-
-                <!-- 预览帧率设置组 -->
-                <Grid Grid.Row="6">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-
-                    <!-- 标题 -->
-                    <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
-                        <ui:TextBlock Text="预览设置" FontTypography="BodyStrong" />
-                    </StackPanel>
-
-                    <!-- 帧率设置 -->
-                    <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,10">
-                        <ui:TextBlock Text="预览帧率：" VerticalAlignment="Center" Width="120" />
-                        <ui:NumberBox Value="{Binding Fps}"
-                                      SpinButtonPlacementMode="Hidden"
-                                      ClearButtonEnabled="False"
-                                      Width="100"
-                                      PlaceholderText="10-60"
-                                      TextAlignment="Center"
-                                      Minimum="10"
-                                      Maximum="60" />
-                    </StackPanel>
-
-                    <!-- 帧率说明 -->
-                    <ui:TextBlock Grid.Row="2"
-                                  Text="此选项将设置设置界面的实时预览帧率，范围10-60，默认为30帧，高帧率可能会导致电脑卡顿"
                                   TextWrapping="Wrap"
                                   Margin="120,0,0,0"
                                   Foreground="{DynamicResource TextFillColorDisabledBrush}"

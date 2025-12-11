@@ -72,6 +72,7 @@ public partial class PickWindowDialogViewModel : ObservableObject {
     }
 
     private void CloseDialog(bool result) {
+        _windowsPickerService.StopShowWindow();
         if (_window == null) {
             _logger.Error("窗口绑定异常");
             throw new Exception("窗口绑定异常");
@@ -109,7 +110,6 @@ public partial class PickWindowDialogViewModel : ObservableObject {
 
     [RelayCommand]
     private void Confirm(WindowInfo? info) {
-        _windowsPickerService.StopShowWindow();
         ConfirmSelected(info);
     }
 
