@@ -87,19 +87,22 @@ public partial class WindowInfo : ObservableObject {
 
     public void UpdateStatus(DateTime now, TimeSpan daySeparatorOffset, bool isRunning,
         Action<string> notifiedHasStart) {
+        DateTime offset = now.Date + daySeparatorOffset;
+        if (now.TimeOfDay < daySeparatorOffset) {
+            offset = offset.AddDays(-1);
+        }
+
         if (isRunning) {
-            if (!HasStartToday && now >= now.Date + daySeparatorOffset) {
+            if (!HasStartToday && now >= offset) {
                 HasStartToday = true;
                 LastStartTime = now;
                 notifiedHasStart(ProcessName);
-            } else if (HasStartToday && now >= now.Date + daySeparatorOffset &&
-                       LastStartTime < now.Date + daySeparatorOffset) {
+            } else if (HasStartToday && now >= offset && LastStartTime < offset) {
                 LastStartTime = now;
                 notifiedHasStart(ProcessName);
             }
         } else {
-            if (HasStartToday && now >= now.Date + daySeparatorOffset &&
-                LastStartTime < now.Date + daySeparatorOffset) {
+            if (HasStartToday && now >= offset && LastStartTime < offset) {
                 HasStartToday = false;
             }
         }
