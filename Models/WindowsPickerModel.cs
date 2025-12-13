@@ -92,12 +92,14 @@ public partial class WindowInfo : ObservableObject {
                 HasStartToday = true;
                 LastStartTime = now;
                 notifiedHasStart(ProcessName);
-            } else if (HasStartToday && LastStartTime < now.Date + daySeparatorOffset) {
+            } else if (HasStartToday && now >= now.Date + daySeparatorOffset &&
+                       LastStartTime < now.Date + daySeparatorOffset) {
                 LastStartTime = now;
                 notifiedHasStart(ProcessName);
             }
         } else {
-            if (HasStartToday && LastStartTime < now.Date + daySeparatorOffset) {
+            if (HasStartToday && now >= now.Date + daySeparatorOffset &&
+                LastStartTime < now.Date + daySeparatorOffset) {
                 HasStartToday = false;
             }
         }
