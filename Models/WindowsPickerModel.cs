@@ -108,7 +108,7 @@ public partial class WindowInfo : ObservableObject {
         }
 
 
-        UpdateText(now.Date + daySeparatorOffset);
+        UpdateText(offset);
     }
 
     private void UpdateText(DateTime daysSeparatorTime) {

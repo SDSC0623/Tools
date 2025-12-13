@@ -4,6 +4,7 @@
 
 using System.IO;
 using System.Windows;
+using System.Windows.Interop;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -33,6 +34,7 @@ using Tools.Views.Pages.Base64Tool;
 using Tools.Views.Pages.DataStructureDisplay.GraphVisualization;
 using Tools.Views.Pages.DataStructureDisplay.TreeVisualization;
 using Tools.Views.Windows;
+using Vanara.PInvoke;
 using Wpf.Ui;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.DependencyInjection;
@@ -46,6 +48,7 @@ namespace Tools;
 public partial class App : Application {
     private static readonly IHost Host = Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder()
         .UseAdmin()
+        .EnsureSingleInstance("Tools-SDSC0623")
         .EnsureNotInRoot().Result
         .EnsureNotInDesktop().Result
         .ConfigureLogging(logging => { logging.ClearProviders(); })
@@ -192,6 +195,46 @@ public partial class App : Application {
 internal static class StartExtension {
     public static IHostBuilder UseAdmin(this IHostBuilder app) {
         AppRunningHelper.EnsureAdmin();
+        return app;
+    }
+
+    public static IHostBuilder EnsureSingleInstance(this IHostBuilder app, string instanceName,
+        Action<bool>? callback = null) {
+        if (Environment.GetCommandLineArgs().Contains("--no-single")) {
+            return app;
+        }
+
+        EventWaitHandle? handle;
+        try {
+            handle = EventWaitHandle.OpenExisting(instanceName);
+            handle.Set();
+            callback?.Invoke(false);
+            Environment.Exit('s' + 'i' + 'n' + 'g' + 'l' + 'e' + 'n' + 'c' + 'e');
+        } catch (WaitHandleCannotBeOpenedException) {
+            callback?.Invoke(true);
+            handle = new EventWaitHandle(false, EventResetMode.AutoReset, instanceName);
+        }
+
+        _ = Task.Factory.StartNew(() => {
+            while (handle.WaitOne()) {
+                App.Current.Dispatcher?.BeginInvoke(() => {
+                    App.Current.MainWindow?.Show();
+                    App.Current.MainWindow?.Activate();
+                    var hWnd = new WindowInteropHelper(App.Current.MainWindow!).Handle;
+                    if (User32.IsWindow(hWnd)) {
+                        _ = User32.SendMessage(hWnd, User32.WindowMessage.WM_SYSCOMMAND, User32.SysCommand.SC_RESTORE);
+                        _ = User32.SetForegroundWindow(hWnd);
+
+                        if (User32.IsIconic(hWnd)) {
+                            _ = User32.ShowWindow(hWnd, ShowWindowCommand.SW_RESTORE);
+                        }
+
+                        _ = User32.BringWindowToTop(hWnd);
+                        _ = User32.SetActiveWindow(hWnd);
+                    }
+                });
+            }
+        }, TaskCreationOptions.LongRunning).ConfigureAwait(false);
         return app;
     }
 
