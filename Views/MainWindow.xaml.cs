@@ -56,7 +56,7 @@ public partial class MainWindow : INavigationWindow {
         _appRunningHelper.Show();
     }
 
-    protected override void OnClosing(CancelEventArgs e) {
+    protected override async void OnClosing(CancelEventArgs e) {
         try {
             e.Cancel = true;
             var mode = _preferencesService.Get("ExitMode", ExitMode.Ask);
@@ -73,6 +73,8 @@ public partial class MainWindow : INavigationWindow {
             }
         } catch (Exception ex) {
             _snackbarService.ShowError("退出时发生错误", ex.Message);
+            await Task.Delay(3000);
+            Environment.Exit(-1);
         }
     }
 
