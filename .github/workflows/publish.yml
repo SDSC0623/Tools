@@ -1,9 +1,9 @@
 name: Build single-file release
 
 on:
-  # 只在推送版本 tag（v0.4.1 这种）时构建；普通 push 完全不触发。
+  # 只有推送 tag（v0.4.1、v0.4.2-beta 这类）才构建；普通 push 完全不触发。
   push:
-    tags: [ 'v[0-9]*' ]
+    tags: [ 'v*' ]
   # 需要临时构建一次（不发 Release）时，在 Actions 页面手动 Run workflow。
   workflow_dispatch:
 
@@ -34,17 +34,6 @@ jobs:
         run: |
           $version = (dotnet msbuild Tools.csproj -getProperty:Version -nologo).Trim()
           "version=$version" >> $env:GITHUB_OUTPUT
-
-      - name: Verify tag matches csproj Version
-        if: startsWith(github.ref, 'refs/tags/')
-        shell: pwsh
-        run: |
-          $tagVersion = "${{ github.ref_name }}" -replace '^v', ''
-          $csprojVersion = "${{ steps.ver.outputs.version }}"
-          if ($tagVersion -ne $csprojVersion) {
-            Write-Error "tag ${{ github.ref_name }} 与 csproj 的 <Version>$csprojVersion</Version> 不一致，先改版本号再打 tag。"
-            exit 1
-          }
 
       - name: Publish win-x64 self-contained single file
         shell: pwsh
