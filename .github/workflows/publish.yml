@@ -71,3 +71,5 @@ jobs:
           files: publish/Tools-*-win-x64.exe
           name: ${{ github.ref_name }}
           generate_release_notes: true
+          # 如果标签名包含 '-'，则标记为预发布
+          prerelease: ${{ contains(github.ref_name, '-') }}
