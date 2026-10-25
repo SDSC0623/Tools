@@ -1,0 +1,191 @@
+<Page x:Class="Tools.Views.Pages.AudioShare.AudioShareReceiverPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      xmlns:converters="clr-namespace:Tools.Converters"
+      xmlns:viewModel="clr-namespace:Tools.ViewModel.AudioShare"
+      mc:Ignorable="d"
+      d:DesignHeight="820"
+      d:DesignWidth="900"
+      ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
+      ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+      d:DataContext="{d:DesignInstance Type=viewModel:AudioShareReceiverViewModel}"
+      Title="AudioShareReceiverPage">
+
+    <Page.Resources>
+        <converters:BooleanToVisibleConverter x:Key="BooleanToVisibleConverter" />
+    </Page.Resources>
+
+    <Grid Margin="42, 16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- 标题区域 -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,12">
+            <ui:SymbolIcon Symbol="SoundSource24"
+                           Filled="True"
+                           FontSize="24"
+                           Margin="0,0,12,0"
+                           Foreground="#4CAF50" />
+
+            <ui:TextBlock Text="局域网音频共享 - 接收端"
+                          FontTypography="Title"
+                          VerticalAlignment="Center"
+                          FontSize="24"
+                          Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
+        </StackPanel>
+
+        <!-- 主内容区域 -->
+        <ScrollViewer Grid.Row="1"
+                      VerticalScrollBarVisibility="Auto"
+                      HorizontalScrollBarVisibility="Disabled">
+            <StackPanel>
+                <!-- ============ 连接发送端 ============ -->
+                <ui:CardExpander Header="连接发送端"
+                                 Icon="{ui:SymbolIcon Link24}"
+                                 IsExpanded="True"
+                                 Margin="0,0,0,12">
+                    <Grid Margin="5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <!-- 发送端 IP -->
+                        <Grid Grid.Row="0" Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <ui:TextBlock Text="发送端 IP:"
+                                          VerticalAlignment="Center"
+                                          Margin="0,0,8,0" />
+
+                            <ui:TextBox Grid.Column="1"
+                                        Text="{Binding SenderIp, UpdateSourceTrigger=PropertyChanged}"
+                                        ToolTip="输入发送端在 EasyTier 虚拟局域网中的 IP 地址" />
+                        </Grid>
+
+                        <!-- 端口 -->
+                        <Grid Grid.Row="1" Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="16" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <ui:TextBlock Text="发送端端口:"
+                                          VerticalAlignment="Center"
+                                          Margin="0,0,8,0" />
+
+                            <ui:NumberBox Grid.Column="1"
+                                          Minimum="1"
+                                          Maximum="65535"
+                                          Value="{Binding SenderPort}"
+                                          SpinButtonPlacementMode="Compact" />
+
+                            <ui:TextBlock Grid.Column="3"
+                                          Text="本地监听端口:"
+                                          VerticalAlignment="Center"
+                                          Margin="0,0,8,0" />
+
+                            <ui:NumberBox Grid.Column="4"
+                                          Minimum="1"
+                                          Maximum="65535"
+                                          Value="{Binding ListenPort}"
+                                          SpinButtonPlacementMode="Compact" />
+                        </Grid>
+
+                        <!-- 连接/断开 -->
+                        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,0,0,10">
+                            <ui:Button Content="连接"
+                                       Command="{Binding ConnectCommand}"
+                                       Appearance="Primary"
+                                       Icon="{ui:SymbolIcon LinkSquare24}"
+                                       Visibility="{Binding IsSessionActive, Converter={StaticResource BooleanToVisibleConverter}, ConverterParameter=True}"
+                                       Margin="0,0,8,0" />
+
+                            <ui:Button Content="断开"
+                                       Command="{Binding DisconnectCommand}"
+                                       Appearance="Danger"
+                                       Icon="{ui:SymbolIcon LinkDismiss24}"
+                                       Visibility="{Binding IsSessionActive, Converter={StaticResource BooleanToVisibleConverter}}" />
+                        </StackPanel>
+
+                        <ui:TextBlock Grid.Row="3"
+                                      Text="{Binding ConnectStateText}"
+                                      Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+                    </Grid>
+                </ui:CardExpander>
+
+                <!-- ============ 播放控制 ============ -->
+                <ui:CardExpander Header="播放控制"
+                                 Icon="{ui:SymbolIcon Speaker224}"
+                                 IsExpanded="True"
+                                 Margin="0,0,0,12">
+                    <Grid Margin="5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <!-- 播放/暂停 -->
+                        <StackPanel Grid.Row="0"
+                                    Orientation="Horizontal"
+                                    Margin="0,0,0,10"
+                                    Visibility="{Binding IsConnected, Converter={StaticResource BooleanToVisibleConverter}}">
+                            <ui:Button Content="播放"
+                                       Command="{Binding TogglePlayPauseCommand}"
+                                       Appearance="Primary"
+                                       Icon="{ui:SymbolIcon Play24}"
+                                       Visibility="{Binding IsPlaying, Converter={StaticResource BooleanToVisibleConverter}, ConverterParameter=True}"
+                                       Margin="0,0,8,0" />
+
+                            <ui:Button Content="暂停"
+                                       Command="{Binding TogglePlayPauseCommand}"
+                                       Appearance="Secondary"
+                                       Icon="{ui:SymbolIcon Pause24}"
+                                       Visibility="{Binding IsPlaying, Converter={StaticResource BooleanToVisibleConverter}}" />
+                        </StackPanel>
+
+                        <!-- 音量滑块 -->
+                        <Grid Grid.Row="1" Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <ui:TextBlock Text="音量:"
+                                          VerticalAlignment="Center"
+                                          Margin="0,0,8,0" />
+
+                            <Slider Grid.Column="1"
+                                    Minimum="0"
+                                    Maximum="1"
+                                    TickFrequency="0.05"
+                                    IsSnapToTickEnabled="False"
+                                    Value="{Binding Volume}"
+                                    VerticalAlignment="Center" />
+                        </Grid>
+
+                        <!-- 播放状态 -->
+                        <ui:TextBlock Grid.Row="2"
+                                      Text="{Binding StatusText}"
+                                      Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+                    </Grid>
+                </ui:CardExpander>
+
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>

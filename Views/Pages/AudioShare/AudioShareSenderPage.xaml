@@ -1,0 +1,202 @@
+<Page x:Class="Tools.Views.Pages.AudioShare.AudioShareSenderPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      xmlns:converters="clr-namespace:Tools.Converters"
+      xmlns:viewModel="clr-namespace:Tools.ViewModel.AudioShare"
+      mc:Ignorable="d"
+      d:DesignHeight="820"
+      d:DesignWidth="900"
+      ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
+      ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+      d:DataContext="{d:DesignInstance Type=viewModel:AudioShareSenderViewModel}"
+      Title="AudioShareSenderPage">
+
+    <Page.Resources>
+        <converters:BooleanToVisibleConverter x:Key="BooleanToVisibleConverter" />
+    </Page.Resources>
+
+    <Grid Margin="42, 16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- 标题区域 -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,12">
+            <ui:SymbolIcon Symbol="HeadphonesSoundWave24"
+                           Filled="True"
+                           FontSize="24"
+                           Margin="0,0,12,0"
+                           Foreground="#4CAF50" />
+
+            <ui:TextBlock Text="局域网音频共享 - 发送端"
+                          FontTypography="Title"
+                          VerticalAlignment="Center"
+                          FontSize="24"
+                          Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
+        </StackPanel>
+
+        <!-- 主内容区域 -->
+        <ScrollViewer Grid.Row="1"
+                      VerticalScrollBarVisibility="Auto"
+                      HorizontalScrollBarVisibility="Disabled">
+            <StackPanel>
+                <!-- ============ 音频捕获 ============ -->
+                <ui:CardExpander Header="音频捕获"
+                                 Icon="{ui:SymbolIcon Mic24}"
+                                 IsExpanded="True"
+                                 Margin="0,0,0,12">
+                    <Grid Margin="5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <!-- 进程选择 -->
+                        <Grid Grid.Row="0" Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <ui:TextBlock Text="捕获进程:"
+                                          VerticalAlignment="Center"
+                                          Margin="0,0,8,0" />
+
+                            <ComboBox Grid.Column="1"
+                                      VerticalAlignment="Center"
+                                      ItemsSource="{Binding Processes}"
+                                      SelectedItem="{Binding SelectedProcess}"
+                                      DisplayMemberPath="DisplayText"
+                                      ToolTip="选择要捕获音频的进程（例如 QQ音乐）" />
+
+                            <ui:Button Grid.Column="2"
+                                       Content="刷新"
+                                       Command="{Binding RefreshProcessesCommand}"
+                                       Appearance="Secondary"
+                                       Icon="{ui:SymbolIcon ArrowClockwise20}"
+                                       Margin="8,0,0,0" />
+                        </Grid>
+
+                        <!-- 监听端口 -->
+                        <Grid Grid.Row="1" Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="220" />
+                            </Grid.ColumnDefinitions>
+
+                            <ui:TextBlock Text="监听端口:"
+                                          VerticalAlignment="Center"
+                                          Margin="0,0,8,0" />
+
+                            <ui:NumberBox Grid.Column="1"
+                                          Minimum="1"
+                                          Maximum="65535"
+                                          Value="{Binding ListenPort}"
+                                          SpinButtonPlacementMode="Compact"
+                                          ToolTip="接收端通过该端口连接（EasyTier 虚拟局域网内使用）" />
+                        </Grid>
+
+                        <!-- 开始/停止捕获 -->
+                        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,0,0,10">
+                            <ui:Button Content="开始捕获"
+                                       Command="{Binding StartCaptureCommand}"
+                                       Appearance="Primary"
+                                       Icon="{ui:SymbolIcon Play24}"
+                                       Visibility="{Binding IsCapturing, Converter={StaticResource BooleanToVisibleConverter}, ConverterParameter=True}"
+                                       Margin="0,0,8,0" />
+
+                            <ui:Button Content="停止捕获"
+                                       Command="{Binding StopCaptureCommand}"
+                                       Appearance="Danger"
+                                       Icon="{ui:SymbolIcon Stop24}"
+                                       Visibility="{Binding IsCapturing, Converter={StaticResource BooleanToVisibleConverter}}" />
+                        </StackPanel>
+
+                        <!-- 状态区域 -->
+                        <StackPanel Grid.Row="3">
+                            <ui:TextBlock Text="{Binding CaptureModeText}"
+                                          Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                          Margin="0,0,0,2" />
+                            <ui:TextBlock Text="{Binding TransportStatusText}"
+                                          Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                          Margin="0,0,0,2" />
+                            <ui:TextBlock Text="{Binding SendRateText}"
+                                          Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+
+                            <!-- 系统回环回退提示 -->
+                            <ui:InfoBar Margin="0,8,0,0"
+                                        Severity="Warning"
+                                        Title="全系统回环捕获模式"
+                                        Message="当前系统不支持进程级捕获，将捕获全部系统声音，请注意不要打开其它有声音的程序。"
+                                        IsOpen="{Binding IsSystemFallback}" />
+                        </StackPanel>
+                    </Grid>
+                </ui:CardExpander>
+
+                <!-- ============ 已连接接收端 ============ -->
+                <ui:CardExpander Header="已连接接收端"
+                                 Icon="{ui:SymbolIcon DesktopSpeaker24}"
+                                 IsExpanded="True">
+                    <StackPanel Margin="5">
+                        <ItemsControl ItemsSource="{Binding Receivers}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Margin="0,2">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <ui:TextBlock Text="{Binding DisplayText}"
+                                                      VerticalAlignment="Center" />
+
+                                        <ui:TextBlock Grid.Column="1"
+                                                      Text="{Binding StatusText}"
+                                                      VerticalAlignment="Center"
+                                                      Margin="8,0,8,0">
+                                            <ui:TextBlock.Style>
+                                                <Style TargetType="ui:TextBlock">
+                                                    <Setter Property="Foreground"
+                                                            Value="{DynamicResource TextFillColorSecondaryBrush}" />
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding IsActive}" Value="True">
+                                                            <Setter Property="Foreground" Value="#4CAF50" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </ui:TextBlock.Style>
+                                        </ui:TextBlock>
+
+                                        <ui:Button Grid.Column="2"
+                                                   Content="移除"
+                                                   Command="{Binding DataContext.RemoveReceiverCommand, RelativeSource={RelativeSource AncestorType=Page}}"
+                                                   CommandParameter="{Binding}"
+                                                   Appearance="Secondary"
+                                                   Icon="{ui:SymbolIcon Delete24}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+
+                        <StackPanel Orientation="Horizontal"
+                                    HorizontalAlignment="Right"
+                                    Margin="0,8,0,0">
+                            <ui:Button Content="清空列表"
+                                       Command="{Binding ClearReceiversCommand}"
+                                       Appearance="Secondary"
+                                       Icon="{ui:SymbolIcon DeleteDismiss24}" />
+                        </StackPanel>
+                    </StackPanel>
+                </ui:CardExpander>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>
