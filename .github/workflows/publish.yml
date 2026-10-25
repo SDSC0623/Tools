@@ -1,0 +1,72 @@
+name: Build single-file release
+
+on:
+  push:
+    branches: [ master ]
+    tags: [ 'v*' ]
+  workflow_dispatch:
+
+# softprops/action-gh-release 需要写 Release 的权限
+permissions:
+  contents: write
+
+env:
+  DOTNET_NOLOGO: true
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+
+jobs:
+  publish:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 8
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Read version from csproj
+        id: ver
+        shell: pwsh
+        run: |
+          $version = (dotnet msbuild Tools.csproj -getProperty:Version -nologo).Trim()
+          "version=$version" >> $env:GITHUB_OUTPUT
+
+      - name: Publish win-x64 self-contained single file
+        shell: pwsh
+        run: |
+          dotnet publish Tools.csproj `
+            -c Release `
+            -r win-x64 `
+            --self-contained true `
+            -p:PublishSingleFile=true `
+            -p:IncludeNativeLibrariesForSelfExtract=true `
+            -p:PublishReadyToRun=true `
+            -p:DebugType=None `
+            -p:DebugSymbols=false `
+            -o publish
+          # 想从 265 MB 压到 100 MB 左右，可再加一行 -p:EnableCompressionInSingleFile=true
+          # （体积换启动速度：运行时需要解压，首次启动会再慢一点）
+
+      - name: Rename artifact
+        shell: pwsh
+        run: |
+          Copy-Item publish/Tools.exe "publish/Tools-${{ steps.ver.outputs.version }}-win-x64.exe"
+
+      - name: Upload artifact (every push)
+        uses: actions/upload-artifact@v4
+        with:
+          name: Tools-${{ steps.ver.outputs.version }}-win-x64
+          path: publish/Tools-*-win-x64.exe
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Attach exe to GitHub Release (tags only)
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: publish/Tools-*-win-x64.exe
+          name: ${{ github.ref_name }}
+          generate_release_notes: true
