@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2025 SDSC0623. All rights reserved.
+// Copyright (c) 2026 SDSC0623. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 
@@ -13,6 +13,7 @@ using Serilog.Events;
 using Serilog.Sinks.RichTextBox.Abstraction;
 using Tools.Helpers;
 using Tools.Services;
+using Tools.Services.AudioShare;
 using Tools.Services.IServices;
 using Tools.Views;
 using Tools.Views.Pages;
@@ -21,6 +22,7 @@ using Tools.Views.Pages.HideInBmp;
 using Tools.ViewModel;
 using Tools.ViewModel.AppLaunchMonitor;
 using Tools.ViewModel.AskBeforeExitDialog;
+using Tools.ViewModel.AudioShare;
 using Tools.ViewModel.Base64ToolPage;
 using Tools.ViewModel.HomePage;
 using Tools.ViewModel.SettingPage;
@@ -30,6 +32,7 @@ using Tools.ViewModel.DataStructureDisplay.TreeVisualization;
 using Tools.ViewModel.GetTextsDialogViewModel;
 using Tools.ViewModel.HideInBmpPage;
 using Tools.Views.Pages.AppLaunchMonitor;
+using Tools.Views.Pages.AudioShare;
 using Tools.Views.Pages.Base64Tool;
 using Tools.Views.Pages.DataStructureDisplay.GraphVisualization;
 using Tools.Views.Pages.DataStructureDisplay.TreeVisualization;
@@ -89,6 +92,10 @@ public partial class App : Application {
             services.AddSingleton<IContentDialogService, ContentDialogService>();
             services.AddSingleton<INotificationService, WindowsToastNotificationService>();
             services.AddSingleton<IWindowsPickerService, WindowsPickerService>();
+            // 音频共享
+            services.AddSingleton<IAudioCaptureService, ProcessAudioCaptureService>();
+            services.AddSingleton<IAudioTransportService, UdpAudioTransportService>();
+            services.AddSingleton<IAudioPlayerService, AudioPlayerService>();
 
             // 特殊服务
             services.AddSingleton<SnackbarServiceHelper>(); // 弹窗服务
@@ -125,6 +132,12 @@ public partial class App : Application {
             // App启动监控
             services.AddSingleton<AppLaunchMonitorViewModel>();
             services.AddSingleton<AppLaunchMonitorPage>();
+            // 音频共享 - 发送端
+            services.AddSingleton<AudioShareSenderViewModel>();
+            services.AddSingleton<AudioShareSenderPage>();
+            // 音频共享 - 接收端
+            services.AddSingleton<AudioShareReceiverViewModel>();
+            services.AddSingleton<AudioShareReceiverPage>();
             // 问询对话框
             services.AddTransient<UserInfoSettingDialogViewModel>();
             services.AddTransient<UserInfoSettingDialog>();

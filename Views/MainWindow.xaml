@@ -1,4 +1,4 @@
-﻿<ui:FluentWindow x:Class="Tools.Views.MainWindow"
+<ui:FluentWindow x:Class="Tools.Views.MainWindow"
                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -14,6 +14,7 @@
                  xmlns:graphVisualization="clr-namespace:Tools.Views.Pages.DataStructureDisplay.GraphVisualization"
                  xmlns:treeVisualization="clr-namespace:Tools.Views.Pages.DataStructureDisplay.TreeVisualization"
                  xmlns:appLaunchMonitor="clr-namespace:Tools.Views.Pages.AppLaunchMonitor"
+                 xmlns:audioShare="clr-namespace:Tools.Views.Pages.AudioShare"
                  ExtendsContentIntoTitleBar="True"
                  mc:Ignorable="d"
                  d:DataContext="{d:DesignInstance Type=viewModel:MainWindowViewModel}"
@@ -136,6 +137,33 @@
                     <ui:NavigationViewItem.Icon>
                         <ui:SymbolIcon Symbol="CameraDome16" Filled="False" Height="20" Width="20" />
                     </ui:NavigationViewItem.Icon>
+                </ui:NavigationViewItem>
+
+                <!-- 局域网音频同步共享 -->
+                <ui:NavigationViewItem Content="音频同步共享"
+                                       NavigationCacheMode="Enabled">
+                    <ui:NavigationViewItem.Icon>
+                        <ui:SymbolIcon Symbol="HeadphonesSoundWave24" Filled="False" Height="20" Width="20" />
+                    </ui:NavigationViewItem.Icon>
+                    <ui:NavigationViewItem.MenuItems>
+                        <!-- 发送端 -->
+                        <ui:NavigationViewItem Content="发送端"
+                                               NavigationCacheMode="Enabled"
+                                               TargetPageType="{x:Type audioShare:AudioShareSenderPage}">
+                            <ui:NavigationViewItem.Icon>
+                                <ui:SymbolIcon Symbol="DesktopSpeaker24" Filled="False" Height="20" Width="20" />
+                            </ui:NavigationViewItem.Icon>
+                        </ui:NavigationViewItem>
+
+                        <!-- 接收端 -->
+                        <ui:NavigationViewItem Content="接收端"
+                                               NavigationCacheMode="Enabled"
+                                               TargetPageType="{x:Type audioShare:AudioShareReceiverPage}">
+                            <ui:NavigationViewItem.Icon>
+                                <ui:SymbolIcon Symbol="SoundSource24" Filled="False" Height="20" Width="20" />
+                            </ui:NavigationViewItem.Icon>
+                        </ui:NavigationViewItem>
+                    </ui:NavigationViewItem.MenuItems>
                 </ui:NavigationViewItem>
 
             </ui:NavigationView.MenuItems>
